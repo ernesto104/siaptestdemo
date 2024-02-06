@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ingresoCompraLocal" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4ae06824-087c-4d67-bdd8-f454e5905755">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="titulo" class="java.lang.String"/>
+	<parameter name="transaccion" class="java.lang.String"/>
+	<parameter name="nroDoc" class="java.lang.String"/>
+	<parameter name="empresa" class="java.lang.String"/>
+	<parameter name="proveedor" class="java.lang.String"/>
+	<parameter name="total" class="java.lang.String"/>
+	<parameter name="nroserie" class="java.lang.String"/>
+	<parameter name="motivo" class="java.lang.String"/>
+	<parameter name="nroDocProv" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="nroParte" class="java.lang.String"/>
+	<field name="codSec" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="cantidad" class="java.lang.String"/>
+	<field name="precioLista" class="java.lang.String"/>
+	<field name="total" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="194" splitType="Stretch">
+			<textField>
+				<reportElement x="130" y="10" width="342" height="30" uuid="a6f69fc9-1d30-4908-a2b6-9e425a78c5c2"/>
+				<textElement textAlignment="Center">
+					<font fontName="Lucida Sans" size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="55" width="54" height="20" uuid="8f38dbab-ed25-47cf-b142-b31a16449493"/>
+				<textElement>
+					<font fontName="Lucida Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Empresa]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="119" y="55" width="353" height="20" uuid="16a98e64-b801-4109-98f9-d8def9649632"/>
+				<textElement>
+					<font fontName="Lucida Sans" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{empresa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="75" width="109" height="20" uuid="0f607051-4575-414c-a195-ceb01596e6f0"/>
+				<textElement>
+					<font fontName="Lucida Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de Transaccion]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="119" y="75" width="353" height="20" uuid="6829008f-af69-4b2d-9a2d-11f0decb177d"/>
+				<textElement>
+					<font fontName="Lucida Sans" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{transaccion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="98" width="109" height="20" uuid="41a8a671-b59b-45e9-8cb7-0bb8f032b5f3"/>
+				<textElement>
+					<font fontName="Lucida Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Documento]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="119" y="98" width="100" height="20" uuid="ec552404-16f9-4220-a41c-0bafd4bf8c19"/>
+				<textElement>
+					<font fontName="Lucida Sans" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nroDoc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="123" width="109" height="20" uuid="401b5e73-c56c-4d4f-9fe5-748d653ffc10"/>
+				<textElement>
+					<font fontName="Lucida Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Proveedor]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="274" y="123" width="276" height="20" uuid="1ada51d8-7a03-4307-bf3d-9e38160a3b8d"/>
+				<textElement>
+					<font fontName="Lucida Sans" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{proveedor}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="5" y="193" width="550" height="1" uuid="54ccc59d-af5d-43ff-8d73-a9e87ff4a744"/>
+			</line>
+			<textField pattern="dd/MM/yyyy  -  HH : mm ">
+				<reportElement x="402" y="172" width="151" height="20" uuid="9ccdddbc-582e-44bb-b019-cfb547a1da7b"/>
+				<textElement textAlignment="Right">
+					<font fontName="Lucida Sans" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="324" y="172" width="75" height="20" uuid="d21938ea-28e5-417b-8563-003f7539d6c7"/>
+				<textElement>
+					<font fontName="Lucida Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha y Hora]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="119" y="123" width="40" height="20" uuid="60e61d45-cdca-4b6a-8488-4f26acf90ee4"/>
+				<textElement>
+					<font fontName="Lucida Sans" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nroserie}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="164" y="123" width="11" height="20" uuid="29edbbb9-ad28-41b8-8104-6e6625f06e6b"/>
+				<text><![CDATA[ - ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="251" y="123" width="11" height="20" uuid="9b128e53-a5b3-4d56-8af4-4f0e9281e283"/>
+				<text><![CDATA[ - ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="152" width="109" height="20" uuid="cefe4e44-33a3-4ca7-b5c8-ed42561ca1fe"/>
+				<textElement>
+					<font fontName="Lucida Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Motivo]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="119" y="152" width="431" height="20" uuid="3f403f93-f600-4166-8e43-c2b507410799"/>
+				<textElement>
+					<font fontName="Lucida Sans" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{motivo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="175" y="123" width="76" height="20" uuid="abd69906-e13f-467d-bf1a-012b781211e2"/>
+				<textElement>
+					<font fontName="Lucida Sans" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nroDocProv}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="33" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="738fbcd6-0c22-4e0f-92d6-cc3087de7580"/>
+				<textElement textAlignment="Center">
+					<font fontName="Lucida Sans" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Numero Parte]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="359" y="0" width="59" height="20" uuid="91c0bcc8-31b0-47f1-8fe8-8bdbfab3d32f"/>
+				<textElement textAlignment="Center">
+					<font fontName="Lucida Sans" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="418" y="0" width="72" height="20" uuid="0d474fec-7f13-428c-898d-60d2b9041d8f"/>
+				<textElement textAlignment="Center">
+					<font fontName="Lucida Sans" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Precio Lista]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="490" y="0" width="65" height="20" uuid="97d0fffa-e2ba-475c-a6bc-1dde34ad6c18"/>
+				<textElement textAlignment="Center">
+					<font fontName="Lucida Sans" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="114" y="0" width="100" height="20" uuid="99f38a08-7264-42f9-a6db-c25e78070714"/>
+				<textElement textAlignment="Center">
+					<font fontName="Lucida Sans" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cod Secundario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="214" y="0" width="139" height="20" uuid="73a093d6-e5e0-4109-b80c-1e36317f0890"/>
+				<textElement textAlignment="Center">
+					<font fontName="Lucida Sans" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descripcion]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="114" height="20" uuid="0a0c90be-182b-4f60-a96d-ef5f46dec719"/>
+				<textElement textAlignment="Center">
+					<font fontName="Lucida Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nroParte}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="214" y="0" width="145" height="20" uuid="8d7dd40b-b3d0-4218-a688-2a974f2f668a"/>
+				<textElement textAlignment="Center">
+					<font fontName="Lucida Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="359" y="0" width="59" height="20" uuid="c6085fa2-795a-4673-9281-0ad2f4845700"/>
+				<textElement textAlignment="Center">
+					<font fontName="Lucida Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="418" y="0" width="72" height="20" uuid="ff57c17b-3982-4768-8e2f-b80b1a6f05f5"/>
+				<textElement textAlignment="Center">
+					<font fontName="Lucida Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{precioLista}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="490" y="0" width="65" height="20" uuid="36f9ac10-f277-4543-895f-1c1a13babc98"/>
+				<textElement textAlignment="Center">
+					<font fontName="Lucida Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="114" y="0" width="100" height="20" uuid="09946329-124b-4269-87cf-9bff00ca1667"/>
+				<textElement textAlignment="Center">
+					<font fontName="Lucida Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codSec}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="418" y="5" width="54" height="20" uuid="aef93623-efd4-4f97-8661-e8c996f2592a"/>
+				<textElement>
+					<font fontName="Lucida Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="472" y="5" width="83" height="20" uuid="71b70c25-2a02-4be2-9d68-bcc82ad0106b"/>
+				<textElement textAlignment="Center">
+					<font fontName="Lucida Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="5" y="0" width="550" height="1" uuid="b462fee0-4e39-4f6a-873e-b5f3ac5bbe9c"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

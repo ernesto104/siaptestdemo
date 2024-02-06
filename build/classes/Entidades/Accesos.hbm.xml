@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22/05/2016 09:39:12 AM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="Entidades.Accesos" table="accesos" catalog="siar_qf">
+        <composite-id name="id" class="Entidades.AccesosId">
+            <key-property name="idrol" type="java.lang.Integer">
+                <column name="IDROL" />
+            </key-property>
+            <key-property name="idprograma" type="java.lang.Integer">
+                <column name="IDPROGRAMA" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="programas" class="Entidades.Programas" update="false" insert="false" fetch="select">
+            <column name="IDPROGRAMA" />
+        </many-to-one>
+        <many-to-one name="roles" class="Entidades.Roles" update="false" insert="false" fetch="select">
+            <column name="IDROL" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

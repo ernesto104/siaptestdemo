@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/09/2013 02:56:16 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="Entidades.Tramites" table="tramites" catalog="siar_qf">
+        <id name="idtramite" type="int">
+            <column name="IDTRAMITE" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="cabecsugerido" class="Entidades.Cabecsugerido" fetch="join">
+            <column name="IDSUGERIDO" />
+        </many-to-one>
+        <property name="glosa" type="string">
+            <column name="GLOSA" length="50" />
+        </property>
+        <property name="importe" type="java.lang.Double">
+            <column name="IMPORTE" precision="6" />
+        </property>
+    </class>
+</hibernate-mapping>

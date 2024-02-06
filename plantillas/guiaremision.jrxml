@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="guiaremision" language="java" pageWidth="595" pageHeight="842" columnWidth="533" leftMargin="31" rightMargin="31" topMargin="18" bottomMargin="36" uuid="60e5048a-a565-47ae-86f6-8b4d32ab95de">
+	<property name="ireport.zoom" value="1.2100000000000009"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="numeroSerie" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="puntoPartida" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="fechaInicio" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="costoMinimo" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="puntoLlegada" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="razonSocial" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="ruc" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="marca" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="constancia" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="licencia" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="empresaRazon" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="empresaRuc" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="comprobante" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="venta" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="ventaConfirmar" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="compra" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="consignacion" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="devolucion" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="misma" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="transformacion" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="recojo" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="emisor" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="zona" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="importacion" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="exportacion" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="otros" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="pedido" class="java.lang.String"/>
+	<field name="item" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="cantidad" class="java.lang.String"/>
+	<field name="unidad" class="java.lang.String"/>
+	<field name="pesoTotal" class="java.lang.String"/>
+	<title>
+		<band height="289" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="130" y="179" width="149" height="12" uuid="ba87f347-e4e8-42c1-9f77-f32ac12fc8ca"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Lucida Console" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaInicio}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="86" y="207" width="191" height="12" uuid="3d5c2b7b-880d-4381-9094-715d866c12a9"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Lucida Console" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{costoMinimo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="310" y="157" width="219" height="15" uuid="d47cfe22-7db6-415d-9eb5-b5cbc84519ee"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Lucida Console" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{puntoLlegada}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="293" y="186" width="237" height="13" uuid="7104d4b8-f94c-4417-a372-bb724535ab9e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Lucida Console" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{razonSocial}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="350" y="203" width="174" height="12" uuid="87ff7058-21e0-4464-8dae-12de0631fa7f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Lucida Console" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ruc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="86" y="237" width="191" height="11" uuid="a8866e8f-f8f2-48c1-b9e9-7da1d2452f1c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Lucida Console" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{marca}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="107" y="254" width="170" height="12" uuid="16d0b76f-fedc-4040-968e-78cc62d3e487"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Lucida Console" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{constancia}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="107" y="272" width="170" height="12" uuid="9391f2a6-2134-4317-a6c4-fa7434501a18"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Lucida Console" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{licencia}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="295" y="235" width="203" height="15" uuid="7ade9607-66f7-4ce6-9262-c126f07005bf"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Lucida Console" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{empresaRazon}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="336" y="251" width="122" height="14" uuid="dd98fdeb-1733-4005-be05-57fe8c411756"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Lucida Console" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{empresaRuc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="10" y="160" width="235" height="15" uuid="7aa350d0-6871-492c-97a3-31c811004170"/>
+				<textElement>
+					<font fontName="Lucida Console" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{puntoPartida}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="-15" y="0" width="91" height="17" uuid="0f71df28-66df-4924-966c-081153ea0feb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Lucida Console" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{item}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="76" y="0" width="317" height="17" uuid="3fbe0cc8-609d-4ba5-ae6d-71ffeb70e3fe"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Lucida Console" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="376" y="0" width="50" height="17" uuid="5419e172-0b12-4c7a-a17f-7c5835ffb4dd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Lucida Console" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="426" y="0" width="51" height="17" uuid="6db83af1-cc7e-4c97-b504-bf84cae2e076"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Lucida Console" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{unidad}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="477" y="0" width="56" height="17" uuid="7c305972-3323-4b2b-b0e6-5d5c07081895"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Lucida Console" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pesoTotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="91" splitType="Stretch">
+			<textField>
+				<reportElement x="47" y="25" width="132" height="13" uuid="a4d97c4e-f178-4ad1-aaa2-59695e6fe408"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Lucida Console"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{comprobante}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="47" y="11" width="145" height="14" uuid="99105cc4-a634-40f4-bd50-b9235a1b5d2b"/>
+				<textElement>
+					<font fontName="Lucida Console" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pedido}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

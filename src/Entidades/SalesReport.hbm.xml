@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 20-jul-2023 3:56:01 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="Entidades.SalesReport" table="sales_report" catalog="siar_qf">
+        <id name="idReporte" type="int">
+            <column name="ID_REPORTE" />
+            <generator class="assigned" />
+        </id>
+        <property name="totSolAnt" type="java.lang.Double">
+            <column name="TOT_SOL_ANT" precision="10" />
+        </property>
+        <property name="totDolAnt" type="java.lang.Double">
+            <column name="TOT_DOL_ANT" precision="10" />
+        </property>
+        <property name="totSolSel" type="java.lang.Double">
+            <column name="TOT_SOL_SEL" precision="10" />
+        </property>
+        <property name="totDolSel" type="java.lang.Double">
+            <column name="TOT_DOL_SEL" precision="10" />
+        </property>
+        <property name="mon" type="int">
+            <column name="MON" not-null="true" />
+        </property>
+        <property name="yea" type="java.lang.Integer">
+            <column name="YEA" />
+        </property>
+    </class>
+</hibernate-mapping>

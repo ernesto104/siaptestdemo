@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 04/10/2013 04:32:13 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="Entidades.Cabecsugerido" table="cabecsugerido" catalog="siar_qf">
+        <id name="idsugerido" type="java.lang.Integer">
+            <column name="IDSUGERIDO" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="importadores" class="Entidades.Importadores" fetch="join">
+            <column name="IDIMPORTADOR" unique="true" />
+        </many-to-one>
+        <property name="nrofacimportacion" type="string">
+            <column name="NROFACIMPORTACION" length="15" />
+        </property>
+        <property name="fechaingresostock" type="date">
+            <column name="FECHAINGRESOSTOCK" length="10" />
+        </property>
+        <property name="nroguia" type="string">
+            <column name="NROGUIA" length="12" />
+        </property>
+        <property name="fechapedido" type="date">
+            <column name="FECHAPEDIDO" length="10" />
+        </property>
+        <property name="fechaembarque" type="date">
+            <column name="FECHAEMBARQUE" length="10" />
+        </property>
+        <property name="estado" type="string">
+            <column name="ESTADO" length="1" />
+        </property>
+        <property name="total" type="java.lang.Double">
+            <column name="TOTAL" precision="8" />
+        </property>
+        
+        <property name="factorCosto" type="java.lang.Double">
+            <column name="FACTOR_COSTO" precision="3" />
+        </property>
+        
+        <set name="tramiteses" inverse="true">
+            <key>
+                <column name="IDSUGERIDO" />
+            </key>
+            <one-to-many class="Entidades.Tramites" />
+        </set>
+        <set name="detalleeses" inverse="true">
+            <key>
+                <column name="IDSUGERIDO" />
+            </key>
+            <one-to-many class="Entidades.Detallees" />
+        </set>
+        <set name="detallesugeridos" inverse="true">
+            <key>
+                <column name="IDSUGERIDO" />
+            </key>
+            <one-to-many class="Entidades.Detallesugerido" />
+        </set>
+    </class>
+</hibernate-mapping>

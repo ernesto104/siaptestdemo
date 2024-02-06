@@ -1,0 +1,201 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/09/2013 02:56:16 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="Entidades.Cabeces" table="cabeces" catalog="siar_qf">
+        <composite-id name="id" class="Entidades.CabecesId">
+            <key-property name="tipotra" type="string">
+                <column name="TIPOTRA" length="1" />
+            </key-property>
+            <key-property name="tipodoc" type="string">
+                <column name="TIPODOC" length="2" />
+            </key-property>
+            <key-property name="nrorserie" type="string">
+                <column name="NRORSERIE" length="3" />
+            </key-property>
+            <key-property name="nrodocumento" type="string">
+                <column name="NRODOCUMENTO" length="10" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="sucursales" class="Entidades.Sucursales" fetch="join">
+            <column name="IDSUCURSAL" />
+        </many-to-one>
+        <many-to-one name="bancos" class="Entidades.Bancos" fetch="join">
+            <column name="IDBANCO" />
+        </many-to-one>
+        <many-to-one name="tipocambio" class="Entidades.Tipocambio" fetch="join">
+            <column name="FECHA" length="10" />
+        </many-to-one>
+        <many-to-one name="ubigeo" class="Entidades.Ubigeo" fetch="select">
+            <column name="IDUBIGEO" />
+        </many-to-one>
+        <many-to-one name="vendedores" class="Entidades.Vendedores" fetch="join">
+            <column name="IDVENDEDOR" />
+        </many-to-one>
+        <many-to-one name="usuarios" class="Entidades.Usuarios" fetch="join">
+            <column name="IDUSUARIO" />
+        </many-to-one>
+        <many-to-one name="cabecproformas" class="Entidades.Cabecproformas" fetch="select">
+            <column name="IDCABPROFORMA" />
+        </many-to-one>
+        <many-to-one name="transportistas" class="Entidades.Transportistas" fetch="select">
+            <column name="IDTRANSPORTISTA" />
+        </many-to-one>
+        <many-to-one name="clientes" class="Entidades.Clientes" fetch="join">
+            <column name="IDCLIENTE" />
+        </many-to-one>
+        <property name="marca" type="string">
+            <column name="MARCA" length="30" />
+        </property>
+        <property name="placa" type="string">
+            <column name="PLACA" length="10" />
+        </property>
+        <property name="modelo" type="string">
+            <column name="MODELO" length="40" />
+        </property>
+        <property name="ordenTransportista" type="string">
+            <column name="ORDENTRANSPORTISTA" length="40" />
+        </property>
+        
+        <property name="siniestro" type="string">
+            <column name="SINIESTRO" length="20" />
+        </property>
+        <property name="nrorenovacion" type="java.lang.Integer">
+            <column name="NRORENOVACION" />
+        </property>
+        <property name="tipoperacion" type="string">
+            <column name="TIPOPERACION" length="1" />
+        </property>
+        <property name="importebruto" type="java.lang.Double">
+            <column name="IMPORTEBRUTO" precision="10" />
+        </property>
+        <property name="valorventa" type="java.lang.Double">
+            <column name="VALORVENTA" precision="8" />
+        </property>
+        <property name="igv" type="java.lang.Double">
+            <column name="IGV" precision="8" />
+        </property>
+        <property name="total" type="java.lang.Double">
+            <column name="TOTAL" precision="10" />
+        </property>
+        <property name="moneda" type="string">
+            <column name="MONEDA" length="1" />
+        </property>
+        <property name="comision" type="string">
+            <column name="COMISION" length="1" />
+        </property>
+        <property name="porcentaje" type="java.lang.Double">
+            <column name="PORCENTAJE" precision="4" />
+        </property>
+        <property name="fechavencimiento" type="date">
+            <column name="FECHAVENCIMIENTO" length="10" />
+        </property>
+        <property name="nroguia" type="java.lang.Integer">
+            <column name="NROGUIA" />
+        </property>
+        
+        <property name="fechaemigr" type="date">
+            <column name="FECHAEMIGR" length="10" />
+        </property>
+        
+        <property name="costototal" type="java.lang.Double">
+            <column name="COSTOTOTAL" precision="8" />
+        </property>
+        <property name="ncFacbol" type="string">
+            <column name="NC_FACBOL" length="8" />
+        </property>
+        <property name="ncFacbolImporte" type="java.lang.Double">
+            <column name="NC_FACBOL_IMPORTE" precision="8" />
+        </property>
+        <property name="puntollegada" type="string">
+            <column name="PUNTOLLEGADA" length="105" />
+        </property>
+        <property name="letraFacbol" type="string">
+            <column name="LETRA_FACBOL" /> <!-- length="40" />  -->
+        </property>
+        <property name="tipoletra" type="string">
+            <column name="TIPOLETRA" length="2" />
+        </property>
+        <property name="letraNrobanco" type="string">
+            <column name="LETRA_NROBANCO" length="15" />
+        </property>
+        <property name="letraBanco" type="string">
+            <column name="LETRA_BANCO" length="3" />
+        </property>
+        <property name="letraTipo" type="string">
+            <column name="LETRA_TIPO" length="2" />
+        </property>
+        <property name="almacen" type="java.lang.Integer">
+            <column name="ALMACEN" />
+        </property>
+        <property name="tipocambio_1" type="java.lang.Double">
+            <column name="TIPOCAMBIO" precision="4" />
+        </property>
+        <property name="estado" type="string">
+            <column name="ESTADO" length="11" />
+        </property>
+        
+        <property name="genDocElect" type="int">
+            <column name="GEN_DOC_ELECT" not-null="true" />
+        </property>
+        <property name="fechaEnvio" type="date">
+            <column name="FECHA_ENVIO" length="10" />
+        </property>
+        
+        <set name="cabecproformases" inverse="true">
+            <key>
+                <column name="TIPOTRA" length="1" />
+                <column name="TIPODOC" length="2" />
+                <column name="NRORSERIE" length="3" />
+                <column name="NRODOCUMENTO" length="10" />
+            </key>
+            <one-to-many class="Entidades.Cabecproformas" />
+        </set>
+        <set name="detalleeses" inverse="true">
+            <key>
+                <column name="TIPOTRA" length="1" />
+                <column name="TIPODOC" length="2" />
+                <column name="NRORSERIE" length="3" />
+                <column name="NRODOCUMENTO" length="10" />
+            </key>
+            <one-to-many class="Entidades.Detallees" />
+        </set>
+        <set name="cabecsalvars" inverse="true">
+            <key>
+                <column name="TIPOTRA" length="1" />
+                <column name="TIPODOC" length="2" />
+                <column name="NRORSERIE" length="3" />
+                <column name="NRODOCUMENTO" length="10" />
+            </key>
+            <one-to-many class="Entidades.Cabecsalvar" />
+        </set>
+        <set name="detallenotas" inverse="true">
+            <key>
+                <column name="TIPOTRA" length="1" />
+                <column name="TIPODOC" length="2" />
+                <column name="NRORSERIE" length="3" />
+                <column name="NRODOCUMENTO" length="10" />
+            </key>
+            <one-to-many class="Entidades.Detallenota" />
+        </set>
+        <set name="pagoses" inverse="true">
+            <key>
+                <column name="TIPOTRA" length="1" />
+                <column name="TIPODOC" length="2" />
+                <column name="NROSERIE" length="3" />
+                <column name="NRODOCUMENTO" length="10" />
+            </key>
+            <one-to-many class="Entidades.Pagos" />
+        </set>
+        <set name="renovacionLetras" inverse="true">
+            <key>
+                <column name="tipotra" length="1" />
+                <column name="tipodoc" length="2" />
+                <column name="nroserie" length="3" />
+                <column name="nrodocumento" length="10" />
+            </key>
+            <one-to-many class="Entidades.RenovacionLetra" />
+        </set>
+    </class>
+</hibernate-mapping>

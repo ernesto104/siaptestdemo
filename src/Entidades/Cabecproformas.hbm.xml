@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 02/06/2016 07:13:03 AM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="Entidades.Cabecproformas" table="cabecproformas" catalog="siar_qf">
+        <id name="idcabproforma" type="java.lang.Integer">
+            <column name="IDCABPROFORMA" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="vendedores" class="Entidades.Vendedores" fetch="select">
+            <column name="IDVENDEDOR" />
+        </many-to-one>
+        <many-to-one name="cabeces" class="Entidades.Cabeces" fetch="select">
+            <column name="TIPOTRA" length="1" />
+            <column name="TIPODOC" length="2" />
+            <column name="NRORSERIE" length="3" />
+            <column name="NRODOCUMENTO" length="10" />
+        </many-to-one>
+        <many-to-one name="clientes" class="Entidades.Clientes" fetch="select">
+            <column name="IDCLIENTE" />
+        </many-to-one>
+        <property name="codigocabproforma" type="string">
+            <column name="CODIGOCABPROFORMA" length="8" not-null="true" />
+        </property>
+        
+        <property name="punterogrupo" type="int">
+            <column name="PUNTEROGRUPO" not-null="true" />
+        </property>
+        
+        <property name="referencia" type="string">
+            <column name="REFERENCIA" length="120" />
+        </property>
+        <property name="marca" type="string">
+            <column name="MARCA" length="30" />
+        </property>
+        <property name="placa" type="string">
+            <column name="PLACA" length="10" />
+        </property>
+        <property name="modelo" type="string">
+            <column name="MODELO" length="40" />
+        </property>
+        <property name="serie" type="string">
+            <column name="SERIE" length="25" />
+        </property>
+        <property name="motor" type="string">
+            <column name="MOTOR" length="20" />
+        </property>
+        <property name="fecha" type="date">
+            <column name="FECHA" length="10" />
+        </property>
+        <property name="moneda" type="string">
+            <column name="MONEDA" length="1" />
+        </property>
+        <property name="total" type="java.lang.Double">
+            <column name="TOTAL" precision="10" />
+        </property>
+        <property name="estado" type="string">
+            <column name="ESTADO" length="11" />
+        </property>
+        <property name="nrofactura" type="string">
+            <column name="NROFACTURA" length="12" />
+        </property>
+        <property name="fechafact" type="date">
+            <column name="FECHAFACT" length="10" />
+        </property>
+        <property name="clientefact" type="string">
+            <column name="CLIENTEFACT" length="50" />
+        </property>
+        <property name="importebrutofact" type="java.lang.Double">
+            <column name="IMPORTEBRUTOFACT" precision="10" />
+        </property>
+        <property name="valorventafact" type="java.lang.Double">
+            <column name="VALORVENTAFACT" precision="8" />
+        </property>
+        <property name="igvfact" type="java.lang.Double">
+            <column name="IGVFACT" precision="8" />
+        </property>
+        <property name="totalfact" type="java.lang.Double">
+            <column name="TOTALFACT" precision="10" />
+        </property>
+        <property name="transportista" type="string">
+            <column name="TRANSPORTISTA" length="50" />
+        </property>
+        <property name="nroguia" type="string">
+            <column name="NROGUIA" length="30" />
+        </property>
+        <property name="fechadespacho" type="date">
+            <column name="FECHADESPACHO" length="10" />
+        </property>
+        
+        <set name="cabeceses" table="cabeces" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="IDCABPROFORMA" />
+            </key>
+            <one-to-many class="Entidades.Cabeces" />
+        </set>
+        
+    </class>
+</hibernate-mapping>

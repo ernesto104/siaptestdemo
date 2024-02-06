@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/09/2013 02:56:16 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="Entidades.Pedidoweb" table="pedidoweb" catalog="siar_qf">
+        <id name="idpedido" type="java.lang.Integer">
+            <column name="IDPEDIDO" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="cabecweb" class="Entidades.Cabecweb" fetch="join">
+            <column name="ID_CABWEB" />
+        </many-to-one>
+        <many-to-one name="repuestos" class="Entidades.Repuestos" fetch="join">
+            <column name="IDREPUESTO" />
+            <column name="IDLINEA" />
+        </many-to-one>
+        <property name="cantpedida" type="java.lang.Integer">
+            <column name="CANTPEDIDA" />
+        </property>
+        <property name="cantentregada" type="java.lang.Integer">
+            <column name="CANTENTREGADA" />
+        </property>
+        <property name="preciolista" type="java.lang.Double">
+            <column name="PRECIOLISTA" precision="8" />
+        </property>
+        
+        <property name="descuento1" type="double">
+            <column name="DESCUENTO1" precision="4" not-null="true" />
+        </property>
+        <property name="descuento2" type="double">
+            <column name="DESCUENTO2" precision="4" not-null="true" />
+        </property>
+        <property name="descuento3" type="double">
+            <column name="DESCUENTO3" precision="4" not-null="true" />
+        </property>
+        <property name="descuento4" type="double">
+            <column name="DESCUENTO4" precision="4" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

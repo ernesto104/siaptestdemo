@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="1" uuid="a1be75f5-e92c-463b-b41f-2bcf3f40b69c">
+	<property name="ireport.zoom" value="1.1289478601075547"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="a6265570-9671-429f-8f56-0e927ce25c36"/>
+	<parameter name="nombreEmpresa" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="rucEmpresa" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="direccionEmpresa" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fecha" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="enviado" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="condiciones" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pedido" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="numeroSerie" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="numeroGuia" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="igv" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="total" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="orden" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="vendedor" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="totalIgv" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="NumeroDoc" class="java.lang.String"/>
+	<parameter name="cantidadEnLetras" class="java.lang.String"/>
+	<parameter name="valorventa" class="java.lang.String"/>
+	<parameter name="fechaEmision" class="java.lang.String"/>
+	<field name="cantidad" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="unitario" class="java.lang.String"/>
+	<field name="valorVenta" class="java.lang.String"/>
+	<field name="idRepuesto" class="java.lang.String"/>
+	<field name="codigoSecundario" class="java.lang.String"/>
+	<field name="descuentos" class="java.lang.String"/>
+	<field name="anotaciones" class="java.lang.String"/>
+	<title>
+		<band height="231">
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="69" y="143" width="249" height="25" uuid="59fced78-e0be-4163-b2dc-a43ca9aac272"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Lucida Console" size="10" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombreEmpresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="69" y="182" width="249" height="21" uuid="4e376964-cd29-4dbd-8e1e-39199b4d9f56"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Lucida Console" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rucEmpresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="70" y="164" width="284" height="19" uuid="e979d713-67ce-4b3e-b375-2b0676b22b2c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Lucida Console" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{direccionEmpresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="51" y="129" width="103" height="17" uuid="f94cfb35-959a-4a28-938c-7636569d7224"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Lucida Console" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaEmision}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="400" y="166" width="121" height="18" uuid="49d137d0-3411-4cf8-8c65-5e3c4bb662ea"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Lucida Console" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{condiciones}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="400" y="146" width="155" height="18" uuid="a69ed648-2a6e-40a0-b04b-8def2d4f246d"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Lucida Console" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{vendedor}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="342" y="185" width="121" height="15" uuid="2deb5982-6c51-4058-8d79-157221c392da"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Lucida Console" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{numeroGuia}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="129" y="0" width="244" height="16" uuid="131f4183-0dde-4997-b491-2afd109a02f6"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Lucida Console" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="441" y="0" width="41" height="16" uuid="e0ec7f70-f1dd-40ad-826e-22562c0315ec"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Lucida Console" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{unitario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="503" y="0" width="45" height="16" uuid="f8e8b72e-dc82-454c-86cd-e2c59a76fc37"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Lucida Console" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valorVenta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="28" y="0" width="101" height="16" uuid="803ed762-d48f-4a15-a1e5-76c57198ec65"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Lucida Console" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idRepuesto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="396" y="0" width="23" height="16" uuid="18f6cefc-676c-42c4-95d8-447f424a5d63"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Lucida Console" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="129" y="15" width="244" height="15" uuid="511857a0-06a2-4fc7-a37e-63b603e74e78"/>
+				<textElement>
+					<font fontName="Lucida Console" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{anotaciones}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="164">
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" isPrintRepeatedValues="false" x="390" y="60" width="21" height="15" uuid="cc84100c-6ac7-4167-8fd6-475867859e82"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Lucida Console" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{igv}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" isPrintRepeatedValues="false" x="426" y="78" width="95" height="21" uuid="850eed54-553c-40ec-b407-0fadbddfae6d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Lucida Console" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" isPrintRepeatedValues="false" x="436" y="57" width="85" height="20" uuid="53756cba-f6f9-4f11-8f67-07915c188a37"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Lucida Console" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totalIgv}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" isPrintRepeatedValues="false" x="49" y="12" width="378" height="20" uuid="55772f33-d4e9-40bf-8498-53a7105aee48"/>
+				<textElement>
+					<font fontName="Lucida Console" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cantidadEnLetras}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" isPrintRepeatedValues="false" x="426" y="35" width="95" height="20" uuid="88dbc578-aa00-4447-8992-f6c363f26ac1"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Lucida Console" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{valorventa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="28" y="75" width="151" height="20" uuid="a265143c-2eda-4138-a457-cc430f7981d9"/>
+				<textElement>
+					<font fontName="Lucida Console"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pedido}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+</jasperReport>

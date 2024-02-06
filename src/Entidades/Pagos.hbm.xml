@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/09/2013 02:56:16 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="Entidades.Pagos" table="pagos" catalog="siar_qf">
+        <id name="idpago" type="java.lang.Integer">
+            <column name="IDPAGO" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="bancos" class="Entidades.Bancos" fetch="select"> <!-- fetch="join" -->
+            <column name="IDBANCO" />
+        </many-to-one>
+        <many-to-one name="cabecsalvar" class="Entidades.Cabecsalvar" fetch="select">
+            <column name="IDSALIDA" />
+        </many-to-one>
+        <many-to-one name="cabeces" class="Entidades.Cabeces" fetch="select"> <!-- fetch="join" -->
+            <column name="TIPOTRA" length="1" />
+            <column name="TIPODOC" length="2" />
+            <column name="NROSERIE" length="3" />
+            <column name="NRODOCUMENTO" length="10" />
+        </many-to-one>
+        <many-to-one name="usuarios" class="Entidades.Usuarios" fetch="select"> <!-- fetch="join" -->
+            <column name="IDUSUARIO" />
+        </many-to-one>
+        <property name="fecha" type="date">
+            <column name="FECHA" length="10" />
+        </property>
+        <property name="importe" type="java.lang.Double">
+            <column name="IMPORTE" precision="10" />
+        </property>
+        <property name="forma" type="string">
+            <column name="FORMA" length="1" />
+        </property>
+        <property name="nrocheque" type="string">
+            <column name="NROCHEQUE" length="20" />
+        </property>
+        <property name="almacen" type="java.lang.Integer">
+            <column name="ALMACEN" />
+        </property>
+        <property name="rutaimagenes" type="string">
+            <column name="RUTAIMAGENES" length="200" />
+        </property>
+    </class>
+</hibernate-mapping>

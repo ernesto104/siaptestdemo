@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/09/2013 02:56:16 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="Entidades.Sucursales" table="sucursales" catalog="siar_qf">
+        <id name="idsucursal" type="java.lang.Integer">
+            <column name="IDSUCURSAL" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="clientes" class="Entidades.Clientes" fetch="join">
+            <column name="IDCLIENTE" />
+        </many-to-one>
+        <property name="direccion" type="string">
+            <column name="DIRECCION" length="100" />
+        </property>
+        <property name="plaza" type="string">
+            <column name="PLAZA" length="15" />
+        </property>
+        <set name="cabeceses" inverse="true">
+            <key>
+                <column name="IDSUCURSAL" />
+            </key>
+            <one-to-many class="Entidades.Cabeces" />
+        </set>
+<!--        <set name="cabecsalvars" inverse="true">
+            <key>
+                <column name="IDSUCURSAL" />
+            </key>
+            <one-to-many class="Entidades.Cabecsalvar" />
+        </set>-->
+    </class>
+</hibernate-mapping>

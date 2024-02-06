@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/09/2013 02:56:16 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="Entidades.Control" table="control" catalog="siar_qf">
+        <id name="idcontrol" type="java.lang.Integer">
+            <column name="IDCONTROL" />
+            <generator class="identity" />
+        </id>
+        
+        <many-to-one name="ubigeo" class="Entidades.Ubigeo" fetch="select">
+            <column name="IDUBIGEO" />
+        </many-to-one>
+        
+        <many-to-one name="roles" class="Entidades.Roles" fetch="join">
+            <column name="IDROL" />
+        </many-to-one>
+        <property name="ruc" type="string">
+            <column name="RUC" length="11" />
+        </property>
+        <property name="nombrempresa" type="string">
+            <column name="NOMBREMPRESA" length="50" />
+        </property>
+        <property name="rutadb" type="string">
+            <column name="RUTADB" length="50" />
+        </property>
+        <property name="rutaprogramas" type="string">
+            <column name="RUTAPROGRAMAS" length="50" />
+        </property>
+        <property name="rutareportes" type="string">
+            <column name="RUTAREPORTES" length="50" />
+        </property>
+        <property name="rutaimagenes" type="string">
+            <column name="RUTAIMAGENES" length="50" />
+        </property>
+        <property name="nombrealmacen" type="string">
+            <column name="NOMBREALMACEN" length="120" />
+        </property>
+        <property name="nombrealmacen2" type="string">
+            <column name="NOMBREALMACEN2" length="120" />
+        </property>
+        <property name="mesdemanda" type="java.lang.Integer">
+            <column name="MESDEMANDA" />
+        </property>
+        <property name="mesproyeccion" type="java.lang.Integer">
+            <column name="MESPROYECCION" />
+        </property>
+        <property name="impuestoigv" type="java.lang.Integer">
+            <column name="IMPUESTOIGV" />
+        </property>
+        <property name="nrolineafac" type="java.lang.Integer">
+            <column name="NROLINEAFAC" />
+        </property>
+        <property name="vercontoperfact" type="string">
+            <column name="VERCONTOPERFACT" length="1">
+                <comment>Mostrar opci&#243;n Contado en combo Operaci&#243;n en formulario Facturacion</comment>
+            </column>
+        </property>
+        
+        <property name="opedef" type="string">
+            <column name="OPEDEF" length="1">
+                <comment>Valor por default de combo Operacion en Facturacion (O=Contado, R=Credito, L=Letra)</comment>
+            </column>
+        </property>
+        
+        <property name="nrolineagr" type="java.lang.Integer">
+            <column name="NROLINEAGR" />
+        </property>
+        <property name="nrolineabol" type="java.lang.Integer">
+            <column name="NROLINEABOL" />
+        </property>
+        <property name="nrolineanc" type="java.lang.Integer">
+            <column name="NROLINEANC" />
+        </property>
+        <property name="nrolineand" type="java.lang.Integer">
+            <column name="NROLINEAND" />
+        </property>
+        <property name="almacen" type="java.lang.Integer">
+            <column name="ALMACEN" />
+        </property>
+        <property name="correo" type="string">
+            <column name="CORREO" length="120" />
+        </property>
+        <property name="stock0" type="char">
+            <column name="STOCK0" length="1" not-null="true" />
+        </property>
+        <property name="telefonos" type="string">
+            <column name="TELEFONOS" length="50" />
+        </property>
+        <property name="monedarepuestos" type="java.lang.Integer">
+            <column name="MONEDAREPUESTOS" />
+        </property>
+        <property name="docfactdefecto" type="string">
+            <column name="DOCFACTDEFECTO" length="14" />
+        </property>
+        
+        <property name="ubidpto" type="string">
+            <column name="UBIDPTO" length="120" />
+        </property>
+        <property name="ubiprov" type="string">
+            <column name="UBIPROV" length="120" />
+        </property>
+        <property name="ubidist" type="string">
+            <column name="UBIDIST" length="120" />
+        </property>
+        
+        <property name="rutalogoproforma" type="string">
+            <column name="RUTALOGOPROFORMA" length="100" />
+        </property>
+        <property name="rutalogoingreso" type="string">
+            <column name="RUTALOGOINGRESO" length="100" />
+        </property>
+        
+        <property name="color" type="java.lang.Integer">
+            <column name="COLOR" />
+        </property>
+    </class>
+</hibernate-mapping>

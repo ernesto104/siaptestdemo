@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/siar_qf</property>
+    <property name="hibernate.connection.username">root</property>
+    <mapping resource="Entidades/Tramites.hbm.xml"/>
+    <mapping resource="Entidades/Transportistas.hbm.xml"/>
+    <mapping resource="Entidades/RenovacionLetra.hbm.xml"/>
+    <mapping resource="Entidades/Programas.hbm.xml"/>
+    <mapping resource="Entidades/Detallesugerido.hbm.xml"/>
+    <mapping resource="Entidades/Detalleproformas.hbm.xml"/>
+    <mapping resource="Entidades/Vendedores.hbm.xml"/>
+    <mapping resource="Entidades/Clientes.hbm.xml"/>
+    <mapping resource="Entidades/Roles.hbm.xml"/>
+    <mapping resource="Entidades/PaquetesRepuestos.hbm.xml"/>
+    <mapping resource="Entidades/Cabecproformas.hbm.xml"/>
+    <mapping resource="Entidades/Lineas.hbm.xml"/>
+    <mapping resource="Entidades/Detallees.hbm.xml"/>
+    <mapping resource="Entidades/Control.hbm.xml"/>
+    <mapping resource="Entidades/Cabecsugerido.hbm.xml"/>
+    <mapping resource="Entidades/SalesReport.hbm.xml"/>
+    <mapping resource="Entidades/Bancos.hbm.xml"/>
+    <mapping resource="Entidades/Cabecsalvar.hbm.xml"/>
+    <mapping resource="Entidades/Cabeces.hbm.xml"/>
+    <mapping resource="Entidades/Tipocambio.hbm.xml"/>
+    <mapping resource="Entidades/Pagos.hbm.xml"/>
+    <mapping resource="Entidades/Repuestos.hbm.xml"/>
+    <mapping resource="Entidades/Accesos.hbm.xml"/>
+    <mapping resource="Entidades/Sistema.hbm.xml"/>
+    <mapping resource="Entidades/Usuarios.hbm.xml"/>
+    <mapping resource="Entidades/Estratificacion.hbm.xml"/>
+    <mapping resource="Entidades/Sucursales.hbm.xml"/>
+    <mapping resource="Entidades/Detallenota.hbm.xml"/>
+    <mapping resource="Entidades/Ubigeo.hbm.xml"/>
+    <mapping resource="Entidades/Cabecweb.hbm.xml"/>
+    <mapping resource="Entidades/Pedidoweb.hbm.xml"/>
+    <mapping resource="Entidades/Paquetes.hbm.xml"/>
+    <mapping resource="Entidades/Importadores.hbm.xml"/>
+    <mapping resource="Entidades/Operaciones.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sk" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f6cd2841-a9f2-4533-8b5e-7337dffd8b0f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="empresa" class="java.lang.String"/>
+	<parameter name="cliente" class="java.lang.String"/>
+	<parameter name="total" class="java.lang.String"/>
+	<parameter name="nroSalida" class="java.lang.String"/>
+	<parameter name="igv" class="java.lang.String"/>
+	<field name="nroParte" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="precio" class="java.lang.String"/>
+	<field name="cantidad" class="java.lang.String"/>
+	<field name="total" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="186" splitType="Stretch">
+			<textField>
+				<reportElement uuid="716e737e-2ba6-4db9-afa5-cbb989310b5e" x="100" y="55" width="254" height="20"/>
+				<textElement>
+					<font fontName="Lucida Sans" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{empresa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="c7a8c8e1-6ad8-4e42-a126-365268c3e566" x="10" y="55" width="54" height="20"/>
+				<textElement>
+					<font fontName="Lucida Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Empresa]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy  -  HH : mm ">
+				<reportElement uuid="13bc0930-fe87-4aae-bc98-dcaed51c8092" x="403" y="153" width="151" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Lucida Sans" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="1afb170b-c0e8-404f-bbdb-82d0353766a6" x="319" y="153" width="75" height="20"/>
+				<textElement>
+					<font fontName="Lucida Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha y Hora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e52d7173-57cf-418a-9762-7924d5a09d6a" x="179" y="10" width="241" height="28"/>
+				<textElement textAlignment="Center">
+					<font fontName="Lucida Sans" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Salidas Varias]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="eb15d702-266d-40a5-a6e0-65ea124e7921" x="10" y="87" width="54" height="20"/>
+				<textElement>
+					<font fontName="Lucida Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="dc27d67c-3af3-41e4-bd34-7520c3046453" x="100" y="87" width="100" height="20"/>
+				<textElement>
+					<font fontName="Lucida Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cliente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="7c02cd9e-beee-4de9-b323-618488e12734" x="10" y="114" width="54" height="20"/>
+				<textElement>
+					<font fontName="Lucida Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nro Salida]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="aafdb808-7753-4d3f-8549-d5945ec2c858" x="100" y="114" width="100" height="20"/>
+				<textElement>
+					<font fontName="Lucida Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nroSalida}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="733848ec-5c3d-4400-abaa-126664485fce" x="0" y="179" width="554" height="1"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="f7bde421-5ad7-4636-be13-fe8272bfcabb" x="32" y="2" width="54" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Lucida Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nro Parte]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b069aee5-30e2-43fe-8792-8215860d6451" x="179" y="2" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Lucida Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descripcion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b6cebf75-08da-433b-95b5-abe6eb597e15" x="343" y="0" width="66" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Lucida Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Precio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8d730e08-ce7f-4fd0-8ea7-d7ef5c550e6e" x="409" y="0" width="57" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Lucida Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8716b401-7491-43d2-b078-705d402c396f" x="479" y="2" width="53" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Lucida Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="45" splitType="Stretch">
+			<textField>
+				<reportElement uuid="948643b4-4b19-4d40-8966-d105ffcf1c3a" x="10" y="0" width="103" height="20"/>
+				<textElement>
+					<font fontName="Lucida Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nroParte}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="73ffe27f-c610-49e7-b0d7-c193f74d55d5" x="113" y="0" width="230" height="45"/>
+				<textElement>
+					<font fontName="Lucida Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="919e35c0-1b27-463e-af4f-9c83920cf41a" x="343" y="0" width="66" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Lucida Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="605d82c1-6ac9-428d-b691-49819716a3d1" x="409" y="0" width="57" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Lucida Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6d42f490-7ff1-413b-904c-ea4b385c4ce9" x="466" y="0" width="77" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Lucida Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="81" splitType="Stretch">
+			<textField>
+				<reportElement uuid="331d7e6a-11c7-46a3-b1a0-d8e38def8924" x="455" y="43" width="88" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Lucida Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="f7c1b0f7-b084-4875-803b-77a4addd73da" x="384" y="43" width="54" height="20"/>
+				<textElement>
+					<font fontName="Lucida Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="53b33903-5bf0-457d-91c3-e9eb45f678a9" x="384" y="18" width="54" height="20"/>
+				<textElement>
+					<font fontName="Lucida Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IGV]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="8aa3ff18-80f0-43ad-b4ad-d1f4a3c98bbc" x="455" y="18" width="88" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Lucida Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{igv}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="733848ec-5c3d-4400-abaa-126664485fce" x="1" y="0" width="554" height="1"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

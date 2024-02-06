@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="619c57ce-65b7-419b-8b4a-f7971a5f76e2">
+	<property name="ireport.zoom" value="1.2100000000000024"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="empresa" class="java.lang.String"/>
+	<parameter name="valorizacion" class="java.lang.String"/>
+	<parameter name="nombre" class="java.lang.String"/>
+	<parameter name="t1" class="java.lang.String"/>
+	<parameter name="t2" class="java.lang.String"/>
+	<parameter name="t3" class="java.lang.String"/>
+	<parameter name="t4" class="java.lang.String"/>
+	<parameter name="t5" class="java.lang.String"/>
+	<parameter name="totalneto" class="java.lang.String"/>
+	<field name="codigo" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="descrModelo" class="java.lang.String"/>
+	<field name="descrLista" class="java.lang.String"/>
+	<field name="stock" class="java.lang.String"/>
+	<field name="costoUnitario" class="java.lang.String"/>
+	<field name="precioVenta" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="151" splitType="Stretch">
+			<staticText>
+				<reportElement x="32" y="124" width="82" height="20" uuid="6e36f338-d3ba-4303-8989-e54ebd524571"/>
+				<textElement>
+					<font fontName="Lucida Sans" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NRO PARTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="223" y="124" width="143" height="20" uuid="44712709-c694-46db-b61a-246be2bb723a"/>
+				<textElement>
+					<font fontName="Lucida Sans" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[APLICACION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="372" y="124" width="46" height="20" uuid="14ada4c2-5df5-40c8-be1b-4becdba7e776"/>
+				<textElement textAlignment="Right">
+					<font fontName="Lucida Sans" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[STOCK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="501" y="124" width="54" height="27" uuid="02811c69-158c-4610-b910-4a19d62e4b7d"/>
+				<textElement textAlignment="Right">
+					<font fontName="Lucida Sans" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PRECIO
+VENTA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="32" y="70" width="125" height="20" uuid="d10e4087-114d-4b07-850b-17b018dbdd2f"/>
+				<text><![CDATA[TIPO DE VALORIZACION : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="157" y="70" width="137" height="20" uuid="3f803a07-7740-45a0-8f29-d3ff7084528b"/>
+				<textFieldExpression><![CDATA[$P{valorizacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="482" y="70" width="73" height="20" uuid="5c1b82fa-1edf-4582-b192-5e353593da87"/>
+				<textFieldExpression><![CDATA[$P{t5}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="436" y="70" width="46" height="20" uuid="45cf8c1f-2a4c-4d8e-9315-f2ef82888c8f"/>
+				<textFieldExpression><![CDATA[$P{t4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="366" y="70" width="70" height="20" uuid="bff68422-2cb9-4a9a-b3dd-c6d56660b207"/>
+				<textFieldExpression><![CDATA[$P{t3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="342" y="70" width="24" height="20" uuid="2e4d2503-0604-4568-bebb-a00c7ce20d3e"/>
+				<textFieldExpression><![CDATA[$P{t2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="294" y="70" width="48" height="20" uuid="69494255-2e04-40a8-8cf0-de9d65a24b35"/>
+				<textFieldExpression><![CDATA[$P{t1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="162" y="35" width="259" height="20" uuid="dfd93c5d-12d2-478c-b572-c181b90a377a"/>
+				<textElement>
+					<font fontName="Lucida Sans" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INVENTARIO VALORIZADO DE ALMACEN]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="32" y="0" width="525" height="20" uuid="ae57ed0d-4da0-479e-b1e6-7e7af1ab3456"/>
+				<textElement>
+					<font fontName="Lucida Sans" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{empresa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="114" y="124" width="109" height="20" uuid="19ab3ae3-d335-466c-a1cc-3460e16f0533"/>
+				<textElement>
+					<font fontName="Lucida Sans" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESCRIPCION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="427" y="124" width="70" height="27" uuid="8ba4a533-1e8f-4e46-b1ca-8ade1c75067e"/>
+				<textElement textAlignment="Right">
+					<font fontName="Lucida Sans" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COSTO
+UNITARIO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<textField>
+				<reportElement x="32" y="0" width="82" height="20" uuid="e35bb9ea-c346-4cf4-8267-a2f07adaad8c"/>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="372" y="0" width="46" height="20" uuid="251def2c-6c1b-4617-ab31-9af374dcb3ac"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{stock}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="223" y="20" width="143" height="20" uuid="6a651235-83a5-404c-859f-a5180eb1e6aa"/>
+				<textFieldExpression><![CDATA[$F{descrLista}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="114" y="0" width="109" height="20" uuid="8b22edc7-73f9-4852-b5f5-15e33f792c10"/>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="427" y="0" width="70" height="20" uuid="230dca23-e88d-46c4-bc3f-6f727b34a1d1"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{costoUnitario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="501" y="0" width="52" height="20" uuid="39007672-702d-446a-9ce1-96937943a50e"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{precioVenta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="223" y="0" width="143" height="20" uuid="8f84d8eb-395d-40b7-a286-50b6dcff87a3"/>
+				<textFieldExpression><![CDATA[$F{descrModelo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="24" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement x="421" y="0" width="80" height="20" uuid="96a73bfe-5d34-4d83-89b3-379b3c82f76c"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="501" y="0" width="40" height="20" uuid="19da35ee-8c1c-49bf-820e-f6050c256b1b"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="37" splitType="Stretch">
+			<staticText>
+				<reportElement x="353" y="8" width="100" height="20" uuid="3e9b30f0-2405-4a39-99e2-b70ffe7336c1"/>
+				<textElement>
+					<font fontName="Lucida Sans" size="11" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="453" y="8" width="100" height="20" uuid="fc32d863-947a-4f31-9e88-7a1191559b9f"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totalneto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

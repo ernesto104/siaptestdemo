@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/09/2013 02:56:16 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="Entidades.Detalleproformas" table="detalleproformas" catalog="siar_qf">
+        <id name="iddetproforma" type="java.lang.Integer">
+            <column name="IDDETPROFORMA" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="repuestos" class="Entidades.Repuestos" fetch="join">
+            <column name="IDREPUESTO" />
+            <column name="IDLINEA" />
+        </many-to-one>
+        <many-to-one name="cabecproformas" class="Entidades.Cabecproformas" fetch="join">
+            <column name="IDCABPROFORMA" />
+        </many-to-one>
+        <property name="codrepuesto" type="string">
+            <column name="CODREPUESTO" length="40" />
+        </property>
+        <property name="cantidad" type="java.lang.Integer">
+            <column name="CANTIDAD" />
+        </property>
+        <property name="preciolista" type="java.lang.Double">
+            <column name="PRECIOLISTA" precision="8" />
+        </property>
+        <property name="descuento1" type="java.lang.Double">
+            <column name="DESCUENTO1" precision="4" />
+        </property>
+        <property name="descuento2" type="java.lang.Double">
+            <column name="DESCUENTO2" precision="4" />
+        </property>
+        <property name="descuento3" type="java.lang.Double">
+            <column name="DESCUENTO3" precision="4" />
+        </property>
+        <property name="descuento4" type="java.lang.Double">
+            <column name="DESCUENTO4" precision="4" />
+        </property>
+        <property name="disponibilidad" type="string">
+            <column name="DISPONIBILIDAD" length="20" />
+        </property>
+    </class>
+</hibernate-mapping>

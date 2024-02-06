@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/09/2013 02:56:16 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="Entidades.Clientes" table="clientes" catalog="siar_qf">
+        <id name="idcliente" type="java.lang.Integer">
+            <column name="IDCLIENTE" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="ubigeo" class="Entidades.Ubigeo" fetch="select">
+            <column name="IDUBIGEO" not-null="true" />
+        </many-to-one>
+        <many-to-one name="transportistas" class="Entidades.Transportistas" fetch="join">
+            <column name="IDTRANSPORTISTA" />
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column name="NOMBRE" length="85" />
+        </property>
+        <property name="ruc" type="string">
+            <column name="RUC" length="11" />
+        </property>
+        <property name="direccion" type="string">
+            <column name="DIRECCION" length="105" />
+        </property>
+        <property name="plaza" type="string">
+            <column name="PLAZA" length="50" />
+        </property>
+        
+        <property name="clase" type="string">
+            <column name="CLASE" length="50" />
+        </property>
+        
+        <property name="telefonofijo" type="string">
+            <column name="TELEFONOFIJO" length="20" />
+        </property>
+        <property name="telefonofijo2" type="string">
+            <column name="TELEFONOFIJO2" length="20" />
+        </property>
+        <property name="telefonocel" type="string">
+            <column name="TELEFONOCEL" length="20" />
+        </property>
+        <property name="email" type="string">
+            <column name="EMAIL" length="40" />
+        </property>
+        <property name="contacto" type="string">
+            <column name="CONTACTO" length="40" />
+        </property>
+        <property name="clave" type="string">
+            <column name="CLAVE" length="10" />
+        </property>
+        <property name="estadoweb" type="string">
+            <column name="ESTADOWEB" length="1" />
+        </property>
+        <property name="causabloqueo" type="string">
+            <column name="CAUSABLOQUEO" length="50" />
+        </property>
+        <property name="fechabloqueo" type="date">
+            <column name="FECHABLOQUEO" length="10" />
+        </property>
+        <property name="verstock" type="string">
+            <column name="VERSTOCK" length="1" />
+        </property>
+        <property name="credito" type="java.lang.Double">
+            <column name="CREDITO" precision="8" />
+        </property>
+        <property name="observacion" type="string">
+            <column name="OBSERVACION" length="250" />
+        </property>
+        <property name="descuento1" type="java.lang.Double">
+            <column name="DESCUENTO1" precision="4" />
+        </property>
+        <property name="descuento2" type="java.lang.Double">
+            <column name="DESCUENTO2" precision="4" />
+        </property>
+        <property name="descuento3" type="java.lang.Double">
+            <column name="DESCUENTO3" precision="4" />
+        </property>
+        <property name="descuento4" type="java.lang.Double">
+            <column name="DESCUENTO4" precision="4" />
+        </property>
+        <property name="tipo" type="string">
+            <column name="TIPO" length="1" />
+        </property>
+        <set name="cabeceses" inverse="true">
+            <key>
+                <column name="IDCLIENTE" />
+            </key>
+            <one-to-many class="Entidades.Cabeces" />
+        </set>
+        <set name="sucursaleses" inverse="true">
+            <key>
+                <column name="IDCLIENTE" />
+            </key>
+            <one-to-many class="Entidades.Sucursales" />
+        </set>
+        <set name="cabecproformases" inverse="true">
+            <key>
+                <column name="IDCLIENTE" />
+            </key>
+            <one-to-many class="Entidades.Cabecproformas" />
+        </set>
+        <set name="cabecwebs" inverse="true">
+            <key>
+                <column name="IDCLIENTE" />
+            </key>
+            <one-to-many class="Entidades.Cabecweb" />
+        </set>
+        <set name="cabecsalvars" inverse="true">
+            <key>
+                <column name="IDCLIENTE" />
+            </key>
+            <one-to-many class="Entidades.Cabecsalvar" />
+        </set>
+        <set name="detalleeses" inverse="true">
+            <key>
+                <column name="IDCLIENTE" />
+            </key>
+            <one-to-many class="Entidades.Detallees" />
+        </set>
+    </class>
+</hibernate-mapping>

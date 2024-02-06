@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="letracambio" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="808" leftMargin="17" rightMargin="17" topMargin="34" bottomMargin="20" uuid="7849d98f-af7f-4e75-aee0-08f002de3ddc">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="numero" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="referencia" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="lugarGiro" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="fechaGiro" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="fechaVencimiento" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="moneda" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="cantidad" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="girado" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="domicilio" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="ruc" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="telefono" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="banco" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="oficina" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="numeroCuenta" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="dc" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="fiador" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="aval" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="dom" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="doi" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="representante" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="telf" class="java.lang.String" isForPrompting="false"/>
+	<title>
+		<band height="283" splitType="Stretch">
+			<textField>
+				<reportElement uuid="5d2eb928-9154-436a-af05-815be0f4710c" x="5" y="24" width="82" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Verdana"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{numero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="98a2ef55-61e9-4c63-b4bc-c82b266fef88" x="87" y="24" width="83" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Verdana"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{referencia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="748b3dfb-52e4-41b4-af31-062703d79427" x="170" y="24" width="76" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Verdana"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{lugarGiro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c54048d6-8b97-41e4-93fa-a705a450a2b3" x="246" y="24" width="84" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Verdana"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaGiro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b967d481-7135-476f-bfde-7c48e0f88f77" x="330" y="25" width="85" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Verdana"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaVencimiento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e605a6b1-d0c1-4743-9334-c9bc08c5a29c" x="415" y="24" width="98" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Verdana"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{moneda}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f0855568-08c9-4315-a1e7-2dcd70611439" x="5" y="61" width="508" height="21"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Verdana"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e4a7a0e3-49a7-42ae-870e-a9775dafe2f3" x="19" y="96" width="227" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Verdana" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{girado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="62fd7399-0ca1-43e6-89c5-07dd2a11d21f" x="26" y="119" width="220" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Verdana" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{domicilio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a1d1443a-a5ee-4185-bc60-3f0cd2263385" x="41" y="131" width="119" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Verdana" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ruc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b3b60825-14df-4468-8616-7376a096d9de" x="189" y="131" width="57" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Verdana" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{telefono}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="bb79a6a0-8b5f-4a42-80f5-674a7668fd17" x="257" y="121" width="41" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Verdana"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{banco}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="bf760c14-8d13-44c8-8ce1-7e374dac8e63" x="298" y="121" width="51" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Verdana"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{oficina}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="375d03e5-971c-4020-bfe3-18c56cc2c6dd" x="349" y="121" width="92" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Verdana"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{numeroCuenta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ca2ac07c-8c0c-4ab7-bdf0-ce9bbb519221" x="441" y="121" width="49" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Verdana"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5d9098cc-98b4-4a70-9387-060c92e56d56" x="19" y="160" width="185" height="13"/>
+				<textElement>
+					<font fontName="Verdana" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fiador}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="79231e9d-b1f9-4f08-84ff-cc0a234c5bc8" x="41" y="195" width="157" height="13"/>
+				<textElement>
+					<font fontName="Verdana" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{aval}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="905f3791-2ea1-4d5d-9c71-bf65784a6e2a" x="20" y="209" width="178" height="13"/>
+				<textElement>
+					<font fontName="Verdana" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dom}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f5aa2175-53f3-4b0f-ba84-4ee097f69396" x="13" y="222" width="85" height="14"/>
+				<textElement>
+					<font fontName="Verdana" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{doi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="29361d9f-8adc-42dc-9b00-99039238259e" x="127" y="223" width="71" height="14"/>
+				<textElement>
+					<font fontName="Verdana" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{telf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3ca04f3d-191e-4f49-909f-624861136ddd" x="70" y="252" width="128" height="13"/>
+				<textElement>
+					<font fontName="Verdana" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{representante}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+</jasperReport>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/09/2013 02:56:16 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="Entidades.Operaciones" table="operaciones" catalog="siar_qf">
+        <id name="idoperacion" type="java.lang.Integer">
+            <column name="IDOPERACION" />
+            <generator class="identity" />
+        </id>
+        <property name="codigooperacion" type="string">
+            <column name="CODIGOOPERACION" length="2" not-null="true" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="DESCRIPCION" length="40" />
+        </property>
+        <property name="verstock" type="string">
+            <column name="VERSTOCK" length="1" />
+        </property>
+        <property name="costos" type="string">
+            <column name="COSTOS" length="1" />
+        </property>
+        <property name="transaccion" type="string">
+            <column name="TRANSACCION" length="1" />
+        </property>
+        <set name="sistemas" inverse="true">
+            <key>
+                <column name="IDOPERACION" />
+            </key>
+            <one-to-many class="Entidades.Sistema" />
+        </set>
+        <set name="detalleeses" inverse="true">
+            <key>
+                <column name="IDOPERACION" />
+            </key>
+            <one-to-many class="Entidades.Detallees" />
+        </set>
+    </class>
+</hibernate-mapping>

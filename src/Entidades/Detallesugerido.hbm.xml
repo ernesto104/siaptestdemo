@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/09/2013 02:56:16 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="Entidades.Detallesugerido" table="detallesugerido" catalog="siar_qf">
+        <id name="iddetallesugerido" type="java.lang.Integer">
+            <column name="IDDETALLESUGERIDO" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="repuestos" class="Entidades.Repuestos" fetch="join">
+            <column name="IDREPUESTO" />
+            <column name="IDLINEA" />
+        </many-to-one>
+        <many-to-one name="cabecsugerido" class="Entidades.Cabecsugerido" fetch="join">
+            <column name="IDSUGERIDO" />
+        </many-to-one>
+        <property name="cantpedida" type="java.lang.Integer">
+            <column name="CANTPEDIDA" />
+        </property>
+        <property name="cantentregada" type="java.lang.Integer">
+            <column name="CANTENTREGADA" />
+        </property>
+        <property name="valorfob" type="java.lang.Double">
+            <column name="VALORFOB" precision="8" />
+        </property>
+        <property name="valorcosto" type="java.lang.Double">
+            <column name="VALORCOSTO" precision="8" />
+        </property>
+        <property name="partidaaranc" type="string">
+            <column name="PARTIDAARANC" length="14" />
+        </property>
+        <property name="stocksugerido" type="java.lang.Integer">
+            <column name="STOCKSUGERIDO" />
+        </property>
+        <property name="cantpendiente" type="java.lang.Integer">
+            <column name="CANTPENDIENTE" />
+        </property>
+        <property name="demandaprom" type="java.lang.Integer">
+            <column name="DEMANDAPROM" />
+        </property>
+    </class>
+</hibernate-mapping>

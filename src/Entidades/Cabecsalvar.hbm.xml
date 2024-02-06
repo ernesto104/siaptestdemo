@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 12/02/2015 11:17:21 AM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="Entidades.Cabecsalvar" table="cabecsalvar" catalog="siar_qf">
+        <id name="idsalida" type="java.lang.Integer">
+            <column name="IDSALIDA" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="vendedores" class="Entidades.Vendedores" fetch="select">
+            <column name="IDVENDEDOR" />
+        </many-to-one>        
+        <many-to-one name="sucursales" class="Entidades.Sucursales" fetch="select">
+            <column name="IDSUCURSAL" />
+        </many-to-one>        
+        <many-to-one name="cabeces" class="Entidades.Cabeces" fetch="join">
+            <column name="TIPOTRA" length="1" />
+            <column name="TIPODOC" length="2" />
+            <column name="NRORSERIE" length="3" />
+            <column name="NRODOCUMENTO" length="10" />
+        </many-to-one>
+        <many-to-one name="usuarios" class="Entidades.Usuarios" fetch="select">
+            <column name="IDUSUARIO" />
+        </many-to-one>
+        <many-to-one name="clientes" class="Entidades.Clientes" fetch="select">
+            <column name="IDCLIENTE" />
+        </many-to-one>
+        <property name="codigosalida" type="string">
+            <column name="CODIGOSALIDA" length="8" />
+        </property>
+        <property name="tipotrask" type="string">
+            <column name="TIPOTRASK" length="1" not-null="true" />
+        </property>
+        <property name="tipodocsk" type="string">
+            <column name="TIPODOCSK" length="2" not-null="true" />
+        </property>
+        <property name="nroseriesk" type="string">
+            <column name="NROSERIESK" length="3" not-null="true" />
+        </property>
+        <property name="moneda" type="string">
+            <column name="MONEDA" length="1" not-null="true" />
+        </property>
+        <property name="fecha" type="date">
+            <column name="FECHA" length="10" />
+        </property>
+        <property name="valorventa" type="java.lang.Double">
+            <column name="VALORVENTA" precision="8" />
+        </property>
+        <property name="igv" type="java.lang.Double">
+            <column name="IGV" precision="8" />
+        </property>
+        <property name="total" type="java.lang.Double">
+            <column name="TOTAL" precision="12" />
+        </property>
+        <property name="observacion" type="string">
+            <column name="OBSERVACION" length="100" not-null="true" />
+        </property>
+        <set name="detalleeses" table="detallees" inverse="true" lazy="false" fetch="join">
+            <key>
+                <column name="IDSALIDA" />
+            </key>
+            <one-to-many class="Entidades.Detallees" />
+        </set>
+        <set name="pagoses" table="pagos" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="IDSALIDA" />
+            </key>
+            <one-to-many class="Entidades.Pagos" />
+        </set>
+    </class>
+</hibernate-mapping>

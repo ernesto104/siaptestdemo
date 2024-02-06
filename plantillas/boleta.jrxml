@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="boleta" language="groovy" pageWidth="595" pageHeight="842" columnWidth="539" leftMargin="28" rightMargin="28" topMargin="24" bottomMargin="24" uuid="f96e4d75-027e-469c-8c4e-b37af026e235">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="ruc" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="numeroSucursal" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="numeroSerie" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="empresaNombre" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="empresaDireccion" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="empresaIdentidad" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="dia" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="mes" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="año" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="cdia" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="cmes" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="caño" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="total" class="java.lang.String" isForPrompting="false"/>
+	<field name="cantidad" class="java.lang.String"/>
+	<field name="codigo" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="importe" class="java.lang.String"/>
+	<title>
+		<band height="164" splitType="Stretch">
+			<textField>
+				<reportElement uuid="406e46b9-9836-48de-9210-a35e3a034acf" x="426" y="118" width="39" height="22"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Lucida Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="395997ac-3390-4ec8-a260-59a4da35ed86" x="465" y="118" width="42" height="21"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Lucida Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{mes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3f4f0ce5-bdb5-49d3-8648-56c1ea61aa61" x="507" y="118" width="37" height="22"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Lucida Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{año}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e9d97a95-2cbc-435e-8528-5d5395a62969" x="69" y="97" width="199" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Lucida Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{empresaNombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="fb85d83d-31ed-4477-a35a-186b49a13046" x="69" y="118" width="199" height="22"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Lucida Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{empresaDireccion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1f23a663-a78e-4d69-8617-213c3ceba4f6" x="324" y="118" width="84" height="21"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Lucida Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{empresaIdentidad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="52bef658-6218-4af9-9289-da10f480c4c5" x="32" y="0" width="33" height="17"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Lucida Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6ca3cf2a-a188-423c-a07f-494f083e7be7" x="65" y="0" width="90" height="17"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Lucida Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d8532eac-fbed-4473-ba14-cf87e20b0af7" x="155" y="0" width="318" height="17"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Lucida Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="210c6389-7e29-40c2-8fe5-6310d8df28cd" x="473" y="0" width="79" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Lucida Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{importe}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="47" splitType="Stretch">
+			<textField>
+				<reportElement uuid="0c3c8591-10f0-4215-b3a5-bd8507bb1ebd" x="199" y="27" width="24" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Lucida Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cdia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="449fbe26-2deb-4911-ba5c-f30ba59168b0" x="240" y="27" width="72" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Lucida Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cmes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="64078b86-8ce8-461c-ae53-c8308edd6a95" x="340" y="27" width="27" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Lucida Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{caño}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6861ae98-d65a-4918-8c5b-529c29a4335a" x="467" y="11" width="79" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Lucida Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

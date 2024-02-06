@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/09/2013 02:56:16 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="Entidades.RenovacionLetra" table="renovacion_letra" catalog="siar_qf">
+        <id name="idrenovacionletra" type="java.lang.Integer">
+            <column name="idrenovacionletra" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="cabeces" class="Entidades.Cabeces" fetch="join">
+            <column name="tipotra" length="1" />
+            <column name="tipodoc" length="2" />
+            <column name="nroserie" length="3" />
+            <column name="nrodocumento" length="10" />
+        </many-to-one>
+        <property name="nroenova" type="string">
+            <column name="nroenova" length="2" not-null="true" />
+        </property>
+        <property name="fechaEmision" type="date">
+            <column name="fecha_emision" length="10" />
+        </property>
+        <property name="totalLetra" type="java.lang.Double">
+            <column name="total_letra" precision="8" />
+        </property>
+        <property name="fechaVence" type="date">
+            <column name="fecha_vence" length="10" />
+        </property>
+    </class>
+</hibernate-mapping>
