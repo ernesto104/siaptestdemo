@@ -3600,7 +3600,7 @@ public class MENU001 extends javax.swing.JFrame {
                 panelCentral.updateUI();
             }
         });
-        JPanel panel = equipos.panelCodigoLineas;
+        JPanel panel = equipos.panelCodigoEquipos;
         panel.setLocation(0, 0);
         panelCodigoLineas.add(panel);
         panelCodigoLineas.updateUI();

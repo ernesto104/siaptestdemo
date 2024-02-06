@@ -115,9 +115,9 @@ public class Servicio_Equipos {
     }
     
     
-      public void Listar_lineas() {
+      public void Listar_equipos() {
 
-       DefaultTableModel table = (DefaultTableModel) it.tablaCodigoLineas.getModel();
+       DefaultTableModel table = (DefaultTableModel) it.tablaCodigoEquipos.getModel();
         Iterator ite = equipoDao.Obtener_Lista_Objetos().iterator();
         while (ite.hasNext()) {
             Object[] row = new Object[6];

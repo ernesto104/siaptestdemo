@@ -2,9 +2,9 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated 27/02/2015 12:38:58 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
-  <class catalog="siar_qf" name="Entidades.Equipos" table="lineas">
+  <class catalog="siar_qf" name="Entidades.Equipos" table="equipos">
     <id name="idequipo" type="int">
-      <column name="IDLINEA"/>
+      <column name="IDEQUIPO"/>
       <generator class="assigned"/>
     </id>
     <property name="descripcion" type="string">

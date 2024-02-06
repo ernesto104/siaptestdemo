@@ -19,7 +19,7 @@ import org.hibernate.Session;
  */
 public class FREP003 extends javax.swing.JFrame {
 
-    int numerolineas;
+    int numeroequipos;
     Servicio_Equipos sli;
     int fila;
     private boolean seleccionada;
@@ -46,13 +46,13 @@ public class FREP003 extends javax.swing.JFrame {
 
         initComponents();
         this.setLocationRelativeTo(null);
-        modelo = (DefaultTableModel) tablaCodigoLineas.getModel();
-        table = (DefaultTableModel) tablaCodigoLineas.getModel();
+        modelo = (DefaultTableModel) tablaCodigoEquipos.getModel();
+        table = (DefaultTableModel) tablaCodigoEquipos.getModel();
         sli = new Servicio_Equipos(this);
         tm = new TipoMensaje();
 
         txtid.setText(String.valueOf(sli.nextId()));
-        Listar_Lineas();
+        Listar_Equipos();
         crearArrayComponente();
         numMaximo = new ArrayList<>();
         crearArrayNumMax();
@@ -95,8 +95,8 @@ public class FREP003 extends javax.swing.JFrame {
         tipoDato.add("D");
     }
 
-    private void Listar_Lineas() {
-        sli.Listar_lineas();
+    private void Listar_Equipos() {
+        sli.Listar_equipos();
     }
 
     private String validarEntradas() {
@@ -113,7 +113,7 @@ public class FREP003 extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        panelCodigoLineas = new javax.swing.JPanel();
+        panelCodigoEquipos = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -130,7 +130,7 @@ public class FREP003 extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tablaCodigoLineas = new javax.swing.JTable();
+        tablaCodigoEquipos = new javax.swing.JTable();
         btnagregar = new javax.swing.JButton();
         btnmodificar = new javax.swing.JButton();
         btneliminar = new javax.swing.JButton();
@@ -157,7 +157,7 @@ public class FREP003 extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Linea", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 14))); // NOI18N
 
-        jLabel1.setText("Código de Producto");
+        jLabel1.setText("Código de Equipo");
 
         jLabel2.setText("Marca");
 
@@ -235,9 +235,9 @@ public class FREP003 extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel6.setText("Equipos");
 
-        tablaCodigoLineas.setAutoCreateRowSorter(true);
-        tablaCodigoLineas.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        tablaCodigoLineas.setModel(new javax.swing.table.DefaultTableModel(
+        tablaCodigoEquipos.setAutoCreateRowSorter(true);
+        tablaCodigoEquipos.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        tablaCodigoEquipos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -253,29 +253,29 @@ public class FREP003 extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tablaCodigoLineas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tablaCodigoLineas.getTableHeader().setReorderingAllowed(false);
-        tablaCodigoLineas.addMouseListener(new java.awt.event.MouseAdapter() {
+        tablaCodigoEquipos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tablaCodigoEquipos.getTableHeader().setReorderingAllowed(false);
+        tablaCodigoEquipos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tablaCodigoLineasMouseReleased(evt);
+                tablaCodigoEquiposMouseReleased(evt);
             }
         });
-        tablaCodigoLineas.addKeyListener(new java.awt.event.KeyAdapter() {
+        tablaCodigoEquipos.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                tablaCodigoLineasKeyReleased(evt);
+                tablaCodigoEquiposKeyReleased(evt);
             }
         });
-        jScrollPane2.setViewportView(tablaCodigoLineas);
-        if (tablaCodigoLineas.getColumnModel().getColumnCount() > 0) {
-            tablaCodigoLineas.getColumnModel().getColumn(0).setResizable(false);
-            tablaCodigoLineas.getColumnModel().getColumn(0).setPreferredWidth(100);
-            tablaCodigoLineas.getColumnModel().getColumn(1).setResizable(false);
-            tablaCodigoLineas.getColumnModel().getColumn(1).setPreferredWidth(300);
-            tablaCodigoLineas.getColumnModel().getColumn(2).setResizable(false);
-            tablaCodigoLineas.getColumnModel().getColumn(2).setPreferredWidth(100);
-            tablaCodigoLineas.getColumnModel().getColumn(3).setPreferredWidth(100);
-            tablaCodigoLineas.getColumnModel().getColumn(4).setPreferredWidth(100);
-            tablaCodigoLineas.getColumnModel().getColumn(5).setPreferredWidth(100);
+        jScrollPane2.setViewportView(tablaCodigoEquipos);
+        if (tablaCodigoEquipos.getColumnModel().getColumnCount() > 0) {
+            tablaCodigoEquipos.getColumnModel().getColumn(0).setResizable(false);
+            tablaCodigoEquipos.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tablaCodigoEquipos.getColumnModel().getColumn(1).setResizable(false);
+            tablaCodigoEquipos.getColumnModel().getColumn(1).setPreferredWidth(300);
+            tablaCodigoEquipos.getColumnModel().getColumn(2).setResizable(false);
+            tablaCodigoEquipos.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tablaCodigoEquipos.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tablaCodigoEquipos.getColumnModel().getColumn(4).setPreferredWidth(100);
+            tablaCodigoEquipos.getColumnModel().getColumn(5).setPreferredWidth(100);
         }
 
         btnagregar.setText("Agregar");
@@ -320,22 +320,22 @@ public class FREP003 extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout panelCodigoLineasLayout = new javax.swing.GroupLayout(panelCodigoLineas);
-        panelCodigoLineas.setLayout(panelCodigoLineasLayout);
-        panelCodigoLineasLayout.setHorizontalGroup(
-            panelCodigoLineasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCodigoLineasLayout.createSequentialGroup()
-                .addGroup(panelCodigoLineasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelCodigoLineasLayout.createSequentialGroup()
-                        .addGroup(panelCodigoLineasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelCodigoLineasLayout.createSequentialGroup()
+        javax.swing.GroupLayout panelCodigoEquiposLayout = new javax.swing.GroupLayout(panelCodigoEquipos);
+        panelCodigoEquipos.setLayout(panelCodigoEquiposLayout);
+        panelCodigoEquiposLayout.setHorizontalGroup(
+            panelCodigoEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCodigoEquiposLayout.createSequentialGroup()
+                .addGroup(panelCodigoEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelCodigoEquiposLayout.createSequentialGroup()
+                        .addGroup(panelCodigoEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelCodigoEquiposLayout.createSequentialGroup()
                                 .addGap(24, 24, 24)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelCodigoLineasLayout.createSequentialGroup()
+                            .addGroup(panelCodigoEquiposLayout.createSequentialGroup()
                                 .addGap(242, 242, 242)
                                 .addComponent(jLabel6)))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCodigoLineasLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCodigoEquiposLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnagregar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -349,20 +349,20 @@ public class FREP003 extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addGroup(panelCodigoLineasLayout.createSequentialGroup()
+            .addGroup(panelCodigoEquiposLayout.createSequentialGroup()
                 .addGap(80, 80, 80)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        panelCodigoLineasLayout.setVerticalGroup(
-            panelCodigoLineasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCodigoLineasLayout.createSequentialGroup()
+        panelCodigoEquiposLayout.setVerticalGroup(
+            panelCodigoEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCodigoEquiposLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelCodigoLineasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelCodigoEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnagregar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnmodificar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -378,12 +378,12 @@ public class FREP003 extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelCodigoLineas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelCodigoEquipos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(panelCodigoLineas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelCodigoEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -447,7 +447,7 @@ public class FREP003 extends javax.swing.JFrame {
                 if (sli.borrarEquipos(sli.getEquipos(Integer.parseInt(txtid.getText())))) {
                     JOptionPane.showMessageDialog(null, "Operacion exitosa");
                     table.removeRow(fila);
-                    tablaCodigoLineas.clearSelection();
+                    tablaCodigoEquipos.clearSelection();
                     seleccionada = false;
                     clean();
                     txtid.setText(String.valueOf(sli.nextId()));
@@ -501,7 +501,7 @@ public class FREP003 extends javax.swing.JFrame {
 
                     if (actualizarEquipos(l)) {
                         JOptionPane.showMessageDialog(null, "Operación exitosa");
-                        DefaultTableModel m = (DefaultTableModel) tablaCodigoLineas.getModel();
+                        DefaultTableModel m = (DefaultTableModel) tablaCodigoEquipos.getModel();
                         m.setValueAt(id, fila, 0);
                         m.setValueAt(descripcion, fila, 1);
                         m.setValueAt(descuento, fila, 2);
@@ -527,24 +527,24 @@ public class FREP003 extends javax.swing.JFrame {
 
     private void btnlimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlimpiarActionPerformed
         limpiar();
-        tablaCodigoLineas.clearSelection();
+        tablaCodigoEquipos.clearSelection();
         seleccionada = false;
     }//GEN-LAST:event_btnlimpiarActionPerformed
 
     private void btnexportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnexportarActionPerformed
         Servicio_Excel servicio_excel;
-        servicio_excel = new Servicio_Excel(tablaCodigoLineas, this);
+        servicio_excel = new Servicio_Excel(tablaCodigoEquipos, this);
         servicio_excel.Exportar_Excel(1);
     }//GEN-LAST:event_btnexportarActionPerformed
 
-    private void tablaCodigoLineasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tablaCodigoLineasKeyReleased
-        fila = tablaCodigoLineas.getSelectedRow();
-        String id = tablaCodigoLineas.getValueAt(fila, 0).toString();
-        String descripcion = tablaCodigoLineas.getValueAt(fila, 1).toString();
-        double descuento = (double) tablaCodigoLineas.getValueAt(fila, 2);
-        double descuento2 = (double) tablaCodigoLineas.getValueAt(fila, 3);
-        double descuento3 = (double) tablaCodigoLineas.getValueAt(fila, 4);
-        double descuento4 = (double) tablaCodigoLineas.getValueAt(fila, 5);
+    private void tablaCodigoEquiposKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tablaCodigoEquiposKeyReleased
+        fila = tablaCodigoEquipos.getSelectedRow();
+        String id = tablaCodigoEquipos.getValueAt(fila, 0).toString();
+        String descripcion = tablaCodigoEquipos.getValueAt(fila, 1).toString();
+        double descuento = (double) tablaCodigoEquipos.getValueAt(fila, 2);
+        double descuento2 = (double) tablaCodigoEquipos.getValueAt(fila, 3);
+        double descuento3 = (double) tablaCodigoEquipos.getValueAt(fila, 4);
+        double descuento4 = (double) tablaCodigoEquipos.getValueAt(fila, 5);
 
         txtid.setText(id);
         txtdescripcion.setText(descripcion);
@@ -554,16 +554,16 @@ public class FREP003 extends javax.swing.JFrame {
         txtdescuento4.setText(String.valueOf(descuento4));
 
         seleccionada = true;
-    }//GEN-LAST:event_tablaCodigoLineasKeyReleased
+    }//GEN-LAST:event_tablaCodigoEquiposKeyReleased
 
-    private void tablaCodigoLineasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaCodigoLineasMouseReleased
-        fila = tablaCodigoLineas.getSelectedRow();
-        String id = tablaCodigoLineas.getValueAt(fila, 0).toString();
-        String descripcion = tablaCodigoLineas.getValueAt(fila, 1).toString();
-        double descuento = (double) tablaCodigoLineas.getValueAt(fila, 2);
-        double descuento2 = (double) tablaCodigoLineas.getValueAt(fila, 3);
-        double descuento3 = (double) tablaCodigoLineas.getValueAt(fila, 4);
-        double descuento4 = (double) tablaCodigoLineas.getValueAt(fila, 5);
+    private void tablaCodigoEquiposMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaCodigoEquiposMouseReleased
+        fila = tablaCodigoEquipos.getSelectedRow();
+        String id = tablaCodigoEquipos.getValueAt(fila, 0).toString();
+        String descripcion = tablaCodigoEquipos.getValueAt(fila, 1).toString();
+        double descuento = (double) tablaCodigoEquipos.getValueAt(fila, 2);
+        double descuento2 = (double) tablaCodigoEquipos.getValueAt(fila, 3);
+        double descuento3 = (double) tablaCodigoEquipos.getValueAt(fila, 4);
+        double descuento4 = (double) tablaCodigoEquipos.getValueAt(fila, 5);
 
         txtid.setText(id);
         txtdescripcion.setText(descripcion);
@@ -573,7 +573,7 @@ public class FREP003 extends javax.swing.JFrame {
         txtdescuento4.setText(String.valueOf(descuento4));
 
         seleccionada = true;
-    }//GEN-LAST:event_tablaCodigoLineasMouseReleased
+    }//GEN-LAST:event_tablaCodigoEquiposMouseReleased
 
     public void limpiar() {
 
@@ -595,7 +595,7 @@ public class FREP003 extends javax.swing.JFrame {
         for (JTextField j : componentes) {
             j.setText("");
         }
-        tablaCodigoLineas.clearSelection();
+        tablaCodigoEquipos.clearSelection();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnagregar;
@@ -617,8 +617,8 @@ public class FREP003 extends javax.swing.JFrame {
     public javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JTable jTable1;
-    public javax.swing.JPanel panelCodigoLineas;
-    public javax.swing.JTable tablaCodigoLineas;
+    public javax.swing.JPanel panelCodigoEquipos;
+    public javax.swing.JTable tablaCodigoEquipos;
     public javax.swing.JTextField txtdescripcion;
     public javax.swing.JTextField txtdescuento;
     public javax.swing.JTextField txtdescuento2;

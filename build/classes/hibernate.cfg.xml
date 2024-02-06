@@ -17,7 +17,7 @@
     <mapping resource="Entidades/Roles.hbm.xml"/>
     <mapping resource="Entidades/PaquetesRepuestos.hbm.xml"/>
     <mapping resource="Entidades/Cabecproformas.hbm.xml"/>
-    <mapping resource="Entidades/Lineas.hbm.xml"/>
+    <mapping resource="Entidades/Equipos.hbm.xml"/>
     <mapping resource="Entidades/Detallees.hbm.xml"/>
     <mapping resource="Entidades/Control.hbm.xml"/>
     <mapping resource="Entidades/Cabecsugerido.hbm.xml"/>
