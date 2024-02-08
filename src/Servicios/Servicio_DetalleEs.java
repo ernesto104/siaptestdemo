@@ -69,7 +69,7 @@ public class Servicio_DetalleEs {
         listaDetalleEs = detalleEsDAO.getListaDetalleEs(cabecesId);       
 
         for ( int i = 0; i < listaDetalleEs.size(); i++ ) {
-            int l = listaDetalleEs.get(i).getRepuestos().getId().getIdlinea();
+            int l = listaDetalleEs.get(i).getRepuestos().getId().getIdequipo();
             String cr = listaDetalleEs.get(i).getRepuestos().getCodrepuesto();
             
             // Inicio de  Agregado
@@ -106,7 +106,7 @@ public class Servicio_DetalleEs {
         listaDetalleEs = detalleEsDAO.getListaDetalleEs(cabecesId);       
 
         for ( int i = 0; i < listaDetalleEs.size(); i++ ) {
-            int a = listaDetalleEs.get(i).getRepuestos().getId().getIdlinea();
+            int a = listaDetalleEs.get(i).getRepuestos().getId().getIdequipo();
             String b = "" + listaDetalleEs.get(i).getRepuestos().getCodrepuesto();
             String c = listaDetalleEs.get(i).getRepuestos().getDescripcion();
             int d = listaDetalleEs.get(i).getCantentregada();
@@ -172,7 +172,7 @@ public class Servicio_DetalleEs {
         
         for ( int i = 0; i < listaDetalleEs.size(); i++ ) {
 //            System.out.println("idre: "+listaDetalleEs.get(i).getRepuestos().getId().getIdrepuesto());
-            int linea = listaDetalleEs.get(i).getRepuestos().getId().getIdlinea();
+            int linea = listaDetalleEs.get(i).getRepuestos().getId().getIdequipo();
             String codRep = listaDetalleEs.get(i).getRepuestos().getCodrepuesto();
             int cantEnt = listaDetalleEs.get(i).getCantentregada();
             String descripcion = listaDetalleEs.get(i).getRepuestos().getDescripcion();
@@ -208,7 +208,7 @@ public class Servicio_DetalleEs {
         List<Detallees> listaDetalleEs = detalleEsDAO.getListaDetalleEs_Salida(nro);
         
         for ( int i = 0; i < listaDetalleEs.size(); i++ ) {
-            int l = listaDetalleEs.get(i).getRepuestos().getId().getIdlinea();
+            int l = listaDetalleEs.get(i).getRepuestos().getId().getIdequipo();
             String cr = listaDetalleEs.get(i).getRepuestos().getCodrepuesto();
             int c = listaDetalleEs.get(i).getCantentregada();
             String d = listaDetalleEs.get(i).getRepuestos().getDescripcion();

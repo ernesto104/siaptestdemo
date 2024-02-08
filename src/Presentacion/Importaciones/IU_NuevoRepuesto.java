@@ -88,7 +88,7 @@ public class IU_NuevoRepuesto extends javax.swing.JFrame {
                     
                     Repuestos rep=sr.getRepuesto(sugTabla.getNumParte());
                     sugTabla.setIdrepuesto(rep.getId().getIdrepuesto());
-                    sugTabla.setIdlinea(rep.getId().getIdlinea());
+                    sugTabla.setIdlinea(rep.getId().getIdequipo());
                     tablaRAM.add(sugTabla);
                     if(opcion==1){
                         this.iusug.setTablaRAM(tablaRAM);

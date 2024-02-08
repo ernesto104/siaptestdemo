@@ -35,7 +35,7 @@ public class SugeridoRAM {
             fob=Double.parseDouble(String.valueOf(tb_sugerido.getValueAt(fila,8)));
             Servicio_Repuestos sr=new Servicio_Repuestos();
             idrepuesto=sr.getRepuesto(numParte).getId().getIdrepuesto();
-            idlinea=sr.getRepuesto(numParte).getId().getIdlinea();
+            idlinea=sr.getRepuesto(numParte).getId().getIdequipo();
         }else if(opc==2){
             cantEntregada=Integer.parseInt(String.valueOf(tb_sugerido.getValueAt(fila,6)));
             cantPendiente=Integer.parseInt(String.valueOf(tb_sugerido.getValueAt(fila,7)));
@@ -44,7 +44,7 @@ public class SugeridoRAM {
             fob=Double.parseDouble(String.valueOf(tb_sugerido.getValueAt(fila,10)));
             Servicio_Repuestos sr=new Servicio_Repuestos();
             idrepuesto=sr.getRepuesto(numParte).getId().getIdrepuesto();
-            idlinea=sr.getRepuesto(numParte).getId().getIdlinea();
+            idlinea=sr.getRepuesto(numParte).getId().getIdequipo();
         }
         opcion=opc;
     }

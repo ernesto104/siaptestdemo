@@ -156,8 +156,18 @@ public class FREP015 extends javax.swing.JFrame {
         jLabel5.setText("Estado");
 
         cb_estado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione", "Alta", "Baja" }));
+        cb_estado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_estadoActionPerformed(evt);
+            }
+        });
 
         cb_rol.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione" }));
+        cb_rol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_rolActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Fecha de Expiracion");
 
@@ -508,6 +518,14 @@ public class FREP015 extends javax.swing.JFrame {
     private void btn_visualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_visualizarActionPerformed
         JOptionPane.showMessageDialog(null, "La clave es :" + tx_clave.getText(), "Clave", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btn_visualizarActionPerformed
+
+    private void cb_estadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_estadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cb_estadoActionPerformed
+
+    private void cb_rolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_rolActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cb_rolActionPerformed
     private void Informacion_Usuario() {
         int fila = tb_usuario.getSelectedRow();
         fila = sorter.convertRowIndexToModel(fila);

@@ -49,7 +49,7 @@ public class DetalleEsDAO extends GenericDAO<Detallees> {
     public List<Detallees> getDetalleESXRepuestos(Repuestos r) {
         List<Detallees> returnList = getHibernateTemplate().createQuery(
                 "from Detallees as d where d.repuestos.id.idrepuesto=" + r.getId().getIdrepuesto()
-                + " and d.repuestos.id.idlinea=" + r.getId().getIdlinea()
+                + " and d.repuestos.id.idlinea=" + r.getId().getIdequipo()
         ).list();
         session.getTransaction().commit();
         return returnList;
@@ -58,7 +58,7 @@ public class DetalleEsDAO extends GenericDAO<Detallees> {
     public List<Detallees> getDetalleESXRepuestosXCliente(Repuestos r, Clientes cli) {
         List<Detallees> returnList = getHibernateTemplate().createQuery(
                 "from Detallees as d where d.repuestos.id.idrepuesto=" + r.getId().getIdrepuesto()
-                + " and d.repuestos.id.idlinea=" + r.getId().getIdlinea()+ " "
+                + " and d.repuestos.id.idlinea=" + r.getId().getIdequipo()+ " "
                         + "and d.clientes.idcliente = "+cli.getIdcliente()+ " order by d.fecha desc").list();
         session.getTransaction().commit();
         return returnList;

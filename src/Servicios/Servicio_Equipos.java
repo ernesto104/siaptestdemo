@@ -124,7 +124,7 @@ public class Servicio_Equipos {
             Equipos lin = (Equipos) ite.next();
             row[0] = lin.getIdequipo();
             row[1] = lin.getDescripcion();
-            row[2] = lin.getDescuento1();
+            row[2] = lin.getEstado();
             row[3] = lin.getDescuento2();
             row[4] = lin.getDescuento3();
             row[5] = lin.getDescuento4();

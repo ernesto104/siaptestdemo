@@ -62,15 +62,24 @@ public class FREP003 extends javax.swing.JFrame {
         asignarEvento();
 
         sl = new Servicio_Equipos(this);
+        
+        //para ocultar botones (se desplazo a otra vista el boton Eliminar)
+        btneliminar.setVisible(false);
+        jLabel5.setVisible(false);
+        jLabel7.setVisible(false);
+        jLabel8.setVisible(false);
+        txtdescuento2.setVisible(false);
+        txtdescuento3.setVisible(false);
+        txtdescuento4.setVisible(false);
     }
 
     private void crearArrayComponente() {
-        componentes = new JTextField[5];
+        componentes = new JTextField[4];
         componentes[0] = txtdescripcion;
-        componentes[1] = txtdescuento;
-        componentes[2] = txtdescuento2;
-        componentes[3] = txtdescuento3;
-        componentes[4] = txtdescuento4;
+        //componentes[1] = txtdescuento;
+        componentes[1] = txtdescuento2;
+        componentes[2] = txtdescuento3;
+        componentes[3] = txtdescuento4;
     }
 
     private void crearArrayNumMax() {
@@ -94,17 +103,29 @@ public class FREP003 extends javax.swing.JFrame {
         tipoDato.add("D");
         tipoDato.add("D");
     }
-
+    //generar contenido de tabla
     private void Listar_Equipos() {
         sli.Listar_equipos();
     }
 
     private String validarEntradas() {
-        String mensaje = "";
+        String mensaje = "ERROR";
         if (txtdescripcion.getText().equals("")) {
-            mensaje = mensaje + "Ingrese descripción de Línea";
+            mensaje = mensaje + "\n- Ingrese descripción de Equipo";
         }
-        return mensaje;
+        
+        
+        if (comboEstado.getSelectedIndex() == 0) {
+            mensaje += "\n- Seleccione un estado para el equipo";
+        }
+        
+        
+       /* if (mensaje.equals("")) {
+            return tm.VALIDO;
+        } else {*/
+            return mensaje;
+        //}
+   
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -113,12 +134,12 @@ public class FREP003 extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        btneliminar = new javax.swing.JButton();
         panelCodigoEquipos = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtid = new javax.swing.JTextField();
-        txtdescuento = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtdescripcion = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -128,15 +149,16 @@ public class FREP003 extends javax.swing.JFrame {
         txtdescuento4 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        comboEstado = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaCodigoEquipos = new javax.swing.JTable();
         btnagregar = new javax.swing.JButton();
         btnmodificar = new javax.swing.JButton();
-        btneliminar = new javax.swing.JButton();
         btnexportar = new javax.swing.JButton();
         btnsalir = new javax.swing.JButton();
         btnlimpiar = new javax.swing.JButton();
+        btndesactivar = new javax.swing.JButton();
 
         jMenu1.setText("jMenu1");
 
@@ -153,17 +175,24 @@ public class FREP003 extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        btneliminar.setText("Eliminar");
+        btneliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btneliminarActionPerformed(evt);
+            }
+        });
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Linea", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 14))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Equipo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 14))); // NOI18N
 
         jLabel1.setText("Código de Equipo");
 
-        jLabel2.setText("Marca");
+        jLabel2.setText("Estado");
 
         txtid.setEnabled(false);
 
-        jLabel4.setText("Equipo");
+        jLabel4.setText("Descripcion");
 
         jLabel3.setText("( * )");
 
@@ -172,6 +201,13 @@ public class FREP003 extends javax.swing.JFrame {
         jLabel7.setText("Descuento 3");
 
         jLabel8.setText("Descuento 4 ");
+
+        comboEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione", "Activado", "Desactivado" }));
+        comboEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboEstadoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -191,14 +227,14 @@ public class FREP003 extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtdescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtdescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtdescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(txtdescuento4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
                         .addComponent(txtdescuento3, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtdescuento2, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addComponent(txtdescuento2, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(comboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 285, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -215,8 +251,8 @@ public class FREP003 extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtdescuento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(comboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -242,11 +278,11 @@ public class FREP003 extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Cod. Producto", "Equipo", "Marca", "Modelo", "Descuento 3", "Descuento 4"
+                "Cod. Equipo", "Descripcion", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -267,15 +303,9 @@ public class FREP003 extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tablaCodigoEquipos);
         if (tablaCodigoEquipos.getColumnModel().getColumnCount() > 0) {
-            tablaCodigoEquipos.getColumnModel().getColumn(0).setResizable(false);
             tablaCodigoEquipos.getColumnModel().getColumn(0).setPreferredWidth(100);
-            tablaCodigoEquipos.getColumnModel().getColumn(1).setResizable(false);
             tablaCodigoEquipos.getColumnModel().getColumn(1).setPreferredWidth(300);
-            tablaCodigoEquipos.getColumnModel().getColumn(2).setResizable(false);
             tablaCodigoEquipos.getColumnModel().getColumn(2).setPreferredWidth(100);
-            tablaCodigoEquipos.getColumnModel().getColumn(3).setPreferredWidth(100);
-            tablaCodigoEquipos.getColumnModel().getColumn(4).setPreferredWidth(100);
-            tablaCodigoEquipos.getColumnModel().getColumn(5).setPreferredWidth(100);
         }
 
         btnagregar.setText("Agregar");
@@ -289,13 +319,6 @@ public class FREP003 extends javax.swing.JFrame {
         btnmodificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnmodificarActionPerformed(evt);
-            }
-        });
-
-        btneliminar.setText("Eliminar");
-        btneliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btneliminarActionPerformed(evt);
             }
         });
 
@@ -320,6 +343,13 @@ public class FREP003 extends javax.swing.JFrame {
             }
         });
 
+        btndesactivar.setText("Des/Activar");
+        btndesactivar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btndesactivarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelCodigoEquiposLayout = new javax.swing.GroupLayout(panelCodigoEquipos);
         panelCodigoEquipos.setLayout(panelCodigoEquiposLayout);
         panelCodigoEquiposLayout.setHorizontalGroup(
@@ -340,9 +370,9 @@ public class FREP003 extends javax.swing.JFrame {
                         .addComponent(btnagregar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnmodificar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(14, 14, 14)
-                        .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btndesactivar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14)
                         .addComponent(btnexportar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnlimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -350,7 +380,7 @@ public class FREP003 extends javax.swing.JFrame {
                         .addComponent(btnsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(panelCodigoEquiposLayout.createSequentialGroup()
-                .addGap(80, 80, 80)
+                .addGap(79, 79, 79)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -368,10 +398,10 @@ public class FREP003 extends javax.swing.JFrame {
                     .addComponent(btnmodificar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnlimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnexportar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                    .addComponent(btndesactivar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
+                .addGap(20, 20, 20))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -394,15 +424,18 @@ public class FREP003 extends javax.swing.JFrame {
 
         if (seleccionada == false) {
             String validacion = validarEntradas();
-            if (!validacion.equals("")) {
-                JOptionPane.showMessageDialog(null, validacion, "Falta ingresar datos", JOptionPane.ERROR_MESSAGE);
+            
+            if (!validacion.equals("ERROR")) {
+                //tm.Error(validacion);
+                JOptionPane.showMessageDialog(null, validacion, "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 int verif;
                 verif = JOptionPane.showConfirmDialog(null, "¿Desea continuar con la operacion?", "CONFIRMACIÓN", 0);
                 if (verif == 0) {
                     int id = Integer.parseInt(txtid.getText());
                     String descripcion = txtdescripcion.getText();
-                    double descuento = validarDoble(txtdescuento);
+                    String estado = (String) comboEstado.getSelectedItem();
+                    //double descuento = validarDoble(txtdescuento);
                     double descuento2 = validarDoble(txtdescuento2);
                     double descuento3 = validarDoble(txtdescuento3);
                     double descuento4 = validarDoble(txtdescuento4);
@@ -410,14 +443,15 @@ public class FREP003 extends javax.swing.JFrame {
                     Equipos li = new Equipos();
                     li.setIdequipo(id);
                     li.setDescripcion(descripcion);
-                    li.setDescuento1(validarDoble(txtdescuento));
+                    li.setEstado(estado);
+                    //li.setDescuento1(validarDoble(txtdescuento));
                     li.setDescuento2(validarDoble(txtdescuento2));
                     li.setDescuento3(validarDoble(txtdescuento3));
                     li.setDescuento4(validarDoble(txtdescuento4));
 
                     if (sli.addEquipos(li)) {
                         JOptionPane.showMessageDialog(null, "Operacion exitosa");
-                        Object[] row = {id, descripcion, descuento, descuento2, descuento3, descuento4};
+                        Object[] row = {id, descripcion, estado,/*descuento,*/ descuento2, descuento3, descuento4};
                         table.addRow(row);
                         clean();
                         txtid.setText(String.valueOf(sli.nextId()));
@@ -427,7 +461,7 @@ public class FREP003 extends javax.swing.JFrame {
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(null, "ESTA LINEA YA SE ENCUENTRA REGISTRADA", "Error al agregar", 0);
+            JOptionPane.showMessageDialog(null, "ESTA LINEA YA SE ENCUENTRA REGISTRADA\nUTILICE LA OPCION 'LIMPIAR' PARA COMENZAR A AGREGAR UN NUEVO EQUIPO", "Error al agregar", 0);
         }
     }//GEN-LAST:event_btnagregarActionPerformed
 
@@ -477,37 +511,39 @@ public class FREP003 extends javax.swing.JFrame {
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
         String validacion = validarEntradas();
         if (seleccionada == true) {
-            if (!validacion.equals("")) {
-                JOptionPane.showMessageDialog(null, validacion, "Falta ingresar datos", JOptionPane.ERROR_MESSAGE);
+            if (!validacion.equals("ERROR")) {
+                JOptionPane.showMessageDialog(null, validacion, "ERROR", JOptionPane.ERROR_MESSAGE);
             } else {
-
                 int verif;
                 verif = JOptionPane.showConfirmDialog(null, "¿Desea continuar con la operacion?", "CONFIRMACIÓN", 0);
                 if (verif == 0) {
                     int id = Integer.parseInt(txtid.getText());
                     String descripcion = txtdescripcion.getText();
-                    double descuento = validarDoble(txtdescuento);
+                    //double descuento = validarDoble(txtdescuento);
+                    String estado = (String) comboEstado.getSelectedItem();
                     double descuento2 = validarDoble(txtdescuento2);
-                    double descuento3 = validarDoble(txtdescuento3);
-                    double descuento4 = validarDoble(txtdescuento4);
+                   /* double descuento3 = validarDoble(txtdescuento3);
+                    double descuento4 = validarDoble(txtdescuento4);*/
 
                     Equipos l = new Equipos();
                     l.setIdequipo(id);
                     l.setDescripcion(descripcion);
-                    l.setDescuento1(descuento);
+                    l.setEstado(estado);
+                   // l.setDescuento1(descuento);
                     l.setDescuento2(descuento2);
-                    l.setDescuento3(descuento3);
-                    l.setDescuento4(descuento4);
+                    /*l.setDescuento3(descuento3);
+                    l.setDescuento4(descuento4);*/
 
                     if (actualizarEquipos(l)) {
                         JOptionPane.showMessageDialog(null, "Operación exitosa");
                         DefaultTableModel m = (DefaultTableModel) tablaCodigoEquipos.getModel();
                         m.setValueAt(id, fila, 0);
                         m.setValueAt(descripcion, fila, 1);
-                        m.setValueAt(descuento, fila, 2);
+                        m.setValueAt(estado, fila, 2);
+                        //m.setValueAt(descuento, fila, 2);
                         m.setValueAt(descuento2, fila, 3);
-                        m.setValueAt(descuento3, fila, 4);
-                        m.setValueAt(descuento4, fila, 5);
+                       /* m.setValueAt(descuento3, fila, 4);
+                        m.setValueAt(descuento4, fila, 5);*/
 
                     } else {
                         JOptionPane.showMessageDialog(null, "Error en la actualización");
@@ -537,6 +573,7 @@ public class FREP003 extends javax.swing.JFrame {
         servicio_excel.Exportar_Excel(1);
     }//GEN-LAST:event_btnexportarActionPerformed
 
+    //supestamente mapea tabla(no confirmado)
     private void tablaCodigoEquiposKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tablaCodigoEquiposKeyReleased
         fila = tablaCodigoEquipos.getSelectedRow();
         String id = tablaCodigoEquipos.getValueAt(fila, 0).toString();
@@ -548,7 +585,7 @@ public class FREP003 extends javax.swing.JFrame {
 
         txtid.setText(id);
         txtdescripcion.setText(descripcion);
-        txtdescuento.setText(String.valueOf(descuento));
+       // txtdescuento.setText(String.valueOf(descuento));
         txtdescuento2.setText(String.valueOf(descuento2));
         txtdescuento3.setText(String.valueOf(descuento3));
         txtdescuento4.setText(String.valueOf(descuento4));
@@ -556,29 +593,95 @@ public class FREP003 extends javax.swing.JFrame {
         seleccionada = true;
     }//GEN-LAST:event_tablaCodigoEquiposKeyReleased
 
+    private void comboEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEstadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboEstadoActionPerformed
+
     private void tablaCodigoEquiposMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaCodigoEquiposMouseReleased
+        // TODO add your handling code here:
+        //Para rellenar formulario al seleccionar 1 fila de tabla
         fila = tablaCodigoEquipos.getSelectedRow();
         String id = tablaCodigoEquipos.getValueAt(fila, 0).toString();
         String descripcion = tablaCodigoEquipos.getValueAt(fila, 1).toString();
-        double descuento = (double) tablaCodigoEquipos.getValueAt(fila, 2);
-        double descuento2 = (double) tablaCodigoEquipos.getValueAt(fila, 3);
-        double descuento3 = (double) tablaCodigoEquipos.getValueAt(fila, 4);
-        double descuento4 = (double) tablaCodigoEquipos.getValueAt(fila, 5);
+        String estado = (String) tablaCodigoEquipos.getValueAt(fila, 2);
+        //double descuento2 = (double) tablaCodigoEquipos.getValueAt(fila, 3);
+       // double descuento3 = (double) tablaCodigoEquipos.getValueAt(fila, 4);
+      //  double descuento4 = (double) tablaCodigoEquipos.getValueAt(fila, 5);
 
         txtid.setText(id);
         txtdescripcion.setText(descripcion);
-        txtdescuento.setText(String.valueOf(descuento));
-        txtdescuento2.setText(String.valueOf(descuento2));
-        txtdescuento3.setText(String.valueOf(descuento3));
-        txtdescuento4.setText(String.valueOf(descuento4));
+        comboEstado.setSelectedItem(String.valueOf(estado));
+       // txtdescuento2.setText(String.valueOf(descuento2));
+       // txtdescuento3.setText(String.valueOf(descuento3));
+        //txtdescuento4.setText(String.valueOf(descuento4));
 
         seleccionada = true;
     }//GEN-LAST:event_tablaCodigoEquiposMouseReleased
 
+    private void btndesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndesactivarActionPerformed
+        // TODO add your handling code here:
+        String validacion = validarEntradas();
+        if (seleccionada == true) { 
+                int verif;
+                verif = JOptionPane.showConfirmDialog(null, "¿Desea continuar con la operacion?", "CONFIRMACIÓN", 0);
+                if (verif == 0) {
+                    //int id = Integer.parseInt(txtid.getText());
+                    //String descripcion = txtdescripcion.getText();
+                    //double descuento = validarDoble(txtdescuento);
+                    
+                    //probando acceso a data de fila de manera directa
+                    fila = tablaCodigoEquipos.getSelectedRow();
+                    int id = (int) tablaCodigoEquipos.getValueAt(fila, 0);
+                    String descripcion = tablaCodigoEquipos.getValueAt(fila, 1).toString();
+                    String estado = (String) tablaCodigoEquipos.getValueAt(fila, 2);
+                    
+                    
+                    /*double descuento2 = validarDoble(txtdescuento2);*/
+                   /* double descuento3 = validarDoble(txtdescuento3);
+                    double descuento4 = validarDoble(txtdescuento4);*/
+                    if(estado.equals("Activado")){
+                        estado="Desactivado";
+                    }else{
+                        estado="Activado";
+                    }
+                    Equipos l = new Equipos();
+                    l.setIdequipo(id);
+                    l.setDescripcion(descripcion);
+
+                    l.setEstado(estado);
+                   // l.setDescuento1(descuento);
+                   /* l.setDescuento2(descuento2);*/
+                    /*l.setDescuento3(descuento3);
+                    l.setDescuento4(descuento4);*/
+
+                    if (actualizarEquipos(l)) {
+                        JOptionPane.showMessageDialog(null, "Operación exitosa");
+                        DefaultTableModel m = (DefaultTableModel) tablaCodigoEquipos.getModel();
+                        m.setValueAt(id, fila, 0);
+                        m.setValueAt(descripcion, fila, 1);
+                        m.setValueAt(estado, fila, 2);
+                        //m.setValueAt(descuento, fila, 2);
+                       /* m.setValueAt(descuento2, fila, 3);*/
+                       /* m.setValueAt(descuento3, fila, 4);
+                        m.setValueAt(descuento4, fila, 5);*/
+                        
+                        comboEstado.setSelectedItem(String.valueOf(estado));
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error en la actualización");
+                    }
+                }
+            
+        } else {
+            tm.manejarMensajes(tm.NO_SELECCIONADO_LINEAS);
+        }
+    }//GEN-LAST:event_btndesactivarActionPerformed
+
     public void limpiar() {
 
         txtdescripcion.setText("");
-        txtdescuento.setText("");
+       // txtdescuento.setText("");
+        comboEstado.setSelectedIndex(0);
         txtdescuento2.setText("");
         txtdescuento3.setText("");
         txtdescuento4.setText("");
@@ -599,11 +702,13 @@ public class FREP003 extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnagregar;
+    public javax.swing.JButton btndesactivar;
     public javax.swing.JButton btneliminar;
     public javax.swing.JButton btnexportar;
     public javax.swing.JButton btnlimpiar;
     public javax.swing.JButton btnmodificar;
     public javax.swing.JButton btnsalir;
+    public javax.swing.JComboBox comboEstado;
     public javax.swing.JLabel jLabel1;
     public javax.swing.JLabel jLabel2;
     public javax.swing.JLabel jLabel3;
@@ -620,7 +725,6 @@ public class FREP003 extends javax.swing.JFrame {
     public javax.swing.JPanel panelCodigoEquipos;
     public javax.swing.JTable tablaCodigoEquipos;
     public javax.swing.JTextField txtdescripcion;
-    public javax.swing.JTextField txtdescuento;
     public javax.swing.JTextField txtdescuento2;
     public javax.swing.JTextField txtdescuento3;
     public javax.swing.JTextField txtdescuento4;

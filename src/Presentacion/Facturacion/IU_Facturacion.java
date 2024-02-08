@@ -1059,7 +1059,18 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
+        panelGenerarGR.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                panelGenerarGRMouseReleased(evt);
+            }
+        });
+
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "FACTURACIÓN", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 20))); // NOI18N
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel2MouseExited(evt);
+            }
+        });
 
         lblDocumento.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblDocumento.setText("Documento");
@@ -2299,6 +2310,22 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
     private void cb_monedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_monedaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cb_monedaActionPerformed
+
+    private void jPanel2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel2MouseExited
+
+    private void panelGenerarGRMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelGenerarGRMouseReleased
+        // TODO add your handling code here:
+        if ( tablaFacturacion.getRowCount() > 0 ) {
+            int op = tm.Confirmacion("ADVERTENCIA \nSE PERDERA TODO EL CONTENIDO ¿DESEA CONTINUAR?");
+            if ( op == tm.SI ) {
+                dispose();
+            }
+        } else {
+            dispose();
+        }
+    }//GEN-LAST:event_panelGenerarGRMouseReleased
 
     // Validaciones para los documentos
     private String validarFacBol() {

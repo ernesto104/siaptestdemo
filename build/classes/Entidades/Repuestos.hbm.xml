@@ -2,155 +2,155 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 17/09/2013 02:56:16 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-  <class catalog="siar_qf" name="Entidades.Repuestos" table="repuestos">
-    <composite-id class="Entidades.RepuestosId" name="id">
-      <key-property name="idrepuesto" type="int">
-        <column name="IDREPUESTO"/>
-      </key-property>
-      <key-property name="idlinea" type="int">
-        <column name="IDLINEA"/>
-      </key-property>
-    </composite-id>
-    <many-to-one class="Entidades.Estratificacion" fetch="join" name="estratificacion">
-      <column name="ID_MOV"/>
-    </many-to-one>
-    <many-to-one class="Entidades.Equipos" fetch="join" insert="false" name="equipos" update="false">
-      <column name="IDLINEA" not-null="true"/>
-    </many-to-one>
-    <property name="codrepuesto" type="string">
-      <column length="40" name="CODREPUESTO" not-null="true"/>
-    </property>
-    <property name="codigoseg" type="string">
-      <column length="15" name="CODIGOSEG"/>
-    </property>
-    <property name="nroalternativo" type="java.lang.Integer">
-      <column name="NROALTERNATIVO"/>
-    </property>
-    <property name="descripcion" type="string">
-      <column length="60" name="DESCRIPCION"/>
-    </property>
-    <property name="preciolista" type="java.lang.Double">
-      <column name="PRECIOLISTA" precision="8"/>
-    </property>
-    <property name="costopromedio" type="java.lang.Double">
-      <column name="COSTOPROMEDIO" precision="8"/>
-    </property>
-    <property name="descrmodelo" type="string">
-      <column length="40" name="DESCRMODELO"/>
-    </property>
-    <property name="desclista" type="string">
-      <column length="40" name="DESCLISTA"/>
-    </property>
-    <property name="desclista2" type="string">
-      <column length="40" name="DESCLISTA2"/>
-    </property>
-    <property name="pcostoultimo" type="java.lang.Double">
-      <column name="PCOSTOULTIMO" precision="8"/>
-    </property>
-    <property name="fechapcosto" type="date">
-      <column length="10" name="FECHAPCOSTO"/>
-    </property>
-    <property name="aplicacion" type="string">
-      <column length="40" name="APLICACION"/>
-    </property>
-    <property name="idrepuestoant" type="string">
-      <column length="17" name="IDREPUESTOANT"/>
-    </property>
-    <property name="marca" type="string">
-      <column length="15" name="MARCA"/>
-    </property>
-    <property name="unidadmedida" type="string">
-      <column length="10" name="UNIDADMEDIDA"/>
-    </property>
-    <property name="partidarancel" type="string">
-      <column length="14" name="PARTIDARANCEL"/>
-    </property>
-    <property name="fobultimo" type="java.lang.Double">
-      <column name="FOBULTIMO" precision="8"/>
-    </property>
-    <property name="stock" type="java.lang.Integer">
-      <column name="STOCK"/>
-    </property>
-    <property name="ubicalmacen" type="string">
-      <column length="6" name="UBICALMACEN"/>
-    </property>
-    <property name="unidadventa" type="string">
-      <column length="6" name="UNIDADVENTA"/>
-    </property>
-    <property name="pcostotemporal" type="java.lang.Double">
-      <column name="PCOSTOTEMPORAL" precision="8"/>
-    </property>
-    <property name="filtro1" type="string">
-      <column length="1" name="FILTRO1"/>
-    </property>
-    <property name="filtro2" type="string">
-      <column length="1" name="FILTRO2"/>
-    </property>
-    <property name="filtro3" type="string">
-      <column length="1" name="FILTRO3"/>
-    </property>
-    <property name="filtro4" type="string">
-      <column length="1" name="FILTRO4"/>
-    </property>
-    <property name="inventario" type="java.lang.Integer">
-      <column name="INVENTARIO"/>
-    </property>
-    <property name="stockminimo" type="java.lang.Integer">
-      <column name="STOCKMINIMO"/>
-    </property>
-    <property name="margenutil" type="java.lang.Double">
-      <column name="MARGENUTIL" precision="4"/>
-    </property>
-    <property name="fecharegistro" type="date">
-      <column length="10" name="FECHAREGISTRO"/>
-    </property>
-    <property name="imagen" type="string">
-      <column length="200" name="IMAGEN"/>
-    </property>
-    <property name="usuario" type="string">
-      <column length="20" name="USUARIO"/>
-    </property>
-    <set inverse="true" name="paquetesRepuestoses">
-      <key>
-        <column name="IDREPUESTO"/>
-        <column name="IDLINEA"/>
-      </key>
-      <one-to-many class="Entidades.PaquetesRepuestos"/>
-    </set>
-    <set inverse="true" name="pedidowebs">
-      <key>
-        <column name="IDREPUESTO"/>
-        <column name="IDLINEA"/>
-      </key>
-      <one-to-many class="Entidades.Pedidoweb"/>
-    </set>
-    <set inverse="true" name="detalleproformases">
-      <key>
-        <column name="IDREPUESTO"/>
-        <column name="IDLINEA"/>
-      </key>
-      <one-to-many class="Entidades.Detalleproformas"/>
-    </set>
-    <set inverse="true" name="detallenotas">
-      <key>
-        <column name="IDREPUESTO"/>
-        <column name="IDLINEA"/>
-      </key>
-      <one-to-many class="Entidades.Detallenota"/>
-    </set>
-    <set inverse="true" name="detallesugeridos">
-      <key>
-        <column name="IDREPUESTO"/>
-        <column name="IDLINEA"/>
-      </key>
-      <one-to-many class="Entidades.Detallesugerido"/>
-    </set>
-    <set inverse="true" name="detalleeses">
-      <key>
-        <column name="IDREPUESTO"/>
-        <column name="IDLINEA"/>
-      </key>
-      <one-to-many class="Entidades.Detallees"/>
-    </set>
-  </class>
+    <class catalog="siar_qf" name="Entidades.Repuestos" table="repuestos">
+        <composite-id class="Entidades.RepuestosId" name="id">
+            <key-property name="idrepuesto" type="int">
+                <column name="IDREPUESTO"/>
+            </key-property>
+            <key-property name="idequipo" type="int">
+                <column name="IDLINEA"/>
+            </key-property>
+        </composite-id>
+        <many-to-one class="Entidades.Estratificacion" fetch="join" name="estratificacion">
+            <column name="ID_MOV"/>
+        </many-to-one>
+        <many-to-one class="Entidades.Equipos" fetch="join" insert="false" name="equipos" update="false">
+            <column name="IDLINEA" not-null="true"/>
+        </many-to-one>
+        <property name="codrepuesto" type="string">
+            <column length="40" name="CODREPUESTO" not-null="true"/>
+        </property>
+        <property name="codigoseg" type="string">
+            <column length="15" name="CODIGOSEG"/>
+        </property>
+        <property name="nroalternativo" type="java.lang.Integer">
+            <column name="NROALTERNATIVO"/>
+        </property>
+        <property name="descripcion" type="string">
+            <column length="60" name="DESCRIPCION"/>
+        </property>
+        <property name="preciolista" type="java.lang.Double">
+            <column name="PRECIOLISTA" precision="8"/>
+        </property>
+        <property name="costopromedio" type="java.lang.Double">
+            <column name="COSTOPROMEDIO" precision="8"/>
+        </property>
+        <property name="descrmodelo" type="string">
+            <column length="40" name="DESCRMODELO"/>
+        </property>
+        <property name="desclista" type="string">
+            <column length="40" name="DESCLISTA"/>
+        </property>
+        <property name="desclista2" type="string">
+            <column length="40" name="DESCLISTA2"/>
+        </property>
+        <property name="pcostoultimo" type="java.lang.Double">
+            <column name="PCOSTOULTIMO" precision="8"/>
+        </property>
+        <property name="fechapcosto" type="date">
+            <column length="10" name="FECHAPCOSTO"/>
+        </property>
+        <property name="aplicacion" type="string">
+            <column length="40" name="APLICACION"/>
+        </property>
+        <property name="idrepuestoant" type="string">
+            <column length="17" name="IDREPUESTOANT"/>
+        </property>
+        <property name="marca" type="string">
+            <column length="15" name="MARCA"/>
+        </property>
+        <property name="unidadmedida" type="string">
+            <column length="10" name="UNIDADMEDIDA"/>
+        </property>
+        <property name="partidarancel" type="string">
+            <column length="14" name="PARTIDARANCEL"/>
+        </property>
+        <property name="fobultimo" type="java.lang.Double">
+            <column name="FOBULTIMO" precision="8"/>
+        </property>
+        <property name="stock" type="java.lang.Integer">
+            <column name="STOCK"/>
+        </property>
+        <property name="ubicalmacen" type="string">
+            <column length="6" name="UBICALMACEN"/>
+        </property>
+        <property name="unidadventa" type="string">
+            <column length="6" name="UNIDADVENTA"/>
+        </property>
+        <property name="pcostotemporal" type="java.lang.Double">
+            <column name="PCOSTOTEMPORAL" precision="8"/>
+        </property>
+        <property name="filtro1" type="string">
+            <column length="1" name="FILTRO1"/>
+        </property>
+        <property name="filtro2" type="string">
+            <column length="1" name="FILTRO2"/>
+        </property>
+        <property name="filtro3" type="string">
+            <column length="1" name="FILTRO3"/>
+        </property>
+        <property name="filtro4" type="string">
+            <column length="1" name="FILTRO4"/>
+        </property>
+        <property name="inventario" type="java.lang.Integer">
+            <column name="INVENTARIO"/>
+        </property>
+        <property name="stockminimo" type="java.lang.Integer">
+            <column name="STOCKMINIMO"/>
+        </property>
+        <property name="margenutil" type="java.lang.Double">
+            <column name="MARGENUTIL" precision="4"/>
+        </property>
+        <property name="fecharegistro" type="date">
+            <column length="10" name="FECHAREGISTRO"/>
+        </property>
+        <property name="imagen" type="string">
+            <column length="200" name="IMAGEN"/>
+        </property>
+        <property name="usuario" type="string">
+            <column length="20" name="USUARIO"/>
+        </property>
+        <set inverse="true" name="paquetesRepuestoses">
+            <key>
+                <column name="IDREPUESTO"/>
+                <column name="IDLINEA"/>
+            </key>
+            <one-to-many class="Entidades.PaquetesRepuestos"/>
+        </set>
+        <set inverse="true" name="pedidowebs">
+            <key>
+                <column name="IDREPUESTO"/>
+                <column name="IDLINEA"/>
+            </key>
+            <one-to-many class="Entidades.Pedidoweb"/>
+        </set>
+        <set inverse="true" name="detalleproformases">
+            <key>
+                <column name="IDREPUESTO"/>
+                <column name="IDLINEA"/>
+            </key>
+            <one-to-many class="Entidades.Detalleproformas"/>
+        </set>
+        <set inverse="true" name="detallenotas">
+            <key>
+                <column name="IDREPUESTO"/>
+                <column name="IDLINEA"/>
+            </key>
+            <one-to-many class="Entidades.Detallenota"/>
+        </set>
+        <set inverse="true" name="detallesugeridos">
+            <key>
+                <column name="IDREPUESTO"/>
+                <column name="IDLINEA"/>
+            </key>
+            <one-to-many class="Entidades.Detallesugerido"/>
+        </set>
+        <set inverse="true" name="detalleeses">
+            <key>
+                <column name="IDREPUESTO"/>
+                <column name="IDLINEA"/>
+            </key>
+            <one-to-many class="Entidades.Detallees"/>
+        </set>
+    </class>
 </hibernate-mapping>

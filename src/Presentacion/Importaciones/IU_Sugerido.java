@@ -187,7 +187,7 @@ public class IU_Sugerido extends javax.swing.JFrame {
 
             rep = sr.getRepuesto(sugTabla.getNumParte());
             sugTabla.setIdrepuesto(rep.getId().getIdrepuesto());
-            sugTabla.setIdlinea(rep.getId().getIdlinea());
+            sugTabla.setIdlinea(rep.getId().getIdequipo());
             tablaRAM.add(sugTabla);
         }
     }

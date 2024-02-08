@@ -32,7 +32,7 @@ public class DetalleSugDAO extends GenericDAO<Detallesugerido>{
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query q = (Query) session.createQuery("from Detallesugerido as ds "
                 + "where ds.repuestos.id.idrepuesto="+r.getId().getIdrepuesto()+" and "
-                +" ds.repuestos.id.idlinea="+r.getId().getIdlinea()+" and "
+                +" ds.repuestos.id.idlinea="+r.getId().getIdequipo()+" and "
                 +" ds.cabecsugerido.estado like '*'"
         );
         ArrayList lista = (ArrayList) q.list();
@@ -278,7 +278,7 @@ public class DetalleSugDAO extends GenericDAO<Detallesugerido>{
     public void mostrar(Detallesugerido ds){
         System.out.println("IdDetSug-IdRep-IdLin-IdSug-CantPed-CantEnt-FOB-StockSug-CantPdte-Demanda");
         System.out.println(ds.getIddetallesugerido()+"-"+ds.getRepuestos().getId()
-        .getIdrepuesto()+"-"+ds.getRepuestos().getId().getIdlinea()+"-"+ds.getCabecsugerido()
+        .getIdrepuesto()+"-"+ds.getRepuestos().getId().getIdequipo()+"-"+ds.getCabecsugerido()
         .getIdsugerido()+"-"+ds.getCantpedida()+"-"+ds.getCantentregada()+"-"+
         ds.getValorfob()+"-"+ds.getStocksugerido()+"-"+ds.getCantpendiente()+"-"+
         ds.getDemandaprom());

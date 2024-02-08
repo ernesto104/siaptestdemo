@@ -128,7 +128,7 @@ public class IU_Anulacion_Documento extends javax.swing.JFrame {
                     b = listaNota.get(i).getDescripcion();
                     
                 } else {
-                    listaNota.get(i).getRepuestos().getId().getIdlinea();
+                    listaNota.get(i).getRepuestos().getId().getIdequipo();
                     b = listaNota.get(i).getRepuestos().getCodrepuesto(); // could not initialize proxy - no Session
                     d = listaNota.get(i).getCantidad() + "";
                 }

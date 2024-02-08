@@ -325,7 +325,7 @@ public class frmiModificarCantPedida extends javax.swing.JFrame {
                 Servicio_Repuestos sr=new Servicio_Repuestos();
                 Repuestos repuesto=new Repuestos();
                 repuesto=sr.getRepuesto(nameRep);
-                nuevo.setIdlinea(repuesto.getId().getIdlinea());
+                nuevo.setIdlinea(repuesto.getId().getIdequipo());
                 nuevo.setIdrepuesto(repuesto.getId().getIdrepuesto());
                 if(!enRam){
                     tablaRam.add(nuevo);
@@ -377,7 +377,7 @@ public class frmiModificarCantPedida extends javax.swing.JFrame {
         }
         rep=sr.getRepuesto(numParte);
         int idRep=rep.getId().getIdrepuesto();
-        int idLin=rep.getId().getIdlinea();
+        int idLin=rep.getId().getIdequipo();
         int idsugerido=0;
         if(opcion==1){
             idsugerido=Integer.parseInt(iusug.tx_id.getText());
@@ -506,7 +506,7 @@ public class frmiModificarCantPedida extends javax.swing.JFrame {
         int indice=-1;//no encontrado
         for(int i=0;i<tablaRam.size();i++){
             if( ((SugeridoRAM)tablaRam.get(i)).getIdrepuesto().equals(ds.getRepuestos().getId().getIdrepuesto())
-             && ((SugeridoRAM)tablaRam.get(i)).getIdlinea().equals(ds.getRepuestos().getId().getIdlinea())){
+             && ((SugeridoRAM)tablaRam.get(i)).getIdlinea().equals(ds.getRepuestos().getId().getIdequipo())){
                 indice=i;
                 break;
             }
@@ -543,7 +543,7 @@ public class frmiModificarCantPedida extends javax.swing.JFrame {
         Servicio_Repuestos sr=new Servicio_Repuestos();
         Repuestos repuesto=new Repuestos();
         repuesto=sr.getRepuesto(nameRep);
-        nuevo.setIdlinea(repuesto.getId().getIdlinea());
+        nuevo.setIdlinea(repuesto.getId().getIdequipo());
         nuevo.setIdrepuesto(repuesto.getId().getIdrepuesto());
         tablaRam.add(nuevo);
     }

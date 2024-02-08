@@ -10,6 +10,9 @@
     <property name="descripcion" type="string">
       <column length="40" name="DESCRIPCION"/>
     </property>
+    <property name="estado" type="string">
+      <column name="ESTADO" length="12"/>
+    </property>    
     <property name="descuento1" type="java.lang.Double">
       <column name="DESCUENTO1" precision="10"/>
     </property>

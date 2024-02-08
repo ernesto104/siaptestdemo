@@ -9,7 +9,7 @@ package Entidades;
 public class RepuestosId  implements java.io.Serializable {
 
     private int idrepuesto;
-    private int idlinea;
+    private int idequipo;
 
     public RepuestosId() {
     }
@@ -20,7 +20,7 @@ public class RepuestosId  implements java.io.Serializable {
     
     public RepuestosId(int idrepuesto, int idlinea) {
        this.idrepuesto = idrepuesto;
-       this.idlinea = idlinea;
+       this.idequipo = idlinea;
     }
    
     public int getIdrepuesto() {
@@ -31,12 +31,12 @@ public class RepuestosId  implements java.io.Serializable {
         this.idrepuesto = idrepuesto;
     }
     
-    public int getIdlinea() {
-        return this.idlinea;
+    public int getIdequipo() {
+        return this.idequipo;
     }
     
-    public void setIdlinea(int idlinea) {
-        this.idlinea = idlinea;
+    public void setIdequipo(int idequipo) {
+        this.idequipo = idequipo;
     }
 
     public boolean equals(Object other) {
@@ -46,13 +46,13 @@ public class RepuestosId  implements java.io.Serializable {
          RepuestosId castOther = ( RepuestosId ) other; 
          
          return (this.getIdrepuesto()==castOther.getIdrepuesto())
-                 && (this.getIdlinea()==castOther.getIdlinea());
+                 && (this.getIdequipo()==castOther.getIdequipo());
     }
    
     public int hashCode() {
          int result = 17;     
          result = 37 * result + this.getIdrepuesto();
-         result = 37 * result + this.getIdlinea();
+         result = 37 * result + this.getIdequipo();
          return result;
     }
 }

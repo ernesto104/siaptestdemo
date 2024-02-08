@@ -41,6 +41,8 @@ public class IU_Descuentos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
         jLabel1.setText("Descuento 1");
 
         jLabel2.setText("Descuento 2");

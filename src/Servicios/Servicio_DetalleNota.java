@@ -67,7 +67,7 @@ public class Servicio_DetalleNota {
         List<Detallenota> listaDetalleNota = detalleNotaDao.getListaDetallePorTipoDocumento(cabeces.getId().getNrodocumento(),cabeces.getId().getTipodoc());
         this.listaDetalle = listaDetalleNota;
         for (int i = 0; i < listaDetalleNota.size(); i++) {
-            int a = listaDetalleNota.get(i).getRepuestos().getId().getIdlinea();
+            int a = listaDetalleNota.get(i).getRepuestos().getId().getIdequipo();
             String b = ""+listaDetalleNota.get(i).getRepuestos().getCodrepuesto();
            // String b = "";
             int c = listaDetalleNota.get(i).getCantidad();

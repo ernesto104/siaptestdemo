@@ -53,7 +53,7 @@ public class IU_Demanda extends javax.swing.JFrame {
         int mesIniSQL=mesIni+1;
         int mesFinSQL=mesFinal+1;
         int idRepuesto=repuesto.getId().getIdrepuesto();
-        int idLinea=repuesto.getId().getIdlinea();
+        int idLinea=repuesto.getId().getIdequipo();
         año=añoIni;
         Date fi=formatearAFechaSQL(añoIni,mesIniSQL,diaIni);
         Date ff=formatearAFechaSQL(añoFinal,mesFinSQL,diaFinal);

@@ -84,7 +84,7 @@ public class IU_MantenimientoRepuestos extends javax.swing.JFrame {
         while ( ite.hasNext() ) {
             Repuestos rep = (Repuestos) ite.next();
             row[0] = rep.getId().getIdrepuesto();
-            row[1] = rep.getId().getIdlinea();
+            row[1] = rep.getId().getIdequipo();
             row[2] = rep.getDescripcion();
             row[3] = rep.getPreciolista();
             row[4] = 0;

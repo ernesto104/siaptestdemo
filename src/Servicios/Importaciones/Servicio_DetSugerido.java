@@ -137,7 +137,7 @@ public class Servicio_DetSugerido {
                 sugTabla.setFob(Double.parseDouble(String.valueOf(row[10])));
                 int idrepuesto=rep.getId().getIdrepuesto();
                 sugTabla.setIdrepuesto(idrepuesto);
-                int linea=rep.getId().getIdlinea();
+                int linea=rep.getId().getIdequipo();
                 sugTabla.setIdlinea(linea);
                 tablaRAM.add(sugTabla);
             }

@@ -98,7 +98,7 @@ public class Servicio_Repuestos {
         RepuestosDAO repDao=new RepuestosDAO();
         long idNext=repDao.Tamaño_Lista()+1;
         ri.setIdrepuesto(Integer.parseInt(String.valueOf(idNext+1)));
-        ri.setIdlinea(equip.getIdequipo());
+        ri.setIdequipo(equip.getIdequipo());
         rep.setId(ri);
         rep.setCodrepuesto(nombre);
         rep.setEquipos(equip);

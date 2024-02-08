@@ -697,7 +697,7 @@ public class IU_GeneracionNotaIngreso extends javax.swing.JFrame {
         
         for ( int i = 0; i < lista.size(); i++ ) {
             int idRep = lista.get(i).getRepuestos().getId().getIdrepuesto();
-            int linea = lista.get(i).getRepuestos().getId().getIdlinea();
+            int linea = lista.get(i).getRepuestos().getId().getIdequipo();
             Repuestos rep = rd.getRepuesto(linea, idRep);
             int cantPedida = lista.get(i).getCantpedida();
             int stock = 0;
@@ -769,13 +769,13 @@ public class IU_GeneracionNotaIngreso extends javax.swing.JFrame {
         
         for ( int i = 0; i < lista.size(); i++ ) {
             int idRep = lista.get(i).getRepuestos().getId().getIdrepuesto();
-            int linea = lista.get(i).getRepuestos().getId().getIdlinea();
+            int linea = lista.get(i).getRepuestos().getId().getIdequipo();
 //            System.out.println("linea:" + linea);
 //            System.out.println("idRep:" + idRep);
             
 //            Repuestos rep = rd.getRepuesto(linea, idRep);
             RepuestosId repId = new RepuestosId();
-            repId.setIdlinea(linea);
+            repId.setIdequipo(linea);
             repId.setIdrepuesto(idRep);
             
             Repuestos rep = new Repuestos();

@@ -34,6 +34,9 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JPanel" name="panelGenerarGR">
+      <Events>
+        <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="panelGenerarGRMouseReleased"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>
@@ -160,6 +163,9 @@
               </Border>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel2MouseExited"/>
+          </Events>
 
           <Layout>
             <DimensionLayout dim="0">
@@ -609,6 +615,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Vencimiento"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="IU_Facturacion_lb_venc"/>
+              </AuxValues>
             </Component>
             <Component class="com.toedter.calendar.JDateChooser" name="dt_venc">
               <Properties>

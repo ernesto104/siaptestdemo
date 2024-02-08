@@ -496,6 +496,12 @@ public class FREP001 extends javax.swing.JFrame {
         });
 
         comboLinea.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione una Linea" }));
+        comboLinea.setToolTipText("");
+        comboLinea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboLineaActionPerformed(evt);
+            }
+        });
 
         jLabel11.setText("N° Alternativo");
 
@@ -1411,7 +1417,7 @@ public class FREP001 extends javax.swing.JFrame {
                     Repuestos rep = new Repuestos();
                     RepuestosId repid = new RepuestosId();
 
-                    repid.setIdlinea(numlin);
+                    repid.setIdequipo(numlin);
                     repid.setIdrepuesto(Integer.parseInt(id));
 
                     rep.setId(repid);
@@ -1945,7 +1951,7 @@ public class FREP001 extends javax.swing.JFrame {
     public boolean eliminar(int id, int idlinea) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         RepuestosId r = new RepuestosId();
-        r.setIdlinea(idlinea);
+        r.setIdequipo(idlinea);
         r.setIdrepuesto(id);
         Repuestos re = new Repuestos();
         re.setId(r);
@@ -2425,6 +2431,10 @@ public class FREP001 extends javax.swing.JFrame {
     private void txtStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStockActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtStockActionPerformed
+
+    private void comboLineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboLineaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboLineaActionPerformed
 
 
     private void eliminarImagen() {
