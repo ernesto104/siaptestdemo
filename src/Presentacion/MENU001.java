@@ -136,7 +136,7 @@ public class MENU001 extends javax.swing.JFrame {
         menu_Tablas.setVisible(false);
         FREP001.setVisible(false);
         item_Clientes.setVisible(false);
-        item_CodigosProducto.setVisible(false);
+        item_CodigosEquipos.setVisible(false);
         item_Marca.setVisible(false);
         item_Modelo.setVisible(false);
         item_Operaciones.setVisible(false);
@@ -235,7 +235,7 @@ public class MENU001 extends javax.swing.JFrame {
             }
             if ( "Equipos".equals(descripcionPrograma) ) {
                 menuTabla = true;
-                item_CodigosProducto.setVisible(true);
+                item_CodigosEquipos.setVisible(true);
             } 
             if ("Marca".equals(descripcionPrograma)) {
                 menuTabla = true;
@@ -525,8 +525,8 @@ public class MENU001 extends javax.swing.JFrame {
         panelMaestroRepuestos = new javax.swing.JPanel();
         scrollClientes = new javax.swing.JScrollPane();
         panelClientes = new javax.swing.JPanel();
-        scrollCodigoLineas = new javax.swing.JScrollPane();
-        panelCodigoLineas = new javax.swing.JPanel();
+        scrollCodigoEquipos = new javax.swing.JScrollPane();
+        panelCodigoEquipos = new javax.swing.JPanel();
         scrollOperaciones = new javax.swing.JScrollPane();
         panelOperaciones = new javax.swing.JPanel();
         scrollTransportistas = new javax.swing.JScrollPane();
@@ -629,6 +629,8 @@ public class MENU001 extends javax.swing.JFrame {
         panelFactura_electronica = new javax.swing.JPanel();
         scrollFlujo_comparativo = new javax.swing.JScrollPane();
         panelFlujo_comparativo = new javax.swing.JPanel();
+        ScrollMarcas = new javax.swing.JScrollPane();
+        panelMarcas = new javax.swing.JPanel();
         panelInferior = new javax.swing.JPanel();
         btnClientes = new javax.swing.JButton();
         btnRepuestos = new javax.swing.JButton();
@@ -639,7 +641,7 @@ public class MENU001 extends javax.swing.JFrame {
         menu_Tablas = new javax.swing.JMenu();
         FREP001 = new javax.swing.JMenuItem();
         item_Clientes = new javax.swing.JMenuItem();
-        item_CodigosProducto = new javax.swing.JMenuItem();
+        item_CodigosEquipos = new javax.swing.JMenuItem();
         item_Marca = new javax.swing.JMenuItem();
         item_Modelo = new javax.swing.JMenuItem();
         item_Operaciones = new javax.swing.JMenuItem();
@@ -871,20 +873,20 @@ public class MENU001 extends javax.swing.JFrame {
 
         panelCentral.add(scrollClientes, "scrollClientes");
 
-        javax.swing.GroupLayout panelCodigoLineasLayout = new javax.swing.GroupLayout(panelCodigoLineas);
-        panelCodigoLineas.setLayout(panelCodigoLineasLayout);
-        panelCodigoLineasLayout.setHorizontalGroup(
-            panelCodigoLineasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout panelCodigoEquiposLayout = new javax.swing.GroupLayout(panelCodigoEquipos);
+        panelCodigoEquipos.setLayout(panelCodigoEquiposLayout);
+        panelCodigoEquiposLayout.setHorizontalGroup(
+            panelCodigoEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 1641, Short.MAX_VALUE)
         );
-        panelCodigoLineasLayout.setVerticalGroup(
-            panelCodigoLineasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        panelCodigoEquiposLayout.setVerticalGroup(
+            panelCodigoEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 925, Short.MAX_VALUE)
         );
 
-        scrollCodigoLineas.setViewportView(panelCodigoLineas);
+        scrollCodigoEquipos.setViewportView(panelCodigoEquipos);
 
-        panelCentral.add(scrollCodigoLineas, "scrollCodigoLineas");
+        panelCentral.add(scrollCodigoEquipos, "scrollCodigoEquipos");
 
         javax.swing.GroupLayout panelOperacionesLayout = new javax.swing.GroupLayout(panelOperaciones);
         panelOperaciones.setLayout(panelOperacionesLayout);
@@ -1651,6 +1653,21 @@ public class MENU001 extends javax.swing.JFrame {
 
         panelCentral.add(scrollFlujo_comparativo, "scrollFlujo_comparativo");
 
+        javax.swing.GroupLayout panelMarcasLayout = new javax.swing.GroupLayout(panelMarcas);
+        panelMarcas.setLayout(panelMarcasLayout);
+        panelMarcasLayout.setHorizontalGroup(
+            panelMarcasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1641, Short.MAX_VALUE)
+        );
+        panelMarcasLayout.setVerticalGroup(
+            panelMarcasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 925, Short.MAX_VALUE)
+        );
+
+        ScrollMarcas.setViewportView(panelMarcas);
+
+        panelCentral.add(ScrollMarcas, "scrollMarcas");
+
         getContentPane().add(panelCentral, java.awt.BorderLayout.CENTER);
 
         panelInferior.setBackground(javax.swing.UIManager.getDefaults().getColor("InternalFrame.activeTitleGradient"));
@@ -1796,17 +1813,22 @@ public class MENU001 extends javax.swing.JFrame {
         });
         menu_Tablas.add(item_Clientes);
 
-        item_CodigosProducto.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        item_CodigosProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Codigo de Lineas.png"))); // NOI18N
-        item_CodigosProducto.setText("Equipos");
-        item_CodigosProducto.addActionListener(new java.awt.event.ActionListener() {
+        item_CodigosEquipos.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        item_CodigosEquipos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Codigo de Lineas.png"))); // NOI18N
+        item_CodigosEquipos.setText("Equipos");
+        item_CodigosEquipos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                item_CodigosProductoActionPerformed(evt);
+                item_CodigosEquiposActionPerformed(evt);
             }
         });
-        menu_Tablas.add(item_CodigosProducto);
+        menu_Tablas.add(item_CodigosEquipos);
 
         item_Marca.setText("Marca");
+        item_Marca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                item_MarcaActionPerformed(evt);
+            }
+        });
         menu_Tablas.add(item_Marca);
 
         item_Modelo.setText("Modelo");
@@ -2423,7 +2445,7 @@ public class MENU001 extends javax.swing.JFrame {
             menu_Tablas.setVisible(false);
             FREP001.setEnabled(false);
             btnRepuestos.setEnabled(false);
-            item_CodigosProducto.setEnabled(false);
+            item_CodigosEquipos.setEnabled(false);
             botonLineas.setEnabled(false);
             item_Operaciones.setEnabled(false);
             item_Importadores.setEnabled(false);
@@ -2455,7 +2477,7 @@ public class MENU001 extends javax.swing.JFrame {
             btnRepuestos.setEnabled(false);
             item_Clientes.setEnabled(false);
             btnClientes.setEnabled(false);
-            item_CodigosProducto.setEnabled(false);
+            item_CodigosEquipos.setEnabled(false);
             botonLineas.setEnabled(false);
             item_Operaciones.setEnabled(false);
             item_Transportistas.setEnabled(false);
@@ -2503,7 +2525,7 @@ public class MENU001 extends javax.swing.JFrame {
             btnRepuestos.setEnabled(false);
             item_Clientes.setEnabled(false);
             btnClientes.setEnabled(false);
-            item_CodigosProducto.setEnabled(false);
+            item_CodigosEquipos.setEnabled(false);
             botonLineas.setEnabled(false);
             item_Operaciones.setEnabled(false);
             item_Transportistas.setEnabled(false);
@@ -2549,7 +2571,7 @@ public class MENU001 extends javax.swing.JFrame {
             btnRepuestos.setEnabled(false);
             item_Clientes.setEnabled(false);
             btnClientes.setEnabled(false);
-            item_CodigosProducto.setEnabled(false);
+            item_CodigosEquipos.setEnabled(false);
             botonLineas.setEnabled(false);
             item_Operaciones.setEnabled(false);
             item_Transportistas.setEnabled(false);
@@ -2785,7 +2807,7 @@ public class MENU001 extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRepuestosActionPerformed
 
     private void botonLineasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLineasActionPerformed
-        item_CodigosProducto.doClick();
+        item_CodigosEquipos.doClick();
     }//GEN-LAST:event_botonLineasActionPerformed
 
     private void botonVendedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVendedoresActionPerformed
@@ -3590,22 +3612,22 @@ public class MENU001 extends javax.swing.JFrame {
         cambiarPanelesCambiante("scrollOperaciones");
     }//GEN-LAST:event_item_OperacionesActionPerformed
 
-    private void item_CodigosProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_CodigosProductoActionPerformed
+    private void item_CodigosEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_CodigosEquiposActionPerformed
         final FREP003 equipos = new FREP003();
         equipos.btnsalir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                panelCodigoLineas.removeAll();
+                panelCodigoEquipos.removeAll();
                 equipos.dispose();
                 panelCentral.updateUI();
             }
         });
         JPanel panel = equipos.panelCodigoEquipos;
         panel.setLocation(0, 0);
-        panelCodigoLineas.add(panel);
-        panelCodigoLineas.updateUI();
-        cambiarPanelesCambiante("scrollCodigoLineas");
-    }//GEN-LAST:event_item_CodigosProductoActionPerformed
+        panelCodigoEquipos.add(panel);
+        panelCodigoEquipos.updateUI();
+        cambiarPanelesCambiante("scrollCodigoEquipos");
+    }//GEN-LAST:event_item_CodigosEquiposActionPerformed
 
     private void item_ClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_ClientesActionPerformed
 
@@ -3711,6 +3733,24 @@ public class MENU001 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_item_ModeloActionPerformed
 
+    private void item_MarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_MarcaActionPerformed
+        // TODO add your handling code here:
+        final FREP0055 equipos = new FREP0055();
+        equipos.btnsalir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panelMarcas.removeAll();
+                equipos.dispose();
+                panelCentral.updateUI();
+            }
+        });
+        JPanel panel = equipos.panelCodigoEquipos;
+        panel.setLocation(0, 0);
+        panelMarcas.add(panel);
+        panelMarcas.updateUI();
+        cambiarPanelesCambiante("scrollMarcas");
+    }//GEN-LAST:event_item_MarcaActionPerformed
+
     public void validarHabilitacion(JButton boton) {
 
         if (existetipocambio() == true) {
@@ -3746,6 +3786,7 @@ public class MENU001 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JMenuItem FREP001;
+    public javax.swing.JScrollPane ScrollMarcas;
     public javax.swing.JButton botonDemandas;
     public javax.swing.JButton botonLineas;
     public javax.swing.JButton botonVendedores;
@@ -3757,7 +3798,7 @@ public class MENU001 extends javax.swing.JFrame {
     public javax.swing.JMenuItem item_Bancos;
     public javax.swing.JMenuItem item_Canje_Fact_Letras;
     public javax.swing.JMenuItem item_Clientes;
-    public javax.swing.JMenuItem item_CodigosProducto;
+    public javax.swing.JMenuItem item_CodigosEquipos;
     public javax.swing.JMenuItem item_ConsultaMaestroRep;
     public javax.swing.JMenuItem item_Control;
     public javax.swing.JMenuItem item_CuentasCobrar_Almacen;
@@ -3833,7 +3874,7 @@ public class MENU001 extends javax.swing.JFrame {
     public javax.swing.JPanel panelCentral;
     public javax.swing.JPanel panelCierre_inventario;
     public javax.swing.JPanel panelClientes;
-    public javax.swing.JPanel panelCodigoLineas;
+    public javax.swing.JPanel panelCodigoEquipos;
     public javax.swing.JPanel panelComisiones;
     public javax.swing.JPanel panelConsulta_Demanda;
     public javax.swing.JPanel panelConsulta_clientes;
@@ -3864,6 +3905,7 @@ public class MENU001 extends javax.swing.JFrame {
     public javax.swing.JPanel panelInventario_almacen;
     public javax.swing.JPanel panelLista_precios;
     public javax.swing.JPanel panelMaestroRepuestos;
+    public javax.swing.JPanel panelMarcas;
     public javax.swing.JPanel panelModifica_Anula_Almacen;
     public javax.swing.JPanel panelOperaciones;
     public javax.swing.JPanel panelPaquetes;
@@ -3891,7 +3933,7 @@ public class MENU001 extends javax.swing.JFrame {
     public javax.swing.JScrollPane scrollCanje_facturas_letras;
     public javax.swing.JScrollPane scrollCierre_inventario;
     public javax.swing.JScrollPane scrollClientes;
-    public javax.swing.JScrollPane scrollCodigoLineas;
+    public javax.swing.JScrollPane scrollCodigoEquipos;
     public javax.swing.JScrollPane scrollComisiones;
     public javax.swing.JScrollPane scrollConsulta_Demanda;
     public javax.swing.JScrollPane scrollConsulta_clientes;

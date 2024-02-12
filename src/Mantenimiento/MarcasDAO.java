@@ -2,6 +2,7 @@
 package Mantenimiento;
 
 import Entidades.Equipos;
+import Entidades.Marcas;
 import Servicios.HibernateUtil;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,17 +12,17 @@ import org.hibernate.Transaction;
 
 /**
  *
- * @author Keily Mendiolaza
+ * @author Keimy Mendiomaza
  */
-public class EquipoDAO extends GenericDAO<Equipos> {
+public class MarcasDAO extends GenericDAO<Marcas> {
 
     private Session sesion;
     private Transaction tx;
 
     public int nextId() {
-        Equipos l = null;
+        Marcas m = null;
         try {
-            l = (Equipos) getHibernateTemplate().createQuery("from Equipos l order by l.idequipo desc").iterate().next();
+            m = (Marcas) getHibernateTemplate().createQuery("from Marcas m order by m.idmarca desc").iterate().next();
             session.getTransaction().commit();
         } catch (Exception e) {
             System.err.println("Error : " + e.getMessage());
@@ -29,19 +30,19 @@ public class EquipoDAO extends GenericDAO<Equipos> {
         if (Tamaño_Lista() == 0) {
             return 1;
         } else {
-            return l.getIdequipo() + 1;
+            return m.getIdmarca() + 1;
         }
     }
-
-    public void agregar(int id, String descripcion, double descuento) {
+    //no se utiliza
+    public void agregar(int id, String descripcion, String estado) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Equipos equipos = new Equipos();
-        equipos.setIdequipo(id);
-        equipos.setDescripcion(descripcion);
-        equipos.setDescuento1(descuento);
+        Marcas marcas = new Marcas();
+        marcas.setIdmarca(id);
+        marcas.setDescripcion(descripcion);
+        marcas.setEstado(estado);
         try {
             session.beginTransaction();
-            session.save(equipos);
+            session.save(marcas);
             session.getTransaction().commit();            
         } catch (HibernateException e) {
             session.beginTransaction().rollback();
@@ -50,15 +51,15 @@ public class EquipoDAO extends GenericDAO<Equipos> {
 
     }
 
-    public void modificar(int id, String descripcion, double descuento) {
+    public void modificar(int id, String descripcion, String estado) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Equipos equipos = new Equipos();
-        equipos.setIdequipo(id);
-        equipos.setDescripcion(descripcion);
-        equipos.setDescuento1(descuento);
+        Marcas marcas = new Marcas();
+        marcas.setIdmarca(id);
+        marcas.setDescripcion(descripcion);
+        marcas.setEstado(estado);
         try {
             session.beginTransaction();
-            session.update(equipos);
+            session.update(marcas);
             session.getTransaction().commit();           
         } catch (HibernateException e) {
             session.beginTransaction().rollback();
@@ -67,15 +68,15 @@ public class EquipoDAO extends GenericDAO<Equipos> {
 
     }
 
-    public void eliminar(int id, String descripcion, double descuento) {
+    public void eliminar(int id, String descripcion, String estado) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Equipos equipos = new Equipos();
-        equipos.setIdequipo(id);
-        equipos.setDescripcion(descripcion);
-        equipos.setDescuento1(descuento);
+        Marcas marcas = new Marcas();
+        marcas.setIdmarca(id);
+        marcas.setDescripcion(descripcion);
+        marcas.setEstado(estado);
         try {
             session.beginTransaction();
-            session.delete(equipos);
+            session.delete(marcas);
             session.getTransaction().commit();            
         } catch (HibernateException e) {
             session.beginTransaction().rollback();
@@ -84,22 +85,22 @@ public class EquipoDAO extends GenericDAO<Equipos> {
 
     }
 
-    public Equipos Obtener_Objeto_por_codigo(int codigo) {
-        Equipos l = new Equipos();
+    public Marcas Obtener_Objeto_por_codigo(int codigo) {
+        Marcas m = new Marcas();
         try {
-            l = (Equipos) getHibernateTemplate().createQuery("from Equipos where idequipo='" + codigo + "'").uniqueResult();
+            m = (Marcas) getHibernateTemplate().createQuery("from Marcas where idmarca='" + codigo + "'").uniqueResult();
         } catch (Exception e) {
             System.err.println("Error : " + e.getLocalizedMessage());
         } finally {
             session.close();
         }
-        return l;
+        return m;
     }
 
-    public Equipos Obtener_Objeto_por_nombre(String nombre) {
-        Equipos li = new Equipos();
-        li = (Equipos) getHibernateTemplate().createQuery("from Equipos where descripcion='" + nombre + "'").uniqueResult();       
-        return li;
+    public Marcas Obtener_Objeto_por_nombre(String nombre) {
+        Marcas marc = new Marcas ();
+        marc = (Marcas) getHibernateTemplate().createQuery("from Marcas where descripcion='" + nombre + "'").uniqueResult();       
+        return marc;
     }
 
     private void iniciaOperacion() throws HibernateException {
@@ -107,12 +108,12 @@ public class EquipoDAO extends GenericDAO<Equipos> {
         tx = sesion.beginTransaction();        
     }
 
-    public List<Equipos> Obtener_Lista_Objetos_OrderNombre() {
-        List<Equipos> lista = new LinkedList();
+    public List<Marcas> Obtener_Lista_Objetos_OrderNombre() {
+        List<Marcas> lista = new LinkedList();
         try {
             iniciaOperacion();
 //            lista = sesion.createQuery("from Equipos order by idlinea ASC").list();
-            lista = sesion.createQuery("from Equipos order by descripcion ASC").list();
+            lista = sesion.createQuery("from Marcas order by descripcion ASC").list();
             tx.commit();
 
         } catch (Exception e) {

@@ -31,7 +31,7 @@ public class tabla extends AbstractTableModel {
     String[] columnNames = {"Item", "Linea", "Nro Parte", 
 //                            "Cod. Secundario", 
                             "Descripción", 
-                            "Aplicación", // = Modelo
+                            "Aplicación", // = Equipos
                             "Stock", "P. Lista",
                             "Pedida", "Entregada", "Precio", 
                             "Dcto1", "Dcto2", "Dcto3", "Dcto4",

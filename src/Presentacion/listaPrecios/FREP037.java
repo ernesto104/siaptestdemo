@@ -1,7 +1,7 @@
 package Presentacion.listaPrecios;
 
 import Entidades.Equipos;
-import Mantenimiento.EquipoDAO;
+import Mantenimiento.EquiposDAO;
 import Servicios.Comision.Validar_Mayusculas;
 import java.util.List;
 
@@ -42,7 +42,7 @@ public class FREP037 extends javax.swing.JFrame {
 //        tx_grupoArt1.setDocument(new Validar_Mayusculas(tx_grupoArt1, 20));
     }
     private void ListarEquipos(){
-        List<Equipos> equipos = new EquipoDAO().Obtener_Lista_Objetos_OrderNombre();
+        List<Equipos> equipos = new EquiposDAO().Obtener_Lista_Objetos_OrderNombre();
         for ( Equipos l : equipos ) {
             cb_linea.addItem(l.getDescripcion());
         }

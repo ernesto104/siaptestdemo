@@ -9,7 +9,7 @@ import Entidades.Equipos;
 import Entidades.Roles;
 import Entidades.Transportistas;
 import Entidades.Usuarios;
-import Mantenimiento.EquipoDAO;
+import Mantenimiento.EquiposDAO;
 import Mantenimiento.UsuarioDAO;
 import Presentacion.FREP003;
 import Presentacion.FREP015;
@@ -30,11 +30,11 @@ public class Servicio_Equipos {
     
     
     DefaultTableModel modelo;
-    EquipoDAO equipoDao;    
+    EquiposDAO equipoDao;    
     FREP003 it;
     int ultimo_id;
     public Servicio_Equipos(FREP003 it){
-        equipoDao = new EquipoDAO();
+        equipoDao = new EquiposDAO();
         this.it=it;    
     }
 

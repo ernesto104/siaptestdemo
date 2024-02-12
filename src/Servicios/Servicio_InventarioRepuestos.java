@@ -283,7 +283,7 @@ public class Servicio_InventarioRepuestos {
         totalValorizado = totalValorizado.add(stock.multiply(BigDecimal.valueOf(valoriza)).setScale(2));
 
         ////////////////////////////////////////////////
-        // Guardando fila en una Entidad y ésta en una lista para luego ordenarla por 2 filtros (Descripcion y Modelo[Aplicación])
+        // Guardando fila en una Entidad y ésta en una lista para luego ordenarla por 2 filtros (Descripcion y Equipos[Aplicación])
         // 1.Guardando en lista temporal (lista desordenada)
         InventarioBrowse ib = new InventarioBrowse(
                                                    String.valueOf(repuesto[0]),
@@ -455,11 +455,11 @@ public class Servicio_InventarioRepuestos {
 //        String[] tituloColumna = {"Línea", "Nº de Parte", "Cód. Secundario", "Descripción", 
 //                                  "Aplicación", "Stock", valorizacion, "Total"};
 //        String[] tituloColumna = {"Item", "Nº de Parte", "Descripción", 
-//                                  "Modelo", "Descr.Lista", "Stock", valorizacion, "Total", "idLinea"};
+//                                  "Equipos", "Descr.Lista", "Stock", valorizacion, "Total", "idLinea"};
         String[] tituloColumna = {
 //                                  "Item", 
                                   "Nº de Parte", "Descripción", 
-                                  "Aplicación",  // = Modelo
+                                  "Aplicación",  // = Equipos
                                   "Anotación", "Stock", valorizacion, "Total", "idLinea",
                                   "Costo Unitario", "Precio Venta", "Cod Sec", "Desclista2", "Aplicacion2", "foxultimo", "marca"};
 
@@ -468,7 +468,7 @@ public class Servicio_InventarioRepuestos {
         
         tabla.getColumnModel().getColumn(0).setPreferredWidth(120); // N° de Parte
         tabla.getColumnModel().getColumn(1).setPreferredWidth(190); // Descripción
-        tabla.getColumnModel().getColumn(2).setPreferredWidth(140); // Aplicación (Modelo)
+        tabla.getColumnModel().getColumn(2).setPreferredWidth(140); // Aplicación (Equipos)
         tabla.getColumnModel().getColumn(3).setPreferredWidth(230); // Descr.Lista
         tabla.getColumnModel().getColumn(4).setPreferredWidth(60);  // Stock
         

@@ -389,7 +389,7 @@ public class FREP003 extends javax.swing.JFrame {
             .addGroup(panelCodigoEquiposLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel6)
-                .addGap(18, 18, 18)
+                .addGap(60, 60, 60)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelCodigoEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -541,7 +541,7 @@ public class FREP003 extends javax.swing.JFrame {
                         m.setValueAt(descripcion, fila, 1);
                         m.setValueAt(estado, fila, 2);
                         //m.setValueAt(descuento, fila, 2);
-                        m.setValueAt(descuento2, fila, 3);
+                       //m.setValueAt(descuento2, fila, 3);
                        /* m.setValueAt(descuento3, fila, 4);
                         m.setValueAt(descuento4, fila, 5);*/
 
