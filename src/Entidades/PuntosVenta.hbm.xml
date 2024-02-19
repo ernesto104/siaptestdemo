@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class catalog="siar_qf" name="Entidades.PuntosVenta" table="puntos_venta">
+    <id name="idpuntosventa" type="int">
+      <column name="IDPUNTOSVENTA"/>
+      <generator class="assigned"/>
+    </id>
+    <property name="descripcion" type="string">
+      <column length="40" name="DESCRIPCION"/>
+    </property>
+    <property name="estado" type="string">
+      <column name="ESTADO" length="12"/>
+    </property>  
+  </class>
+</hibernate-mapping>

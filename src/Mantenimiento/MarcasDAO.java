@@ -126,4 +126,23 @@ public class MarcasDAO extends GenericDAO<Marcas> {
         return lista;
 
     }
+    
+    public List Listar_Marcas_por_Equipo(Equipos equipo) {
+        
+        List<Marcas> lista = new LinkedList();
+        try {
+            iniciaOperacion();
+//            lista = sesion.createQuery("from Equipos order by idlinea ASC").list();
+            lista = sesion.createQuery("from Marcas where equipo.idequipo like '" + equipo.getIdequipo() + "' order by descripcion ASC").list();
+            tx.commit();
+
+        } catch (Exception e) {
+            System.err.println("Error : " + e.getMessage());
+        } finally {
+            if (sesion != null) {
+                sesion.close();
+            }
+        }
+        return lista;
+    }
 }

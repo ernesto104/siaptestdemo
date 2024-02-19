@@ -118,6 +118,9 @@ public class Servicio_Marcas {
         return marcaDao.Obtener_Objeto_por_nombre(nombre);
     }
     
+    public List buscarMarcasx_Equipo(Equipos equipo){
+        return marcaDao.Listar_Marcas_por_Equipo(equipo);
+    }
     
       public void Listar_marcas() {
 

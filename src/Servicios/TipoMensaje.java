@@ -32,6 +32,9 @@ public class TipoMensaje {
     public String RUC_LONGITUD_INSUFICIENTE = "RUC_LONGITUD_INSUFICIENTE";
     public String NO_SELECCIONADO = "NO_SELECCIONADO";
     public String NO_SELECCIONADO_LINEAS = "NO_SELECCIONADO_LINEAS";
+    public String NO_SELECCIONADO_MARCA = "NO_SELECCIONADO_MARCAS";
+    public String NO_SELECCIONADO_MODELO = "NO_SELECCIONADO_MODELOS";
+    public String NO_SELECCIONADO_PUNTOS_VENTA = "NO_SELECCIONADO_PUNTOS_VENTA";
     public String NO_SELECCIONADO_USUARIO = "NO_SELECCIONADO_USUARIO";
     public String NO_SELECCIONADO_SISTEMA = "NO_SELECCIONADO_SISTEMA";
     public String ERROR_EXPORTAR = "ERROR_EXPORTAR";
@@ -94,6 +97,18 @@ public class TipoMensaje {
             case "NO_SELECCIONADO_LINEAS":
                 JOptionPane.showMessageDialog(null, "SELECCIONE UNA LINEA", "Error", JOptionPane.ERROR_MESSAGE);
                 break;
+                
+            case "NO_SELECCIONADO_MARCAS":
+                JOptionPane.showMessageDialog(null, "Seleccione una marca", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+                
+            case "NO_SELECCIONADO_MODELOS":
+                JOptionPane.showMessageDialog(null, "Seleccione un modelo", "Error", JOptionPane.ERROR_MESSAGE);
+                break;    
+            
+            case "NO_SELECCIONADO_PUNTOS_VENTA":
+                JOptionPane.showMessageDialog(null, "Seleccione un punto de venta", "Error", JOptionPane.ERROR_MESSAGE);
+                break;     
                 
             case "NO_SELECCIONADO_USUARIO":
                 JOptionPane.showMessageDialog(null, "Primero seleccione un Usuario", "Error", JOptionPane.ERROR_MESSAGE);

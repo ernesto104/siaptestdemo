@@ -41,5 +41,7 @@
     <mapping resource="Entidades/Importadores.hbm.xml"/>
     <mapping resource="Entidades/Operaciones.hbm.xml"/>
     <mapping resource="Entidades/Marcas.hbm.xml"/>
+    <mapping resource="Entidades/Modelos.hbm.xml"/>
+    <mapping resource="Entidades/PuntosVenta.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

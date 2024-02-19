@@ -79,6 +79,10 @@ public class MENU001 extends javax.swing.JFrame {
     FREP011 camb;
     String nombreUsuario;
     Control c = new Control();
+    // probando reinicio de vistas
+    FREP0055 vista_marcas;
+    FREP0056 vista_modelos;
+    //
     String rolElegido;
     
     // Botones Pagar
@@ -151,6 +155,7 @@ public class MENU001 extends javax.swing.JFrame {
         item_Sistema.setVisible(false);
         item_Usuario.setVisible(false);
         item_Programas.setVisible(false);
+        item_PuntosVenta.setVisible(false);
         item_Roles.setVisible(false);
         item_Accesos.setVisible(false);
 
@@ -294,6 +299,11 @@ public class MENU001 extends javax.swing.JFrame {
             if ( "Programas".equals(descripcionPrograma) ) {
                 menuTabla = true;
                 item_Programas.setVisible(true);
+            }
+            if ("Puntos de Venta".equals(descripcionPrograma)) {
+                menuTabla = true;
+                item_PuntosVenta.setVisible(true);
+ 
             }
             if ( "Roles".equals(descripcionPrograma) ) {
                 menuTabla = true;
@@ -629,8 +639,12 @@ public class MENU001 extends javax.swing.JFrame {
         panelFactura_electronica = new javax.swing.JPanel();
         scrollFlujo_comparativo = new javax.swing.JScrollPane();
         panelFlujo_comparativo = new javax.swing.JPanel();
-        ScrollMarcas = new javax.swing.JScrollPane();
+        scrollMarcas = new javax.swing.JScrollPane();
         panelMarcas = new javax.swing.JPanel();
+        scrollModelos = new javax.swing.JScrollPane();
+        panelModelos = new javax.swing.JPanel();
+        scrollPuntos_venta = new javax.swing.JScrollPane();
+        panelPuntos_venta = new javax.swing.JPanel();
         panelInferior = new javax.swing.JPanel();
         btnClientes = new javax.swing.JButton();
         btnRepuestos = new javax.swing.JButton();
@@ -658,6 +672,7 @@ public class MENU001 extends javax.swing.JFrame {
         item_Programas = new javax.swing.JMenuItem();
         item_Roles = new javax.swing.JMenuItem();
         item_Accesos = new javax.swing.JMenuItem();
+        item_PuntosVenta = new javax.swing.JMenuItem();
         menu_FacturacionProforma = new javax.swing.JMenu();
         item_facturacion = new javax.swing.JMenuItem();
         item_emision_notas = new javax.swing.JMenuItem();
@@ -1664,9 +1679,39 @@ public class MENU001 extends javax.swing.JFrame {
             .addGap(0, 925, Short.MAX_VALUE)
         );
 
-        ScrollMarcas.setViewportView(panelMarcas);
+        scrollMarcas.setViewportView(panelMarcas);
 
-        panelCentral.add(ScrollMarcas, "scrollMarcas");
+        panelCentral.add(scrollMarcas, "scrollMarcas");
+
+        javax.swing.GroupLayout panelModelosLayout = new javax.swing.GroupLayout(panelModelos);
+        panelModelos.setLayout(panelModelosLayout);
+        panelModelosLayout.setHorizontalGroup(
+            panelModelosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1641, Short.MAX_VALUE)
+        );
+        panelModelosLayout.setVerticalGroup(
+            panelModelosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 925, Short.MAX_VALUE)
+        );
+
+        scrollModelos.setViewportView(panelModelos);
+
+        panelCentral.add(scrollModelos, "scrollModelos");
+
+        javax.swing.GroupLayout panelPuntos_ventaLayout = new javax.swing.GroupLayout(panelPuntos_venta);
+        panelPuntos_venta.setLayout(panelPuntos_ventaLayout);
+        panelPuntos_ventaLayout.setHorizontalGroup(
+            panelPuntos_ventaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1641, Short.MAX_VALUE)
+        );
+        panelPuntos_ventaLayout.setVerticalGroup(
+            panelPuntos_ventaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 925, Short.MAX_VALUE)
+        );
+
+        scrollPuntos_venta.setViewportView(panelPuntos_venta);
+
+        panelCentral.add(scrollPuntos_venta, "scrollPuntos_venta");
 
         getContentPane().add(panelCentral, java.awt.BorderLayout.CENTER);
 
@@ -1823,6 +1868,7 @@ public class MENU001 extends javax.swing.JFrame {
         });
         menu_Tablas.add(item_CodigosEquipos);
 
+        item_Marca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Marca.png"))); // NOI18N
         item_Marca.setText("Marca");
         item_Marca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1831,6 +1877,7 @@ public class MENU001 extends javax.swing.JFrame {
         });
         menu_Tablas.add(item_Marca);
 
+        item_Modelo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Modelo.png"))); // NOI18N
         item_Modelo.setText("Modelo");
         item_Modelo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1978,6 +2025,15 @@ public class MENU001 extends javax.swing.JFrame {
             }
         });
         menu_Tablas.add(item_Accesos);
+
+        item_PuntosVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Punto de Venta.png"))); // NOI18N
+        item_PuntosVenta.setText("Punto de Venta");
+        item_PuntosVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                item_PuntosVentaActionPerformed(evt);
+            }
+        });
+        menu_Tablas.add(item_PuntosVenta);
 
         jMenuBar1.add(menu_Tablas);
 
@@ -3731,25 +3787,84 @@ public class MENU001 extends javax.swing.JFrame {
 
     private void item_ModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_ModeloActionPerformed
         // TODO add your handling code here:
+        //final FREP0056 modelos = new FREP0056();
+        //Reinicia la vista
+        if(vista_modelos == null) {
+            vista_modelos = new FREP0056();
+            
+            JPanel panel = vista_modelos.panelCodigoModelos;
+            panel.setLocation(0, 0);
+            panelModelos.add(panel);
+            panelModelos.updateUI();
+            
+            /**panelModelos.removeAll();
+            vista_modelos.dispose();
+            panelModelos.updateUI();*/
+            //System.out.print("hola");
+        }
+        
+        vista_modelos.btnsalir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panelModelos.removeAll();
+                vista_modelos.dispose();
+                panelModelos.updateUI();
+            }
+        });
+        
+        cambiarPanelesCambiante("scrollModelos");
+                                                       
     }//GEN-LAST:event_item_ModeloActionPerformed
 
     private void item_MarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_MarcaActionPerformed
         // TODO add your handling code here:
-        final FREP0055 equipos = new FREP0055();
-        equipos.btnsalir.addActionListener(new ActionListener() {
+        
+         //Reinicia la vista si ya existe
+        if(vista_marcas == null) {
+            vista_marcas = new FREP0055();
+            
+            JPanel panel = vista_marcas.panelCodigoMarcas;
+            panel.setLocation(0, 0);
+            panelMarcas.add(panel);
+            panelMarcas.updateUI();
+            
+            /*panelMarcas.removeAll();
+            vista_marcas.dispose();
+            panelMarcas.updateUI();*/
+            //System.out.print("hola");
+        }
+        
+        //final FREP0055 marcas = new FREP0055();
+        
+        vista_marcas.btnsalir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 panelMarcas.removeAll();
-                equipos.dispose();
+                vista_marcas.dispose();
                 panelCentral.updateUI();
             }
         });
-        JPanel panel = equipos.panelCodigoEquipos;
-        panel.setLocation(0, 0);
-        panelMarcas.add(panel);
-        panelMarcas.updateUI();
+        
         cambiarPanelesCambiante("scrollMarcas");
     }//GEN-LAST:event_item_MarcaActionPerformed
+
+    private void item_PuntosVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_PuntosVentaActionPerformed
+        // TODO add your handling code here:
+        final FREP0057 puntosventa = new FREP0057();
+        puntosventa.btnsalir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panelPuntos_venta.removeAll();
+                puntosventa.dispose();
+                panelCentral.updateUI();
+            }
+        });
+        JPanel panel = puntosventa.panelPuntosVenta;
+        panel.setLocation(0, 0);
+        panelPuntos_venta.add(panel);
+        panelPuntos_venta.updateUI();
+        cambiarPanelesCambiante("scrollPuntos_venta");
+    }//GEN-LAST:event_item_PuntosVentaActionPerformed
 
     public void validarHabilitacion(JButton boton) {
 
@@ -3786,7 +3901,6 @@ public class MENU001 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JMenuItem FREP001;
-    public javax.swing.JScrollPane ScrollMarcas;
     public javax.swing.JButton botonDemandas;
     public javax.swing.JButton botonLineas;
     public javax.swing.JButton botonVendedores;
@@ -3816,6 +3930,7 @@ public class MENU001 extends javax.swing.JFrame {
     public javax.swing.JMenuItem item_Operaciones;
     public javax.swing.JMenuItem item_Paquetes;
     public javax.swing.JMenuItem item_Programas;
+    public javax.swing.JMenuItem item_PuntosVenta;
     public javax.swing.JMenuItem item_ReImpresionFBN;
     public javax.swing.JMenuItem item_Rep_Estratificacion;
     public javax.swing.JMenuItem item_ResumCliente;
@@ -3906,11 +4021,13 @@ public class MENU001 extends javax.swing.JFrame {
     public javax.swing.JPanel panelLista_precios;
     public javax.swing.JPanel panelMaestroRepuestos;
     public javax.swing.JPanel panelMarcas;
+    public javax.swing.JPanel panelModelos;
     public javax.swing.JPanel panelModifica_Anula_Almacen;
     public javax.swing.JPanel panelOperaciones;
     public javax.swing.JPanel panelPaquetes;
     public javax.swing.JPanel panelPedidos_Importacion;
     public javax.swing.JPanel panelProgramas;
+    public javax.swing.JPanel panelPuntos_venta;
     public javax.swing.JPanel panelReImpresion;
     public javax.swing.JScrollPane panelReporte_inventario;
     public javax.swing.JPanel panelRepuestos_estratificacion;
@@ -3962,11 +4079,14 @@ public class MENU001 extends javax.swing.JFrame {
     public javax.swing.JScrollPane scrollInventario_almacen;
     public javax.swing.JScrollPane scrollLista_precios;
     public javax.swing.JScrollPane scrollMaestroRepuestos;
+    public javax.swing.JScrollPane scrollMarcas;
+    public javax.swing.JScrollPane scrollModelos;
     public javax.swing.JScrollPane scrollModifica_Anula_Almacen;
     public javax.swing.JScrollPane scrollOperaciones;
     public javax.swing.JScrollPane scrollPaquetes;
     public javax.swing.JScrollPane scrollPedidos_Importacion;
     public javax.swing.JScrollPane scrollProgramas;
+    public javax.swing.JScrollPane scrollPuntos_venta;
     public javax.swing.JScrollPane scrollReImpresion;
     public javax.swing.JScrollPane scrollRepuestos_estratificacion;
     public javax.swing.JScrollPane scrollResumenCliente;
