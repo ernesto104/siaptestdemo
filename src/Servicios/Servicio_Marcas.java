@@ -120,6 +120,26 @@ public class Servicio_Marcas {
     
     public List buscarMarcasx_Equipo(Equipos equipo){
         return marcaDao.Listar_Marcas_por_Equipo(equipo);
+        
+    }
+    
+    
+    public void ListarMarcasx_Equipo(Equipos equipo){
+        //return marcaDao.Listar_Marcas_por_Equipo(equipo);
+        
+        DefaultTableModel table = (DefaultTableModel) it.tablaCodigoMarcas.getModel();
+        Iterator ite = marcaDao.Listar_Marcas_por_Equipo(equipo).iterator();
+        while (ite.hasNext()) {
+            Object[] row = new Object[6];
+            Marcas lin = (Marcas) ite.next();
+            row[0] = lin.getEquipo().getIdequipo();
+            row[1] = lin.getEquipo().getDescripcion();
+            row[2] = lin.getIdmarca();
+            row[3] = lin.getDescripcion();
+            row[4] = lin.getEstado();
+            table.addRow(row);
+        }
+        
     }
     
       public void Listar_marcas() {

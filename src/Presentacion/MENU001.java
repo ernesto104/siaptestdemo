@@ -3792,10 +3792,7 @@ public class MENU001 extends javax.swing.JFrame {
         if(vista_modelos == null) {
             vista_modelos = new FREP0056();
             
-            JPanel panel = vista_modelos.panelCodigoModelos;
-            panel.setLocation(0, 0);
-            panelModelos.add(panel);
-            panelModelos.updateUI();
+            
             
             /**panelModelos.removeAll();
             vista_modelos.dispose();
@@ -3812,6 +3809,11 @@ public class MENU001 extends javax.swing.JFrame {
             }
         });
         
+        
+        JPanel panel = vista_modelos.panelCodigoModelos;
+            panel.setLocation(0, 0);
+            panelModelos.add(panel);
+            panelModelos.updateUI();
         cambiarPanelesCambiante("scrollModelos");
                                                        
     }//GEN-LAST:event_item_ModeloActionPerformed
@@ -3823,17 +3825,14 @@ public class MENU001 extends javax.swing.JFrame {
         if(vista_marcas == null) {
             vista_marcas = new FREP0055();
             
-            JPanel panel = vista_marcas.panelCodigoMarcas;
-            panel.setLocation(0, 0);
-            panelMarcas.add(panel);
-            panelMarcas.updateUI();
+
             
             /*panelMarcas.removeAll();
             vista_marcas.dispose();
             panelMarcas.updateUI();*/
-            //System.out.print("hola");
+            
         }
-        
+        //System.out.print(vista_marcas);
         //final FREP0055 marcas = new FREP0055();
         
         vista_marcas.btnsalir.addActionListener(new ActionListener() {
@@ -3845,6 +3844,10 @@ public class MENU001 extends javax.swing.JFrame {
             }
         });
         
+                    JPanel panel = vista_marcas.panelCodigoMarcas;
+            panel.setLocation(0, 0);
+            panelMarcas.add(panel);
+            panelMarcas.updateUI();
         cambiarPanelesCambiante("scrollMarcas");
     }//GEN-LAST:event_item_MarcaActionPerformed
 

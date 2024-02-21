@@ -63,7 +63,7 @@ public class FREP0056 extends javax.swing.JFrame {
         tm = new TipoMensaje();
 
         txtid.setText(String.valueOf(smod.nextId()));
-        Listar_Modelos();
+        //Listar_Modelos();
         crearArrayComponente();
         numMaximo = new ArrayList<>();
         crearArrayNumMax();
@@ -142,6 +142,19 @@ public class FREP0056 extends javax.swing.JFrame {
     //generar contenido de tabla
     private void Listar_Modelos() {
         smod.Listar_modelos();
+    }
+    
+    
+    private void BorrarTabla() {
+        int numRows = table.getRowCount();
+        for ( int i = 0; i < numRows; i++ ) {
+            table.removeRow(0);
+        }
+    }
+    
+    private void ListarModelosxMarca (Marcas marca) {
+        BorrarTabla();
+        smod.ListarModelosx_Marcas(marca);
     }
 
     private String validarEntradas() {
@@ -363,13 +376,14 @@ public class FREP0056 extends javax.swing.JFrame {
                     .addComponent(labeltextid)
                     .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labeltextdescripcion)
-                    .addComponent(txtdescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtdescuento3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel7)))
+                        .addComponent(jLabel7))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(labeltextdescripcion)
+                        .addComponent(txtdescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelestado)
@@ -878,6 +892,7 @@ public class FREP0056 extends javax.swing.JFrame {
             textidmarca.setText(Integer.toString(marcaselec.getIdmarca()));
             visibilidadElementosModelo(true);
         }
+        ListarModelosxMarca(marcaselec);
     }//GEN-LAST:event_comboMarcaItemStateChanged
 
     private void comboEquipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboEquipoItemStateChanged
@@ -909,7 +924,7 @@ public class FREP0056 extends javax.swing.JFrame {
             jLabel11.setVisible(true);  */
             comboMarca.setSelectedIndex(0);
         }
-
+        BorrarTabla();
         /*
         if ( evt.getStateChange() == ItemEvent.SELECTED ) {
             if ( comboEquipo.getSelectedIndex() != 0 ) {
@@ -960,6 +975,7 @@ public class FREP0056 extends javax.swing.JFrame {
         comboEstado.setSelectedIndex(0);
         txtdescuento2.setText("");
         txtdescuento3.setText("");
+        BorrarTabla();
 
         if (table.getRowCount() != 0) {
             int num = Integer.parseInt(table.getValueAt(table.getRowCount() - 1, 0).toString()) + 1;

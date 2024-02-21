@@ -113,7 +113,7 @@ public class MarcasDAO extends GenericDAO<Marcas> {
         try {
             iniciaOperacion();
 //            lista = sesion.createQuery("from Equipos order by idlinea ASC").list();
-            lista = sesion.createQuery("from Marcas order by descripcion ASC").list();
+            lista = getHibernateTemplate().createQuery("from Marcas order by descripcion ASC").list();
             tx.commit();
 
         } catch (Exception e) {
@@ -133,7 +133,7 @@ public class MarcasDAO extends GenericDAO<Marcas> {
         try {
             iniciaOperacion();
 //            lista = sesion.createQuery("from Equipos order by idlinea ASC").list();
-            lista = sesion.createQuery("from Marcas where equipo.idequipo like '" + equipo.getIdequipo() + "' order by descripcion ASC").list();
+            lista = getHibernateTemplate().createQuery("from Marcas where equipo.idequipo like '" + equipo.getIdequipo() + "' order by descripcion ASC").list();
             tx.commit();
 
         } catch (Exception e) {

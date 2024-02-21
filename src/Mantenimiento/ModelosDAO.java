@@ -101,7 +101,7 @@ public class ModelosDAO extends GenericDAO<Modelos> {
     }
 
     public Modelos Obtener_Objeto_por_nombre(String nombre) {
-        Modelos mod = new Modelos ();
+        Modelos mod = new Modelos();
         mod = (Modelos) getHibernateTemplate().createQuery("from Modelos where descripcion='" + nombre + "'").uniqueResult();       
         return mod;
     }
@@ -117,6 +117,26 @@ public class ModelosDAO extends GenericDAO<Modelos> {
             iniciaOperacion();
 //            lista = sesion.createQuery("from Equipos order by idlinea ASC").list();
             lista = sesion.createQuery("from Modelos order by descripcion ASC").list();
+            tx.commit();
+
+        } catch (Exception e) {
+            System.err.println("Error : " + e.getMessage());
+        } finally {
+            if (sesion != null) {
+                sesion.close();
+            }
+        }
+        return lista;
+
+    }
+    
+    
+    public List<Modelos> Obtener_Lista_Objetos_OrderMarcas(Marcas marca) {
+        List<Modelos> lista = new LinkedList();
+        try {
+            iniciaOperacion();
+//            lista = sesion.createQuery("from Equipos order by idlinea ASC").list();
+            lista = getHibernateTemplate().createQuery("from Modelos where marca.idmarca like '"+marca.getIdmarca()+"' order by descripcion ASC").list();
             tx.commit();
 
         } catch (Exception e) {

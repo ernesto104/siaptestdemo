@@ -122,6 +122,25 @@ public class Servicio_Modelos {
     }
     
     
+    public void ListarModelosx_Marcas(Marcas marca){
+        DefaultTableModel table = (DefaultTableModel) it.tablaCodigoModelos.getModel();
+        Iterator ite =  modeloDao.Obtener_Lista_Objetos_OrderMarcas(marca).iterator();
+        
+        while (ite.hasNext()) {
+            Object[] row = new Object[8];
+            Modelos lin = (Modelos) ite.next();
+            row[0] = lin.getEquipo().getIdequipo();
+            row[1] = lin.getEquipo().getDescripcion();
+            row[3] = lin.getMarca().getIdmarca();
+            row[4] = lin.getMarca().getDescripcion();
+            row[5] = lin.getIdmodelo();
+            row[6] = lin.getDescripcion();
+            row[7] = lin.getEstado();
+            table.addRow(row);
+        }
+        
+    }
+    
       public void Listar_modelos() {
 
        DefaultTableModel table = (DefaultTableModel) it.tablaCodigoModelos.getModel();

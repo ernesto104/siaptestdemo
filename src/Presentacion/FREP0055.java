@@ -55,7 +55,7 @@ public class FREP0055 extends javax.swing.JFrame {
         tm = new TipoMensaje();
 
         txtid.setText(String.valueOf(smarc.nextId()));
-        Listar_Marcas();
+        //Listar_Marcas();
         crearArrayComponente();
         numMaximo = new ArrayList<>();
         crearArrayNumMax();
@@ -125,7 +125,21 @@ public class FREP0055 extends javax.swing.JFrame {
     private void Listar_Marcas() {
         smarc.Listar_marcas();
     }
+    
+    private void Listar_MarcasxEquipo(Equipos equipo) {
+        BorrarTabla();
+        smarc.ListarMarcasx_Equipo(equipo);
+    }
 
+    
+    private void BorrarTabla() {
+        int numRows = table.getRowCount();
+        for ( int i = 0; i < numRows; i++ ) {
+            table.removeRow(0);
+        }
+    }
+    
+    
     private String validarEntradas() {
         String mensaje = "ERROR";
         
@@ -819,8 +833,8 @@ public class FREP0055 extends javax.swing.JFrame {
         } else {
             seleccionarVisibilidadElementosMarca(true);
             textidequipo.setText(Integer.toString(equipselec.getIdequipo()));
-            
         }
+        Listar_MarcasxEquipo(equipselec);
         
     }//GEN-LAST:event_comboEquipoItemStateChanged
 
