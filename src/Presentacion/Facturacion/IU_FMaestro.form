@@ -279,7 +279,7 @@
               <Font name="Tahoma" size="24" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="SELECCI&#xd3;N DE REPUESTOS"/>
+            <Property name="text" type="java.lang.String" value="SELECCI&#xd3;N DE PRODUCTOS"/>
           </Properties>
         </Component>
       </SubComponents>

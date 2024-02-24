@@ -48,7 +48,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Imagenes/Repuestos.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Repuestos"/>
+                <Property name="text" type="java.lang.String" value="Productos"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FREP001ActionPerformed"/>
@@ -2715,9 +2715,9 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnClientes" min="-2" pref="146" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="btnRepuestos" min="-2" pref="147" max="-2" attributes="0"/>
+                  <Component id="btnProductos" min="-2" pref="147" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="botonLineas" min="-2" pref="138" max="-2" attributes="0"/>
+                  <Component id="botonProductos" min="-2" pref="138" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="botonDemandas" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -2732,8 +2732,8 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="btnClientes" pref="46" max="32767" attributes="0"/>
-                      <Component id="btnRepuestos" max="32767" attributes="0"/>
-                      <Component id="botonLineas" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnProductos" max="32767" attributes="0"/>
+                      <Component id="botonProductos" alignment="0" max="32767" attributes="0"/>
                       <Component id="botonDemandas" alignment="0" max="32767" attributes="0"/>
                       <Component id="botonVendedores" alignment="0" max="32767" attributes="0"/>
                   </Group>
@@ -2759,7 +2759,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClientesActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnRepuestos">
+        <Component class="javax.swing.JButton" name="btnProductos">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="12" style="1"/>
@@ -2767,15 +2767,15 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Imagenes/Repuestos.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Repuestos"/>
+            <Property name="text" type="java.lang.String" value="Productos"/>
             <Property name="toolTipText" type="java.lang.String" value="Tabla de Repuestos"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseMoved" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="btnRepuestosMouseMoved"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRepuestosActionPerformed"/>
+            <EventHandler event="mouseMoved" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="btnProductosMouseMoved"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProductosActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="botonLineas">
+        <Component class="javax.swing.JButton" name="botonProductos">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="12" style="1"/>
@@ -2783,12 +2783,12 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Imagenes/Codigo de Lineas.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Lineas"/>
+            <Property name="text" type="java.lang.String" value="Equipos"/>
             <Property name="toolTipText" type="java.lang.String" value="Tabla de L&#xed;neas"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseMoved" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="botonLineasMouseMoved"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonLineasActionPerformed"/>
+            <EventHandler event="mouseMoved" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="botonProductosMouseMoved"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonProductosActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="botonDemandas">

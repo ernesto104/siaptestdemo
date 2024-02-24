@@ -99,7 +99,13 @@ public class MarcasDAO extends GenericDAO<Marcas> {
 
     public Marcas Obtener_Objeto_por_nombre(String nombre) {
         Marcas marc = new Marcas ();
-        marc = (Marcas) getHibernateTemplate().createQuery("from Marcas where descripcion='" + nombre + "'").uniqueResult();       
+        try {
+        marc = (Marcas) getHibernateTemplate().createQuery("from Marcas where descripcion='" + nombre + "'").uniqueResult();  
+        } catch (Exception e) {
+            System.err.println("Error : " + e.getLocalizedMessage());
+        } finally {
+            session.close();
+        }
         return marc;
     }
 

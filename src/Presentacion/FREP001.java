@@ -445,7 +445,7 @@ public class FREP001 extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del Repuesto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 14))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del Producto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 14))); // NOI18N
 
         txtId.setEnabled(false);
         txtId.addActionListener(new java.awt.event.ActionListener() {
@@ -466,13 +466,13 @@ public class FREP001 extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("ID Repuesto");
+        jLabel2.setText("ID Producto");
 
         jLabel3.setText("Cod Secundario");
 
         jLabel4.setText("Descripción");
 
-        jLabel5.setText("Aplicación 1");
+        jLabel5.setText("ID Marca");
 
         jLabel6.setText("Anotación 1");
 
@@ -484,7 +484,7 @@ public class FREP001 extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setText("ID Linea");
+        jLabel9.setText("ID Equipo");
 
         jLabel10.setText("Stock Central");
 
@@ -495,13 +495,8 @@ public class FREP001 extends javax.swing.JFrame {
             }
         });
 
-        comboLinea.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione una Linea" }));
+        comboLinea.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione un Equipo" }));
         comboLinea.setToolTipText("");
-        comboLinea.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboLineaActionPerformed(evt);
-            }
-        });
 
         jLabel11.setText("N° Alternativo");
 
@@ -600,7 +595,7 @@ public class FREP001 extends javax.swing.JFrame {
 
         jLabel35.setText("Anotación 2");
 
-        jLabel7.setText("Aplicación 2");
+        jLabel7.setText("ID Modelo");
 
         btnAddImg.setText("Agregar");
         btnAddImg.addActionListener(new java.awt.event.ActionListener() {
@@ -668,12 +663,12 @@ public class FREP001 extends javax.swing.JFrame {
                             .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5)
                             .addComponent(jLabel4)
                             .addComponent(jLabel2)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel9)
-                                .addComponent(jLabel12))))
+                                .addComponent(jLabel12))
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1043,7 +1038,7 @@ public class FREP001 extends javax.swing.JFrame {
 
         jLabel28.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
         jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel28.setText("MAESTRO DE REPUESTOS");
+        jLabel28.setText("MAESTRO DE PRODUCTOS");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Búsqueda por : ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
@@ -1238,6 +1233,8 @@ public class FREP001 extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jPanel2.getAccessibleContext().setAccessibleName("Datos del Producto");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -1268,7 +1265,7 @@ public class FREP001 extends javax.swing.JFrame {
             mensaje = mensaje + "\nFALTA DESCRIPCION";
         }
         if ( comboLinea.getSelectedIndex() == 0 ) {
-            mensaje = mensaje + "\nFALTA SELECCIONAR LINEA";
+            mensaje = mensaje + "\nFALTA SELECCIONAR EQUIPO";
         }
         if ( txtPrecioLista.getText().equals("") ) {
             mensaje = mensaje + "\nFALTA INGRESAR PRECIO LISTA";
@@ -1314,7 +1311,7 @@ public class FREP001 extends javax.swing.JFrame {
         }
 
         if ( comboLinea.getSelectedIndex() == 0 ) {
-            mensaje = mensaje + "\nFALTA SELECCIONAR LINEA";
+            mensaje = mensaje + "\nFALTA SELECCIONAR EQUIPO";
         }
 //        if ( comboMovimiento.getSelectedIndex() == 0 || comboMovimiento.getSelectedIndex() == 1 ) {
 //            mensaje = mensaje + "\nFALTA SELECCIONAR MOVIMIENTO";
@@ -2439,10 +2436,6 @@ public class FREP001 extends javax.swing.JFrame {
     private void txtStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStockActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtStockActionPerformed
-
-    private void comboLineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboLineaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboLineaActionPerformed
 
 
     private void eliminarImagen() {

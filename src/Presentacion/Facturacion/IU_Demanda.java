@@ -352,7 +352,7 @@ public class IU_Demanda extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("DEMANDA DE REPUESTO");
+        jLabel3.setText("DEMANDA DE PRODUCTO");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Nro Parte");

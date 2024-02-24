@@ -153,7 +153,7 @@ public class FREP0056 extends javax.swing.JFrame {
     }
     
     private void ListarModelosxMarca (Marcas marca) {
-        BorrarTabla();
+        //BorrarTabla();
         smod.ListarModelosx_Marcas(marca);
     }
 
@@ -884,6 +884,7 @@ public class FREP0056 extends javax.swing.JFrame {
 
         Servicio_Marcas servmarc = new Servicio_Marcas(null);
         Marcas marcaselec = servmarc.buscarMarcasx_Nombre(marcDescr);
+        BorrarTabla();
         //Listar_Provincias(dpto);
         if(marcaselec == null){
             textidmarca.setText("");
@@ -891,8 +892,10 @@ public class FREP0056 extends javax.swing.JFrame {
         } else {
             textidmarca.setText(Integer.toString(marcaselec.getIdmarca()));
             visibilidadElementosModelo(true);
+            ListarModelosxMarca(marcaselec);
         }
-        ListarModelosxMarca(marcaselec);
+        
+        
     }//GEN-LAST:event_comboMarcaItemStateChanged
 
     private void comboEquipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboEquipoItemStateChanged
@@ -905,7 +908,8 @@ public class FREP0056 extends javax.swing.JFrame {
         //System.out.println(equipselec);
         textidmarca.setText("");
         //Listar_Provincias(dpto);
-        if(equipselec == null){
+        BorrarTabla();
+        if(equipselec == null /*|| comboEquipo.getSelectedIndex()== 0*/){
             textidequipo.setText("");
             visibilidadElementosMarca(false);
             visibilidadElementosModelo(false);
@@ -924,7 +928,7 @@ public class FREP0056 extends javax.swing.JFrame {
             jLabel11.setVisible(true);  */
             comboMarca.setSelectedIndex(0);
         }
-        BorrarTabla();
+        
         /*
         if ( evt.getStateChange() == ItemEvent.SELECTED ) {
             if ( comboEquipo.getSelectedIndex() != 0 ) {
@@ -956,9 +960,9 @@ public class FREP0056 extends javax.swing.JFrame {
         
         
         
-        
-       /*Servicio_Marcas sm = new Servicio_Marcas(null);
-       Iterator it = sm.getList().iterator();
+        /*
+       Servicio_Marcas sm = new Servicio_Marcas(null);
+       Iterator it = sm.buscarMarcasx_Equipo(equipo).iterator();
 
        while (it.hasNext()) {
            Marcas marc = (Marcas) it.next();
@@ -968,14 +972,14 @@ public class FREP0056 extends javax.swing.JFrame {
     
     public void limpiar() {
 
-        textidequipo.setText("");
-        comboEquipo.setSelectedIndex(0);
+        //textidequipo.setText("");
+        //comboEquipo.setSelectedIndex(0);
         txtdescripcion.setText("");
        // txtdescuento.setText("");
         comboEstado.setSelectedIndex(0);
         txtdescuento2.setText("");
         txtdescuento3.setText("");
-        BorrarTabla();
+        //BorrarTabla();
 
         if (table.getRowCount() != 0) {
             int num = Integer.parseInt(table.getValueAt(table.getRowCount() - 1, 0).toString()) + 1;

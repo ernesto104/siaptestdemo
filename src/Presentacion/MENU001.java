@@ -647,8 +647,8 @@ public class MENU001 extends javax.swing.JFrame {
         panelPuntos_venta = new javax.swing.JPanel();
         panelInferior = new javax.swing.JPanel();
         btnClientes = new javax.swing.JButton();
-        btnRepuestos = new javax.swing.JButton();
-        botonLineas = new javax.swing.JButton();
+        btnProductos = new javax.swing.JButton();
+        botonProductos = new javax.swing.JButton();
         botonDemandas = new javax.swing.JButton();
         botonVendedores = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -1734,33 +1734,33 @@ public class MENU001 extends javax.swing.JFrame {
             }
         });
 
-        btnRepuestos.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnRepuestos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Repuestos.png"))); // NOI18N
-        btnRepuestos.setText("Repuestos");
-        btnRepuestos.setToolTipText("Tabla de Repuestos");
-        btnRepuestos.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+        btnProductos.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Repuestos.png"))); // NOI18N
+        btnProductos.setText("Productos");
+        btnProductos.setToolTipText("Tabla de Repuestos");
+        btnProductos.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
-                btnRepuestosMouseMoved(evt);
+                btnProductosMouseMoved(evt);
             }
         });
-        btnRepuestos.addActionListener(new java.awt.event.ActionListener() {
+        btnProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRepuestosActionPerformed(evt);
+                btnProductosActionPerformed(evt);
             }
         });
 
-        botonLineas.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        botonLineas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Codigo de Lineas.png"))); // NOI18N
-        botonLineas.setText("Lineas");
-        botonLineas.setToolTipText("Tabla de Líneas");
-        botonLineas.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+        botonProductos.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        botonProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Codigo de Lineas.png"))); // NOI18N
+        botonProductos.setText("Equipos");
+        botonProductos.setToolTipText("Tabla de Líneas");
+        botonProductos.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
-                botonLineasMouseMoved(evt);
+                botonProductosMouseMoved(evt);
             }
         });
-        botonLineas.addActionListener(new java.awt.event.ActionListener() {
+        botonProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonLineasActionPerformed(evt);
+                botonProductosActionPerformed(evt);
             }
         });
 
@@ -1802,9 +1802,9 @@ public class MENU001 extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(btnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnRepuestos, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(botonLineas, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botonProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(botonDemandas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1817,8 +1817,8 @@ public class MENU001 extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnClientes, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
-                    .addComponent(btnRepuestos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(botonLineas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botonProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botonDemandas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botonVendedores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -1840,7 +1840,7 @@ public class MENU001 extends javax.swing.JFrame {
         FREP001.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         FREP001.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         FREP001.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Repuestos.png"))); // NOI18N
-        FREP001.setText("Repuestos");
+        FREP001.setText("Productos");
         FREP001.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 FREP001ActionPerformed(evt);
@@ -2500,9 +2500,9 @@ public class MENU001 extends javax.swing.JFrame {
         if (rolElegido.equals("Facturador")) {
             menu_Tablas.setVisible(false);
             FREP001.setEnabled(false);
-            btnRepuestos.setEnabled(false);
+            btnProductos.setEnabled(false);
             item_CodigosEquipos.setEnabled(false);
-            botonLineas.setEnabled(false);
+            botonProductos.setEnabled(false);
             item_Operaciones.setEnabled(false);
             item_Importadores.setEnabled(false);
             item_Bancos.setEnabled(false);
@@ -2530,11 +2530,11 @@ public class MENU001 extends javax.swing.JFrame {
 
         if (rolElegido.equals("Almacenero")) {
             FREP001.setEnabled(false);
-            btnRepuestos.setEnabled(false);
+            btnProductos.setEnabled(false);
             item_Clientes.setEnabled(false);
             btnClientes.setEnabled(false);
             item_CodigosEquipos.setEnabled(false);
-            botonLineas.setEnabled(false);
+            botonProductos.setEnabled(false);
             item_Operaciones.setEnabled(false);
             item_Transportistas.setEnabled(false);
             item_Vendedores.setEnabled(false);
@@ -2578,11 +2578,11 @@ public class MENU001 extends javax.swing.JFrame {
 
         if (rolElegido.equals("Finanzas")) {
             FREP001.setEnabled(false);
-            btnRepuestos.setEnabled(false);
+            btnProductos.setEnabled(false);
             item_Clientes.setEnabled(false);
             btnClientes.setEnabled(false);
             item_CodigosEquipos.setEnabled(false);
-            botonLineas.setEnabled(false);
+            botonProductos.setEnabled(false);
             item_Operaciones.setEnabled(false);
             item_Transportistas.setEnabled(false);
             item_Vendedores.setEnabled(false);
@@ -2624,11 +2624,11 @@ public class MENU001 extends javax.swing.JFrame {
 
         if (rolElegido.equals("CLIENTE WEB")) {
             FREP001.setEnabled(false);
-            btnRepuestos.setEnabled(false);
+            btnProductos.setEnabled(false);
             item_Clientes.setEnabled(false);
             btnClientes.setEnabled(false);
             item_CodigosEquipos.setEnabled(false);
-            botonLineas.setEnabled(false);
+            botonProductos.setEnabled(false);
             item_Operaciones.setEnabled(false);
             item_Transportistas.setEnabled(false);
             item_Vendedores.setEnabled(false);
@@ -2858,13 +2858,13 @@ public class MENU001 extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnClientesActionPerformed
 
-    private void btnRepuestosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRepuestosActionPerformed
+    private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
         FREP001.doClick();
-    }//GEN-LAST:event_btnRepuestosActionPerformed
+    }//GEN-LAST:event_btnProductosActionPerformed
 
-    private void botonLineasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLineasActionPerformed
+    private void botonProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonProductosActionPerformed
         item_CodigosEquipos.doClick();
-    }//GEN-LAST:event_botonLineasActionPerformed
+    }//GEN-LAST:event_botonProductosActionPerformed
 
     private void botonVendedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVendedoresActionPerformed
         item_Vendedores.doClick();
@@ -2874,13 +2874,13 @@ public class MENU001 extends javax.swing.JFrame {
         validarHabilitacion(btnClientes);
     }//GEN-LAST:event_btnClientesMouseMoved
 
-    private void btnRepuestosMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRepuestosMouseMoved
-        validarHabilitacion(btnRepuestos);
-    }//GEN-LAST:event_btnRepuestosMouseMoved
+    private void btnProductosMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProductosMouseMoved
+        validarHabilitacion(btnProductos);
+    }//GEN-LAST:event_btnProductosMouseMoved
 
-    private void botonLineasMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonLineasMouseMoved
-        validarHabilitacion(botonLineas);
-    }//GEN-LAST:event_botonLineasMouseMoved
+    private void botonProductosMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonProductosMouseMoved
+        validarHabilitacion(botonProductos);
+    }//GEN-LAST:event_botonProductosMouseMoved
 
     private void botonDemandasMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonDemandasMouseMoved
         validarHabilitacion(botonDemandas);
@@ -3787,25 +3787,23 @@ public class MENU001 extends javax.swing.JFrame {
 
     private void item_ModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_ModeloActionPerformed
         // TODO add your handling code here:
-        //final FREP0056 modelos = new FREP0056();
-        //Reinicia la vista
-        if(vista_modelos == null) {
-            vista_modelos = new FREP0056();
-            
-            
-            
-            /**panelModelos.removeAll();
-            vista_modelos.dispose();
-            panelModelos.updateUI();*/
-            //System.out.print("hola");
+        if (vista_modelos == null){
+        vista_modelos = new FREP0056();
         }
+        
         
         vista_modelos.btnsalir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //Syste m.out.print("\n"+vista_modelos);
                 panelModelos.removeAll();
-                vista_modelos.dispose();
-                panelModelos.updateUI();
+                // por el moento asi
+                //vista_modelos.dispose();
+                vista_modelos = null;
+                //modelos = null;
+                panelCentral.updateUI();
+                //
+                //System.out.print("\n"+vista_modelos);
             }
         });
         
@@ -3839,8 +3837,10 @@ public class MENU001 extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 panelMarcas.removeAll();
-                vista_marcas.dispose();
+                //por el momento asi
+                //vista_marcas.dispose();
                 panelCentral.updateUI();
+                vista_marcas = null;
             }
         });
         
@@ -3905,11 +3905,11 @@ public class MENU001 extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JMenuItem FREP001;
     public javax.swing.JButton botonDemandas;
-    public javax.swing.JButton botonLineas;
+    public javax.swing.JButton botonProductos;
     public javax.swing.JButton botonVendedores;
     public javax.swing.JMenu boton_Salir_Sistema;
     public javax.swing.JButton btnClientes;
-    public javax.swing.JButton btnRepuestos;
+    public javax.swing.JButton btnProductos;
     public javax.swing.JMenuItem item_Accesos;
     public javax.swing.JMenuItem item_Anulacion_Documentos;
     public javax.swing.JMenuItem item_Bancos;

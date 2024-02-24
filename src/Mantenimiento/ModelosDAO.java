@@ -140,7 +140,7 @@ public class ModelosDAO extends GenericDAO<Modelos> {
             tx.commit();
 
         } catch (Exception e) {
-            System.err.println("Error : " + e.getMessage());
+            System.err.println("Error: " + e.getMessage());
         } finally {
             if (sesion != null) {
                 sesion.close();

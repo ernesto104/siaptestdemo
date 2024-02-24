@@ -23,7 +23,7 @@ public class EquiposDAO extends GenericDAO<Equipos> {
         try {
             l = (Equipos) getHibernateTemplate().createQuery("from Equipos l order by l.idequipo desc").iterate().next();
             session.getTransaction().commit();
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             System.err.println("Error : " + e.getMessage());
         }
         if (Tamaño_Lista() == 0) {
@@ -34,49 +34,49 @@ public class EquiposDAO extends GenericDAO<Equipos> {
     }
 
     public void agregar(int id, String descripcion, double descuento) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session1 = HibernateUtil.getSessionFactory().openSession();
         Equipos equipos = new Equipos();
         equipos.setIdequipo(id);
         equipos.setDescripcion(descripcion);
         equipos.setDescuento1(descuento);
         try {
-            session.beginTransaction();
-            session.save(equipos);
-            session.getTransaction().commit();            
+            session1.beginTransaction();
+            session1.save(equipos);
+            session1.getTransaction().commit();            
         } catch (HibernateException e) {
-            session.beginTransaction().rollback();
+            session1.beginTransaction().rollback();
             System.out.println("Error :" + e.getMessage());
         }
 
     }
 
     public void modificar(int id, String descripcion, double descuento) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session1 = HibernateUtil.getSessionFactory().openSession();
         Equipos equipos = new Equipos();
         equipos.setIdequipo(id);
         equipos.setDescripcion(descripcion);
         equipos.setDescuento1(descuento);
         try {
-            session.beginTransaction();
-            session.update(equipos);
-            session.getTransaction().commit();           
+            session1.beginTransaction();
+            session1.update(equipos);
+            session1.getTransaction().commit();           
         } catch (HibernateException e) {
-            session.beginTransaction().rollback();
+            session1.beginTransaction().rollback();
             System.out.println("Error :" + e.getMessage());
         }
 
     }
 
     public void eliminar(int id, String descripcion, double descuento) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session1 = HibernateUtil.getSessionFactory().openSession();
         Equipos equipos = new Equipos();
         equipos.setIdequipo(id);
         equipos.setDescripcion(descripcion);
         equipos.setDescuento1(descuento);
         try {
-            session.beginTransaction();
-            session.delete(equipos);
-            session.getTransaction().commit();            
+            session1.beginTransaction();
+            session1.delete(equipos);
+            session1.getTransaction().commit();            
         } catch (HibernateException e) {
             session.beginTransaction().rollback();
             System.out.println("Error :" + e.getMessage());
@@ -87,7 +87,9 @@ public class EquiposDAO extends GenericDAO<Equipos> {
     public Equipos Obtener_Objeto_por_codigo(int codigo) {
         Equipos l = new Equipos();
         try {
+            iniciaOperacion();
             l = (Equipos) getHibernateTemplate().createQuery("from Equipos where idequipo='" + codigo + "'").uniqueResult();
+            session.getTransaction().commit();
         } catch (Exception e) {
             System.err.println("Error : " + e.getLocalizedMessage());
         } finally {
@@ -98,7 +100,16 @@ public class EquiposDAO extends GenericDAO<Equipos> {
 
     public Equipos Obtener_Objeto_por_nombre(String nombre) {
         Equipos li = new Equipos();
-        li = (Equipos) getHibernateTemplate().createQuery("from Equipos where descripcion='" + nombre + "'").uniqueResult();       
+        
+        try{
+            iniciaOperacion();  
+            li = (Equipos) getHibernateTemplate().createQuery("from Equipos where descripcion='" + nombre + "'").uniqueResult();
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            System.err.println("Error : " + e.getLocalizedMessage());
+        } finally {
+            session.close();
+        }
         return li;
     }
 

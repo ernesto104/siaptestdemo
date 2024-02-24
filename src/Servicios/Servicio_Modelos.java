@@ -127,15 +127,15 @@ public class Servicio_Modelos {
         Iterator ite =  modeloDao.Obtener_Lista_Objetos_OrderMarcas(marca).iterator();
         
         while (ite.hasNext()) {
-            Object[] row = new Object[8];
+            Object[] row = new Object[7];
             Modelos lin = (Modelos) ite.next();
             row[0] = lin.getEquipo().getIdequipo();
             row[1] = lin.getEquipo().getDescripcion();
-            row[3] = lin.getMarca().getIdmarca();
-            row[4] = lin.getMarca().getDescripcion();
-            row[5] = lin.getIdmodelo();
-            row[6] = lin.getDescripcion();
-            row[7] = lin.getEstado();
+            row[2] = lin.getMarca().getIdmarca();
+            row[3] = lin.getMarca().getDescripcion();
+            row[4] = lin.getIdmodelo();
+            row[5] = lin.getDescripcion();
+            row[6] = lin.getEstado();
             table.addRow(row);
         }
         

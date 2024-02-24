@@ -10,6 +10,7 @@ import Servicios.Servicio_Marcas;
 import Servicios.TipoMensaje;
 import java.util.ArrayList;
 import java.util.Iterator;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -74,10 +75,13 @@ public class FREP0055 extends javax.swing.JFrame {
         txtdescuento2.setVisible(false);
         txtdescuento3.setVisible(false);
         btndesactivar.setVisible(false);
+        //JComboBox execBrokerCombobox = new AutoCompletionComboBox();
         
         
         //se ocultan elementos hasta seleccionar un equipo
         seleccionarVisibilidadElementosMarca(false);
+        //AutoCompleteDecorator();
+        //comboEstado.setEditable(true);
               
     }
     
@@ -827,7 +831,8 @@ public class FREP0055 extends javax.swing.JFrame {
         Equipos equipselec = servequip.buscarEquiposx_Nombre(equipoDescr);
         //System.out.println(equipselec);
         //Listar_Provincias(dpto);
-        if(equipselec == null){
+        if(equipselec == null /*|| comboEquipo.getSelectedIndex()== 0 */){
+            //System.out.print(comboEquipo.getSelectedIndex());
             textidequipo.setText("");
             seleccionarVisibilidadElementosMarca(false);
         } else {
@@ -840,8 +845,8 @@ public class FREP0055 extends javax.swing.JFrame {
 
     public void limpiar() {
 
-        textidequipo.setText("");
-        comboEquipo.setSelectedIndex(0);
+        //textidequipo.setText("");
+        //comboEquipo.setSelectedIndex(0);
         txtdescripcion.setText("");
        // txtdescuento.setText("");
         comboEstado.setSelectedIndex(0);
