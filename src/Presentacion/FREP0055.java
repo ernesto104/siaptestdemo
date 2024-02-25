@@ -10,12 +10,12 @@ import Servicios.Servicio_Marcas;
 import Servicios.TipoMensaje;
 import java.util.ArrayList;
 import java.util.Iterator;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
  *
@@ -80,9 +80,7 @@ public class FREP0055 extends javax.swing.JFrame {
         
         //se ocultan elementos hasta seleccionar un equipo
         seleccionarVisibilidadElementosMarca(false);
-        //AutoCompleteDecorator();
-        //comboEstado.setEditable(true);
-              
+        AutoCompleteDecorator.decorate(comboEquipo);
     }
     
     private void seleccionarVisibilidadElementosMarca (boolean estado) {
