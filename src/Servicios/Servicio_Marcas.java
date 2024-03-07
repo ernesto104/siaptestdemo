@@ -118,6 +118,10 @@ public class Servicio_Marcas {
         return marcaDao.Obtener_Objeto_por_nombre(nombre);
     }
     
+    public Marcas buscarMarcasx_Equipox_Nombre(String equipoNombre, String nombre){
+        return marcaDao.Obtener_Objeto_por_equipoNombre_y_por_nombre(equipoNombre, nombre);
+    }
+    
     public List buscarMarcasx_Equipo(Equipos equipo){
         return marcaDao.Listar_Marcas_por_Equipo(equipo);
         
@@ -130,13 +134,11 @@ public class Servicio_Marcas {
         DefaultTableModel table = (DefaultTableModel) it.tablaCodigoMarcas.getModel();
         Iterator ite = marcaDao.Listar_Marcas_por_Equipo(equipo).iterator();
         while (ite.hasNext()) {
-            Object[] row = new Object[6];
+            Object[] row = new Object[3];
             Marcas lin = (Marcas) ite.next();
-            row[0] = lin.getEquipo().getIdequipo();
-            row[1] = lin.getEquipo().getDescripcion();
-            row[2] = lin.getIdmarca();
-            row[3] = lin.getDescripcion();
-            row[4] = lin.getEstado();
+            row[0] = lin.getIdmarca();
+            row[1] = lin.getDescripcion();
+            row[2] = lin.getEstado();
             table.addRow(row);
         }
         
@@ -147,13 +149,11 @@ public class Servicio_Marcas {
        DefaultTableModel table = (DefaultTableModel) it.tablaCodigoMarcas.getModel();
         Iterator ite = marcaDao.Obtener_Lista_Objetos().iterator();
         while (ite.hasNext()) {
-            Object[] row = new Object[6];
+            Object[] row = new Object[3];
             Marcas lin = (Marcas) ite.next();
-            row[0] = lin.getEquipo().getIdequipo();
-            row[1] = lin.getEquipo().getDescripcion();
-            row[2] = lin.getIdmarca();
-            row[3] = lin.getDescripcion();
-            row[4] = lin.getEstado();
+            row[0] = lin.getIdmarca();
+            row[1] = lin.getDescripcion();
+            row[2] = lin.getEstado();
             table.addRow(row);
         }
       

@@ -16,7 +16,9 @@
         </many-to-one>
         <many-to-one name="repuestos" class="Entidades.Repuestos" fetch="join">
             <column name="IDREPUESTO" />
-            <column name="IDLINEA" />
+            <column name="IDEQUIPO" />
+            <column name="IDMARCA"/>
+            <column name="IDMODELO"/>
         </many-to-one>
         <property name="descripcion" type="string">
             <column name="DESCRIPCION" length="60" />

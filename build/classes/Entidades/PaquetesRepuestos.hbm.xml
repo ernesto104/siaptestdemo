@@ -14,6 +14,8 @@
         <many-to-one name="repuestos" class="Entidades.Repuestos" fetch="join">
             <column name="IDREPUESTO" />
             <column name="IDLINEA" />
+            <column name="IDMARCA"/>
+            <column name="IDMODELO"/>
         </many-to-one>
         <property name="cantidad" type="java.lang.Integer">
             <column name="CANTIDAD" />

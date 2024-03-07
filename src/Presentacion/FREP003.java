@@ -29,6 +29,7 @@ public class FREP003 extends javax.swing.JFrame {
     private final ArrayList<Integer> numMaximo;
     private final ArrayList<String> tipoDato;
     TipoMensaje tm;
+    boolean modificar;
     private Servicio_Equipos sl;
     private DefaultTableModel table;
     int ultimo_id;
@@ -50,6 +51,7 @@ public class FREP003 extends javax.swing.JFrame {
         table = (DefaultTableModel) tablaCodigoEquipos.getModel();
         sli = new Servicio_Equipos(this);
         tm = new TipoMensaje();
+        modificar = false;
 
         txtid.setText(String.valueOf(sli.nextId()));
         Listar_Equipos();
@@ -112,16 +114,22 @@ public class FREP003 extends javax.swing.JFrame {
 
     private String validarEntradas() {
         String mensaje = "ERROR";
+        boolean a = true;
         if (txtdescripcion.getText().equals("")) {
             mensaje = mensaje + "\n- Ingrese descripción de Equipo";
+            a = false;
         }
         
         
         if (comboEstado.getSelectedIndex() == 0) {
             mensaje += "\n- Seleccione un estado para el equipo";
         }
-        
-        
+       
+        if (/*a && */!modificar){
+            if (sl.buscarEquiposx_Nombre(txtdescripcion.getText())!= null ) {
+                mensaje += "\n- YA EXISTE EQUIPO CON ESE NOMBRE";
+            }
+        }
        /* if (mensaje.equals("")) {
             return tm.VALIDO;
         } else {*/
@@ -521,6 +529,7 @@ public class FREP003 extends javax.swing.JFrame {
     }
 
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
+        modificar = true;
         String validacion = validarEntradas();
         if (seleccionada == true) {
             if (!validacion.equals("ERROR")) {
@@ -566,7 +575,7 @@ public class FREP003 extends javax.swing.JFrame {
             tm.manejarMensajes(tm.NO_SELECCIONADO_LINEAS);
         }
 
-
+        modificar = false;
     }//GEN-LAST:event_btnmodificarActionPerformed
 
     private void btnsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalirActionPerformed

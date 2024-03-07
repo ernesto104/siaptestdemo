@@ -31,6 +31,7 @@ public class FREP0057 extends javax.swing.JFrame {
     private final ArrayList<Integer> numMaximo;
     private final ArrayList<String> tipoDato;
     TipoMensaje tm;
+    boolean modificar;
     private Servicio_Puntos_Venta sp;
     private DefaultTableModel table;
     int ultimo_id;
@@ -52,6 +53,7 @@ public class FREP0057 extends javax.swing.JFrame {
         table = (DefaultTableModel) tablaCodigoPuntosVenta.getModel();
         spv = new Servicio_Puntos_Venta(this);
         tm = new TipoMensaje();
+        modificar = false;
 
         txtid.setText(String.valueOf(spv.nextId()));
         Listar_PuntosVenta();
@@ -123,7 +125,11 @@ public class FREP0057 extends javax.swing.JFrame {
             mensaje += "\n- Seleccione un estado para el Punto de Venta";
         }
         
-        
+        if( !modificar) {
+            if (spv.buscarPuntosVentax_Nombre(txtdescripcion.getText()) != null){
+                mensaje += "\n Punto de venta existente, escoja otro nombre para el nuevo Punto de Venta";
+            }
+        }
        /* if (mensaje.equals("")) {
             return tm.VALIDO;
         } else {*/
@@ -517,6 +523,7 @@ public class FREP0057 extends javax.swing.JFrame {
     }
 
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
+        modificar = true;
         String validacion = validarEntradas();
         if (seleccionada == true) {
             if (!validacion.equals("ERROR")) {
@@ -561,7 +568,7 @@ public class FREP0057 extends javax.swing.JFrame {
         } else {
             tm.manejarMensajes(tm.NO_SELECCIONADO_PUNTOS_VENTA);
         }
-
+        modificar = false;
 
     }//GEN-LAST:event_btnmodificarActionPerformed
 

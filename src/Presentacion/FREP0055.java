@@ -33,6 +33,7 @@ public class FREP0055 extends javax.swing.JFrame {
     private final ArrayList<Integer> numMaximo;
     private final ArrayList<String> tipoDato;
     TipoMensaje tm;
+    boolean modificar;
     private Servicio_Marcas sl;
     private DefaultTableModel table;
     int ultimo_id;
@@ -54,6 +55,7 @@ public class FREP0055 extends javax.swing.JFrame {
         table = (DefaultTableModel) tablaCodigoMarcas.getModel();
         smarc = new Servicio_Marcas(this);
         tm = new TipoMensaje();
+        modificar = false;
 
         txtid.setText(String.valueOf(smarc.nextId()));
         //Listar_Marcas();
@@ -158,6 +160,11 @@ public class FREP0055 extends javax.swing.JFrame {
             mensaje += "\n- Seleccione un estado para el equipo";
         }
         
+        if (!modificar){
+            if (sl.buscarMarcasx_Equipox_Nombre(comboEquipo.getSelectedItem().toString(), txtdescripcion.getText()) != null) {
+                mensaje += "\n- Ya existe una Marca con este Nombre asociada a este Equipo";
+            }
+        }
         
        /* if (mensaje.equals("")) {
             return tm.VALIDO;
@@ -306,8 +313,7 @@ public class FREP0055 extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(comboEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel10)
-                        .addGap(285, 285, 285))
+                        .addComponent(jLabel10))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -324,8 +330,8 @@ public class FREP0055 extends javax.swing.JFrame {
                         .addGap(42, 42, 42)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(txtdescuento3, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtdescuento2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(63, 63, 63))))
+                            .addComponent(txtdescuento2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(118, 118, 118))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -372,11 +378,11 @@ public class FREP0055 extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Cod. Equipo", "Equipo", "Cod. Marca", "Descripcion", "Estado"
+                "Cod. Marca", "Descripcion", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -399,9 +405,7 @@ public class FREP0055 extends javax.swing.JFrame {
         if (tablaCodigoMarcas.getColumnModel().getColumnCount() > 0) {
             tablaCodigoMarcas.getColumnModel().getColumn(0).setPreferredWidth(125);
             tablaCodigoMarcas.getColumnModel().getColumn(1).setPreferredWidth(260);
-            tablaCodigoMarcas.getColumnModel().getColumn(2).setPreferredWidth(125);
-            tablaCodigoMarcas.getColumnModel().getColumn(3).setPreferredWidth(260);
-            tablaCodigoMarcas.getColumnModel().getColumn(4).setPreferredWidth(150);
+            tablaCodigoMarcas.getColumnModel().getColumn(2).setPreferredWidth(150);
         }
 
         btnagregar.setText("Agregar");
@@ -555,7 +559,7 @@ public class FREP0055 extends javax.swing.JFrame {
 
                     if (smarc.addMarcas(ma)) {
                         JOptionPane.showMessageDialog(null, "Operacion exitosa");
-                        Object[] row = {equipoId, equipodescr, id,/*descuento,*/ descripcion, estado};
+                        Object[] row = {id,/*descuento,*/ descripcion, estado};
                         table.addRow(row);
                         clean();
                         txtid.setText(String.valueOf(smarc.nextId()));
@@ -613,6 +617,8 @@ public class FREP0055 extends javax.swing.JFrame {
     }
 
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
+        
+        modificar = true;
         String validacion = validarEntradas();
         if (seleccionada == true) {
             if (!validacion.equals("ERROR")) {
@@ -635,9 +641,9 @@ public class FREP0055 extends javax.swing.JFrame {
                     Servicio_Equipos sequip= new Servicio_Equipos(null);
                     Equipos eq = sequip.getEquipos_por_codigo(equipoId);
 
-                    Marcas marc = new Marcas();
+                    Marcas marc = smarc.getMarcas_por_codigo(id);
                     marc.setIdmarca(id);
-                    marc.setEquipo(eq);
+                    //marc.setEquipo(eq);
                     marc.setDescripcion(descripcion);
                     marc.setEstado(estado);
                    // l.setDescuento1(descuento);
@@ -648,12 +654,10 @@ public class FREP0055 extends javax.swing.JFrame {
                     if (actualizarMarcas(marc)) {
                         JOptionPane.showMessageDialog(null, "Operación exitosa");
                         DefaultTableModel m = (DefaultTableModel) tablaCodigoMarcas.getModel();
-                        m.setValueAt(equipoId, fila, 0);
-                        m.setValueAt(equipodescr, fila, 1);
-                        m.setValueAt(id, fila, 2);
+                        m.setValueAt(id, fila, 0);
                         //m.setValueAt(descuento, fila, 2);
-                        m.setValueAt(descripcion, fila, 3);
-                        m.setValueAt(estado, fila, 4);
+                        m.setValueAt(descripcion, fila, 1);
+                        m.setValueAt(estado, fila, 2);
                        /* m.setValueAt(descuento3, fila, 4);
                         m.setValueAt(descuento4, fila, 5);*/
 
@@ -665,7 +669,7 @@ public class FREP0055 extends javax.swing.JFrame {
         } else {
             tm.manejarMensajes(tm.NO_SELECCIONADO_MARCA);
         }
-
+        modificar = false;
 
     }//GEN-LAST:event_btnmodificarActionPerformed
 
@@ -688,21 +692,29 @@ public class FREP0055 extends javax.swing.JFrame {
     //selecciona item cuando libera tecla presionada
     private void tablaCodigoMarcasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tablaCodigoMarcasKeyReleased
         fila = tablaCodigoMarcas.getSelectedRow();
-        String equipoId = tablaCodigoMarcas.getValueAt(fila, 0).toString();
-        String equipoDescr = tablaCodigoMarcas.getValueAt(fila, 1).toString();
-        String id = tablaCodigoMarcas.getValueAt(fila, 2).toString();
-        String descripcion = tablaCodigoMarcas.getValueAt(fila, 3).toString();
-        String estado = (String) tablaCodigoMarcas.getValueAt(fila, 4);
+       // String equipoId = tablaCodigoMarcas.getValueAt(fila, 0).toString();
+        //String equipoDescr = tablaCodigoMarcas.getValueAt(fila, 1).toString();
+        String id = tablaCodigoMarcas.getValueAt(fila, 0).toString();
+        String descripcion = tablaCodigoMarcas.getValueAt(fila, 1).toString();
+        String estado = (String) tablaCodigoMarcas.getValueAt(fila, 2);
         
         /*double descuento2 = (double) tablaCodigoMarcas.getValueAt(fila, 5);
         double descuento3 = (double) tablaCodigoMarcas.getValueAt(fila, 6);
         double descuento4 = (double) tablaCodigoMarcas.getValueAt(fila, 7);*/
 
-        textidequipo.setText(equipoId);
-        comboEquipo.setSelectedItem(String.valueOf(equipoDescr));
+
+        
+        
         txtid.setText(id);
         txtdescripcion.setText(descripcion);
         comboEstado.setSelectedItem(String.valueOf(estado));
+        
+        Marcas marca = smarc.getMarcas_por_codigo(Integer.valueOf(id));
+        
+        String equipoId = String.valueOf(marca.getEquipo().getIdequipo());
+        textidequipo.setText(equipoId);
+        String equipoDescr = marca.getEquipo().getDescripcion();
+        comboEquipo.setSelectedItem(String.valueOf(equipoDescr));
        // txtdescuento.setText(String.valueOf(descuento));
         /*txtdescuento2.setText(String.valueOf(descuento2));
         txtdescuento3.setText(String.valueOf(descuento3));*/
@@ -714,24 +726,34 @@ public class FREP0055 extends javax.swing.JFrame {
      //selecciona item cuando libera el click del mouse
     private void tablaCodigoMarcasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaCodigoMarcasMouseReleased
         // TODO add your handling code here:
-        //Para rellenar formulario al seleccionar 1 fila de tabla
         fila = tablaCodigoMarcas.getSelectedRow();
-        String equipoId = tablaCodigoMarcas.getValueAt(fila, 0).toString();
-        String equipoDescr = tablaCodigoMarcas.getValueAt(fila, 1).toString();
-        String id = tablaCodigoMarcas.getValueAt(fila, 2).toString();
-        String descripcion = tablaCodigoMarcas.getValueAt(fila, 3).toString();
-        String estado = (String) tablaCodigoMarcas.getValueAt(fila, 4);
-        //double descuento2 = (double) tablaCodigoEquipos.getValueAt(fila, 3);
-       // double descuento3 = (double) tablaCodigoEquipos.getValueAt(fila, 4);
-      //  double descuento4 = (double) tablaCodigoEquipos.getValueAt(fila, 5);
+       // String equipoId = tablaCodigoMarcas.getValueAt(fila, 0).toString();
+        //String equipoDescr = tablaCodigoMarcas.getValueAt(fila, 1).toString();
+        String id = tablaCodigoMarcas.getValueAt(fila, 0).toString();
+        String descripcion = tablaCodigoMarcas.getValueAt(fila, 1).toString();
+        String estado = (String) tablaCodigoMarcas.getValueAt(fila, 2);
+        
+        /*double descuento2 = (double) tablaCodigoMarcas.getValueAt(fila, 5);
+        double descuento3 = (double) tablaCodigoMarcas.getValueAt(fila, 6);
+        double descuento4 = (double) tablaCodigoMarcas.getValueAt(fila, 7);*/
 
-        textidequipo.setText(equipoId);
-        comboEquipo.setSelectedItem(String.valueOf(equipoDescr));
+
+        
+        
         txtid.setText(id);
         txtdescripcion.setText(descripcion);
         comboEstado.setSelectedItem(String.valueOf(estado));
-       // txtdescuento2.setText(String.valueOf(descuento2));
-       // txtdescuento3.setText(String.valueOf(descuento3));
+        
+        Marcas marca = smarc.getMarcas_por_codigo(Integer.valueOf(id));
+        
+        String equipoId = String.valueOf(marca.getEquipo().getIdequipo());
+        textidequipo.setText(equipoId);
+        /*String equipoDescr = marca.getEquipo().getDescripcion();
+        comboEquipo.setSelectedItem(String.valueOf(equipoDescr));
+        System.out.print(equipoDescr);*/
+       // txtdescuento.setText(String.valueOf(descuento));
+        /*txtdescuento2.setText(String.valueOf(descuento2));
+        txtdescuento3.setText(String.valueOf(descuento3));*/
         //txtdescuento4.setText(String.valueOf(descuento4));
 
         seleccionada = true;
@@ -853,7 +875,8 @@ public class FREP0055 extends javax.swing.JFrame {
 
         if (table.getRowCount() != 0) {
             int num = Integer.parseInt(table.getValueAt(table.getRowCount() - 1, 0).toString()) + 1;
-            txtid.setText(String.valueOf(num));
+            //txtid.setText(String.valueOf(num));
+            txtid.setText(String.valueOf(smarc.nextId()));
         } else {
             txtid.setText("1");
         }

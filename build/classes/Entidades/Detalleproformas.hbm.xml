@@ -11,6 +11,8 @@
         <many-to-one name="repuestos" class="Entidades.Repuestos" fetch="join">
             <column name="IDREPUESTO" />
             <column name="IDLINEA" />
+            <column name="IDMARCA"/>
+            <column name="IDMODELO"/>
         </many-to-one>
         <many-to-one name="cabecproformas" class="Entidades.Cabecproformas" fetch="join">
             <column name="IDCABPROFORMA" />

@@ -327,11 +327,6 @@ public class FREP002 extends javax.swing.JFrame {
                 cbDepartamentosItemStateChanged(evt);
             }
         });
-        cbDepartamentos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbDepartamentosActionPerformed(evt);
-            }
-        });
 
         jLabel27.setText("Provincia:");
 
@@ -1620,10 +1615,6 @@ public class FREP002 extends javax.swing.JFrame {
         Listar_Distritos(dpto, prov);
         cbDistritos.setSelectedItem("");
     }//GEN-LAST:event_cbProvinciasItemStateChanged
-
-    private void cbDepartamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDepartamentosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbDepartamentosActionPerformed
 
     private void comboTransportistaActionPerformed(java.awt.event.ActionEvent evt) {                                                   
         // TODO add your handling code here:

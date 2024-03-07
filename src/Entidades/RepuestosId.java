@@ -10,6 +10,8 @@ public class RepuestosId  implements java.io.Serializable {
 
     private int idrepuesto;
     private int idequipo;
+    private int idmarca;
+    private int idmodelo;
 
     public RepuestosId() {
     }
@@ -21,6 +23,13 @@ public class RepuestosId  implements java.io.Serializable {
     public RepuestosId(int idrepuesto, int idlinea) {
        this.idrepuesto = idrepuesto;
        this.idequipo = idlinea;
+    }
+    
+    public RepuestosId(int idrepuesto, int idequipo, int idmarca, int idmodelo) {
+        this.idrepuesto = idrepuesto;
+        this.idequipo = idequipo;
+        this.idmarca = idmarca;
+        this.idmodelo = idmodelo;
     }
    
     public int getIdrepuesto() {
@@ -39,6 +48,24 @@ public class RepuestosId  implements java.io.Serializable {
         this.idequipo = idequipo;
     }
 
+    
+    public int getIdmarca() {
+        return idmarca;
+    }
+
+    public void setIdmarca(int idmarca) {
+        this.idmarca = idmarca;
+    }
+
+    public int getIdmodelo() {
+        return idmodelo;
+    }
+
+    public void setIdmodelo(int idmodelo) {
+        this.idmodelo = idmodelo;
+    }
+    
+    
     public boolean equals(Object other) {
          if ( (this == other ) ) return true;
          if ( (other == null ) ) return false;
@@ -46,13 +73,17 @@ public class RepuestosId  implements java.io.Serializable {
          RepuestosId castOther = ( RepuestosId ) other; 
          
          return (this.getIdrepuesto()==castOther.getIdrepuesto())
-                 && (this.getIdequipo()==castOther.getIdequipo());
+                 && (this.getIdequipo()==castOther.getIdequipo())
+                 && (this.getIdmarca()==castOther.getIdmarca())
+                 && (this.getIdmodelo()==castOther.getIdmodelo());
     }
    
     public int hashCode() {
          int result = 17;     
          result = 37 * result + this.getIdrepuesto();
          result = 37 * result + this.getIdequipo();
+         result = 37 * result + this.getIdmarca();
+         result = 37 * result + this.getIdmodelo();
          return result;
     }
 }

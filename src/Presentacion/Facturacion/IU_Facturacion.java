@@ -1243,6 +1243,11 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox1.setMinimumSize(new java.awt.Dimension(32, 23));
         jComboBox1.setPreferredSize(new java.awt.Dimension(32, 23));
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox1ItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -2346,6 +2351,11 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
             dispose();
         }
     }//GEN-LAST:event_panelGenerarGRMouseReleased
+
+    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     // Validaciones para los documentos
     private String validarFacBol() {

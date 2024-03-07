@@ -2,6 +2,7 @@ package Mantenimiento;
 
 import Servicios.HibernateUtil;
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -88,9 +89,18 @@ public abstract class GenericDAO<T> {
 
     @SuppressWarnings("unchecked")
     public List<T> Obtener_Lista_Objetos() {
-        List<T> returnList = getHibernateTemplate().createQuery(
+        
+        List<T> returnList = new ArrayList<>();
+        try {
+        returnList = getHibernateTemplate().createQuery(
                 "from " + domainClass.getName() + " x ").list();
         session.getTransaction().commit();
+        } catch (Exception e) {
+            System.err.println("Error : " + e.getLocalizedMessage());
+        } finally {
+            session.close();
+        }
+        
         return returnList;
     }
 

@@ -58,7 +58,7 @@ public class DetalleEsDAO extends GenericDAO<Detallees> {
     public List<Detallees> getDetalleESXRepuestosXCliente(Repuestos r, Clientes cli) {
         List<Detallees> returnList = getHibernateTemplate().createQuery(
                 "from Detallees as d where d.repuestos.id.idrepuesto=" + r.getId().getIdrepuesto()
-                + " and d.repuestos.id.idlinea=" + r.getId().getIdequipo()+ " "
+                + " and d.repuestos.id.idequipo=" + r.getId().getIdequipo()+ " "
                         + "and d.clientes.idcliente = "+cli.getIdcliente()+ " order by d.fecha desc").list();
         session.getTransaction().commit();
         return returnList;
@@ -70,9 +70,9 @@ public class DetalleEsDAO extends GenericDAO<Detallees> {
                 + "inner join cabeces as ces on des.tipotra=ces.tipotra and des.tipodoc=ces.tipodoc and "
                 + "des.nrorserie=ces.nrorserie and des.nrodocumento=ces.nrodocumento "
                 + "inner join operaciones as o on des.idoperacion=o.idoperacion "
-                + "where o.codigooperacion like 'S%' and des.idrepuesto=" + idrepuesto + " and des.idlinea=" + idlinea + " and"
+                + "where o.codigooperacion like 'S%' and des.idrepuesto=" + idrepuesto + " and des.idequipo=" + idlinea + " and"
                 + " ces.fecha>='" + fechaIni + "' and ces.fecha<= '" + fechaFin + "' "
-                + "group by des.idrepuesto, des.idlinea").list();
+                + "group by des.idrepuesto, des.idequipo").list();
         session.getTransaction().commit();
         Iterator iteDet = returnList.iterator();
         double demandaProm = 0;

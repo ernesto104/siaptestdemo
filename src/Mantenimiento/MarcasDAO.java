@@ -108,6 +108,18 @@ public class MarcasDAO extends GenericDAO<Marcas> {
         }
         return marc;
     }
+    
+    public Marcas Obtener_Objeto_por_equipoNombre_y_por_nombre(String equipoNombre, String nombre) {
+        Marcas marc = new Marcas ();
+        try {
+        marc = (Marcas) getHibernateTemplate().createQuery("from Marcas m where m.equipo.descripcion like '"+equipoNombre+"' and descripcion='" + nombre + "'").uniqueResult();
+        } catch (Exception e) {
+            System.err.println("Error : " + e.getLocalizedMessage());
+        } finally {
+            session.close();
+        }
+        return marc;
+    }
 
     private void iniciaOperacion() throws HibernateException {
         sesion = HibernateUtil.getSessionFactory().openSession();
@@ -117,16 +129,16 @@ public class MarcasDAO extends GenericDAO<Marcas> {
     public List<Marcas> Obtener_Lista_Objetos_OrderNombre() {
         List<Marcas> lista = new LinkedList();
         try {
-            iniciaOperacion();
+            //iniciaOperacion();
 //            lista = sesion.createQuery("from Equipos order by idlinea ASC").list();
             lista = getHibernateTemplate().createQuery("from Marcas order by descripcion ASC").list();
-            tx.commit();
+            session.getTransaction().commit();
 
         } catch (Exception e) {
             System.err.println("Error : " + e.getMessage());
         } finally {
-            if (sesion != null) {
-                sesion.close();
+            if (session != null) {
+                session.close();
             }
         }
         return lista;
@@ -137,16 +149,17 @@ public class MarcasDAO extends GenericDAO<Marcas> {
         
         List<Marcas> lista = new LinkedList();
         try {
-            iniciaOperacion();
+            //iniciaOperacion();
 //            lista = sesion.createQuery("from Equipos order by idlinea ASC").list();
             lista = getHibernateTemplate().createQuery("from Marcas where equipo.idequipo like '" + equipo.getIdequipo() + "' order by descripcion ASC").list();
-            tx.commit();
+            session.getTransaction().commit();
+            //tx.commit();
 
         } catch (Exception e) {
             System.err.println("Error : " + e.getMessage());
         } finally {
-            if (sesion != null) {
-                sesion.close();
+            if (session != null) {
+                session.close();
             }
         }
         return lista;

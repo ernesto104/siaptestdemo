@@ -105,7 +105,7 @@ public class MENU001 extends javax.swing.JFrame {
         HoraSistema horasistema = new HoraSistema(txtHora, txtFecha);
         horasistema.start();
         txtNombreUsuario.setText(nombre);
-
+        
         txtRolUsuario.setText(rol);
         rolElegido = rol;
         tipocambio = new Tipocambio();
@@ -2691,9 +2691,18 @@ public class MENU001 extends javax.swing.JFrame {
     public ArrayList<Tipocambio> Tipocambio() {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
+        ArrayList lista = null;
+        try {
+ 
         Query q = (Query) session.createQuery("from Tipocambio where fecha = '" + fechasistema() + "' and valorcompra!=null and valorventa!=null");
-        ArrayList lista = (ArrayList) q.list();
+        lista = (ArrayList) q.list();
+        }
+        catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+        finally {
         session.close();
+        }
         return lista;
 
     }

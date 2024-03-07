@@ -916,7 +916,7 @@ public class RepuestosDAO extends GenericDAO<Repuestos> {
     public List getRepuestosASugerido(){
         Session session = HibernateUtil.getSessionFactory().openSession();
         List joinList = session.createQuery("select r.codrepuesto, r.codigoseg, "
-                + "r.descripcion, r.descrmodelo, r.stock, r.fobultimo,r.id.idrepuesto,r.id.idlinea "
+                + "r.descripcion, r.descrmodelo, r.stock, r.fobultimo,r.id.idrepuesto,r.id.idequipo "
                 + "from Repuestos as r order by r.codrepuesto asc, r.descripcion asc").list();
         return joinList;
     } 

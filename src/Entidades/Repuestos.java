@@ -15,6 +15,8 @@ public class Repuestos  implements java.io.Serializable {
      private RepuestosId id;
      private Estratificacion estratificacion;
      private Equipos equipos;
+     private Marcas marcas;
+     private Modelos modelos;
      private String codrepuesto;
      private String codigoseg;
      private Integer nroalternativo;
@@ -58,7 +60,14 @@ public class Repuestos  implements java.io.Serializable {
     public Repuestos() {
     }
 
-	
+    public Repuestos(RepuestosId id, Equipos equipos, Marcas marcas, Modelos modelos, String codrepuesto) {
+        this.id = id;
+        this.equipos = equipos;
+        this.marcas = marcas;
+        this.modelos = modelos;
+        this.codrepuesto = codrepuesto;
+    }
+        
     public Repuestos(RepuestosId id, Equipos equipos, String codrepuesto) {
         this.id = id;
         this.equipos = equipos;
@@ -112,6 +121,23 @@ public class Repuestos  implements java.io.Serializable {
     public RepuestosId getId() {
         return this.id;
     }
+    
+   public Marcas getMarcas() {
+        return marcas;
+    }
+
+    public void setMarcas(Marcas marcas) {
+        this.marcas = marcas;
+    }
+
+    public Modelos getModelos() {
+        return modelos;
+    }
+
+    public void setModelos(Modelos modelos) {
+        this.modelos = modelos;
+    }
+
     
     public void setId(RepuestosId id) {
         this.id = id;
@@ -394,4 +420,6 @@ public class Repuestos  implements java.io.Serializable {
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }    
+
+    
 }

@@ -122,20 +122,25 @@ public class Servicio_Modelos {
     }
     
     
+    public Modelos buscarModelosx_EquipoNombrex_MarcaNombrex_Nombre(String equipoNombre, String marcaNombre, String nombre){
+        return modeloDao.Obtener_Objeto_por_equipoNombre_por_marcaNombre_nombre(equipoNombre, marcaNombre, nombre);
+    }
+    
+    public List buscarModelosx_Marca(Marcas marca){
+        return modeloDao.Obtener_Lista_Objetos_OrderMarcas(marca);
+    }
+    
+    
     public void ListarModelosx_Marcas(Marcas marca){
         DefaultTableModel table = (DefaultTableModel) it.tablaCodigoModelos.getModel();
         Iterator ite =  modeloDao.Obtener_Lista_Objetos_OrderMarcas(marca).iterator();
         
         while (ite.hasNext()) {
-            Object[] row = new Object[7];
+            Object[] row = new Object[3];
             Modelos lin = (Modelos) ite.next();
-            row[0] = lin.getEquipo().getIdequipo();
-            row[1] = lin.getEquipo().getDescripcion();
-            row[2] = lin.getMarca().getIdmarca();
-            row[3] = lin.getMarca().getDescripcion();
-            row[4] = lin.getIdmodelo();
-            row[5] = lin.getDescripcion();
-            row[6] = lin.getEstado();
+            row[0] = lin.getIdmodelo();
+            row[1] = lin.getDescripcion();
+            row[2] = lin.getEstado();
             table.addRow(row);
         }
         
@@ -146,15 +151,11 @@ public class Servicio_Modelos {
        DefaultTableModel table = (DefaultTableModel) it.tablaCodigoModelos.getModel();
         Iterator ite = modeloDao.Obtener_Lista_Objetos().iterator();
         while (ite.hasNext()) {
-            Object[] row = new Object[7];
+            Object[] row = new Object[3];
             Modelos mod = (Modelos) ite.next();
-            row[0] = mod.getEquipo().getIdequipo();
-            row[1] = mod.getEquipo().getDescripcion();
-            row[2] = mod.getMarca().getIdmarca();
-            row[3] = mod.getMarca().getDescripcion();
-            row[4] = mod.getIdmodelo();
-            row[5] = mod.getDescripcion();
-            row[6] = mod.getEstado();
+            row[0] = mod.getIdmodelo();
+            row[1] = mod.getDescripcion();
+            row[2] = mod.getEstado();
             table.addRow(row);
         }
       

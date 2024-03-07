@@ -1,7 +1,9 @@
 package Servicios;
 
 import Entidades.Repuestos;
+import Mantenimiento.EquiposDAO;
 import Mantenimiento.MaestrosDAO;
+import Mantenimiento.ModelosDAO;
 import Presentacion.*;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -16,6 +18,9 @@ import org.hibernate.Session;
 public class Servicio_Maestros {
 
     MaestrosDAO maestrosDAO;
+    EquiposDAO equiposDAO;
+    ModelosDAO modelosDAO;
+    
     FREP001 iu;
     DefaultTableModel modelo;
     int ultimo_id;
@@ -66,6 +71,14 @@ public class Servicio_Maestros {
                 return maestrosDAO.xDescripcionMaestro2(busq);
             case 9:
                 return maestrosDAO.xAplicacion2(busq);
+            case 10:
+                return maestrosDAO.xEquipoMaestro(busq);
+            case 11:
+                return maestrosDAO.xMarcaMaestro(busq);
+            case 12:
+                return maestrosDAO.xModeloDeEquipoMaestro(busq);
+            case 13:
+                return null;
             default:
                 return null;
         }
@@ -171,16 +184,28 @@ public class Servicio_Maestros {
     public int listarRepuestos(DefaultTableModel modelo) {
         this.modelo = modelo;
         
-        List<Object> listaRepuestos = (ArrayList) maestrosDAO.Obtener_Repuestos();
+        List listaRepuestos = (ArrayList) maestrosDAO.Obtener_Repuestos();
             
         Iterator it = listaRepuestos.iterator();
+        
         while ( it.hasNext() ) {
             Object[] result = (Object[]) it.next();
+            //System.out.print(result[11]);
             ultimo_id = Integer.parseInt(String.valueOf(result[0]));
             String codrep = String.valueOf(result[1]);
             String codseg = String.valueOf(result[2]);            
             String desc = String.valueOf(result[3]);
             String marca = String.valueOf(result[7]);
+            String equipo = String.valueOf(result[11]);
+            String modelodescr = String.valueOf(result[12]);
+            /*int idequipo = (int) (result[11]);
+            int idmodelo = (int)(result[12]);*/
+            
+            /*equiposDAO = new EquiposDAO();
+            String equipo = equiposDAO.Obtener_NombreObjeto_por_codigo(idequipo);
+            
+            modelosDAO = new ModelosDAO();
+            String modelodescr = modelosDAO.Obtener_NombreObjeto_por_codigo(idmodelo);  */       
             
             String aplicacion1 = "";
             //String codseg = "";
@@ -214,9 +239,9 @@ public class Servicio_Maestros {
                 fob = Double.parseDouble(String.valueOf(result[8]));
             }
             
-            Object[] lineas = {codrep, codseg, desc,
-                               aplicacion1, anotacion1, 
-                               stock, marca, fob, costult, precl};
+            Object[] lineas = {ultimo_id,equipo, marca, modelodescr,codrep, desc,
+ 
+                               stock, fob, costult, precl};
 
             modelo.addRow(lineas);
         }
@@ -237,6 +262,17 @@ public class Servicio_Maestros {
             String codseg = String.valueOf(result[2]);            
             String desc = String.valueOf(result[3]);
             String marca = String.valueOf(result[7]);
+            String equipo = String.valueOf(result[11]);
+            String modelodescr = String.valueOf(result[12]);
+            /*int idequipo = (int) (result[11]);
+            int idmodelo = (int)(result[12]);
+            
+            equiposDAO = new EquiposDAO();
+            String equipo = equiposDAO.Obtener_NombreObjeto_por_codigo(idequipo);
+            
+            modelosDAO = new ModelosDAO();
+            String modelodescr = modelosDAO.Obtener_NombreObjeto_por_codigo(idmodelo);*/
+            
             
             String aplicacion1 = "";
             //String codseg = "";
@@ -272,9 +308,9 @@ public class Servicio_Maestros {
             fob = 0.00;
             result[8] = 0;
             
-            Object[] lineas = {codrep, codseg, desc,
-                               aplicacion1, anotacion1, 
-                               stock, marca, 0, 0, precl};
+            Object[] lineas = {ultimo_id, equipo,marca, modelodescr,codrep, desc,
+                               //anotacion1, aplicacion1, 
+                               stock, 0, 0, precl};
 
             modelo.addRow(lineas);
         }

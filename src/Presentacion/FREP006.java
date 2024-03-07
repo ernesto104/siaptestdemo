@@ -683,6 +683,7 @@ public class FREP006 extends javax.swing.JFrame {
 
         Vendedores vendedor;
         vendedor = servicioVendedor.obtener_Vendedor_Nombre(nombVe);
+        System.out.print("\n"+servicioVendedor.obtener_Vendedor(35).getNombre()+" + "+servicioVendedor.obtener_Vendedor(35).getIdvendedor());
         Limpiar_Campos();
         txtCelular.setText(vendedor.getCelular());
         txtDNI.setText(vendedor.getDocumento());

@@ -27,7 +27,9 @@
         </many-to-one>
         <many-to-one name="repuestos" class="Entidades.Repuestos" fetch="join">
             <column name="IDREPUESTO" />
-            <column name="IDLINEA" />
+            <column name="IDEQUIPO" />
+            <column name="IDMARCA" />
+            <column name="IDMODELO" />
         </many-to-one>
         <many-to-one name="cabecsugerido" class="Entidades.Cabecsugerido" fetch="join">
             <column name="IDSUGERIDO" />

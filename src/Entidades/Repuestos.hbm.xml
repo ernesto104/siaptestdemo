@@ -8,14 +8,26 @@
                 <column name="IDREPUESTO"/>
             </key-property>
             <key-property name="idequipo" type="int">
-                <column name="IDLINEA"/>
+                <column name="IDEQUIPO"/>
+            </key-property>
+            <key-property name="idmarca" type="int">
+                <column name="IDMARCA"/>
+            </key-property>
+            <key-property name="idmodelo" type="int">
+                <column name="IDMODELO"/>
             </key-property>
         </composite-id>
         <many-to-one class="Entidades.Estratificacion" fetch="join" name="estratificacion">
             <column name="ID_MOV"/>
         </many-to-one>
         <many-to-one class="Entidades.Equipos" fetch="join" insert="false" name="equipos" update="false">
-            <column name="IDLINEA" not-null="true"/>
+            <column name="IDEQUIPO" not-null="true"/>
+        </many-to-one>
+        <many-to-one class="Entidades.Marcas" fetch="join" insert="false" name="marcas" update="false">
+            <column name="IDMARCA" not-null="true"/>
+        </many-to-one>
+        <many-to-one class="Entidades.Modelos" fetch="join" insert="false" name="modelos" update="false">
+            <column name="IDMODELO" not-null="true"/>
         </many-to-one>
         <property name="codrepuesto" type="string">
             <column length="40" name="CODREPUESTO" not-null="true"/>
@@ -57,7 +69,7 @@
             <column length="17" name="IDREPUESTOANT"/>
         </property>
         <property name="marca" type="string">
-            <column length="15" name="MARCA"/>
+            <column length="40" name="MARCA"/>
         </property>
         <property name="unidadmedida" type="string">
             <column length="10" name="UNIDADMEDIDA"/>
@@ -114,6 +126,8 @@
             <key>
                 <column name="IDREPUESTO"/>
                 <column name="IDLINEA"/>
+                <column name="IDMARCA"/>
+                <column name="IDMODELO"/>
             </key>
             <one-to-many class="Entidades.PaquetesRepuestos"/>
         </set>
@@ -121,6 +135,8 @@
             <key>
                 <column name="IDREPUESTO"/>
                 <column name="IDLINEA"/>
+                <column name="IDMARCA"/>
+                <column name="IDMODELO"/>
             </key>
             <one-to-many class="Entidades.Pedidoweb"/>
         </set>
@@ -128,6 +144,8 @@
             <key>
                 <column name="IDREPUESTO"/>
                 <column name="IDLINEA"/>
+                <column name="IDMARCA"/>
+                <column name="IDMODELO"/>
             </key>
             <one-to-many class="Entidades.Detalleproformas"/>
         </set>
@@ -135,6 +153,8 @@
             <key>
                 <column name="IDREPUESTO"/>
                 <column name="IDLINEA"/>
+                <column name="IDMARCA"/>
+                <column name="IDMODELO"/>
             </key>
             <one-to-many class="Entidades.Detallenota"/>
         </set>
@@ -142,13 +162,17 @@
             <key>
                 <column name="IDREPUESTO"/>
                 <column name="IDLINEA"/>
+                <column name="IDMARCA"/>
+                <column name="IDMODELO"/>
             </key>
             <one-to-many class="Entidades.Detallesugerido"/>
         </set>
         <set inverse="true" name="detalleeses">
             <key>
                 <column name="IDREPUESTO"/>
-                <column name="IDLINEA"/>
+                <column name="IDEQUIPO"/>
+                <column name="IDMARCA"/>
+                <column name="IDMODELO"/>
             </key>
             <one-to-many class="Entidades.Detallees"/>
         </set>

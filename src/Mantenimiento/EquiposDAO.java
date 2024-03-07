@@ -93,6 +93,21 @@ public class EquiposDAO extends GenericDAO<Equipos> {
         } catch (Exception e) {
             System.err.println("Error : " + e.getLocalizedMessage());
         } finally {
+            if(session  !=null) {
+            session.close();}
+        }
+        return l;
+    }
+    
+    public String Obtener_NombreObjeto_por_codigo(int codigo) {
+        String l = null;
+        try {
+            iniciaOperacion();
+            l = (String) getHibernateTemplate().createQuery("select descripcion from Equipos where idequipo='" + codigo + "'").uniqueResult();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            System.err.println("Error : " + e.getLocalizedMessage());
+        } finally {
             session.close();
         }
         return l;
@@ -103,7 +118,7 @@ public class EquiposDAO extends GenericDAO<Equipos> {
         
         try{
             iniciaOperacion();  
-            li = (Equipos) getHibernateTemplate().createQuery("from Equipos where descripcion='" + nombre + "'").uniqueResult();
+            li = (Equipos) getHibernateTemplate().createQuery("from Equipos where descripcion like '" + nombre + "'").uniqueResult();
             session.getTransaction().commit();
         } catch (HibernateException e) {
             System.err.println("Error : " + e.getLocalizedMessage());
