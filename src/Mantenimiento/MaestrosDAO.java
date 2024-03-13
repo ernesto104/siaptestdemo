@@ -98,6 +98,7 @@ public class MaestrosDAO extends GenericDAO<Repuestos> {
         Repuestos re = new Repuestos();
         try {
             re = (Repuestos) getHibernateTemplate().createQuery("from Repuestos where nombre='" + nombre + "'").uniqueResult();
+            session.getTransaction().commit();
         } catch (Exception e) {
             System.err.println("Error : " + e.getLocalizedMessage());
         } finally {
@@ -118,21 +119,38 @@ public class MaestrosDAO extends GenericDAO<Repuestos> {
     
     // Método optimizado
     public List conStock() {
-        return getHibernateTemplate().createSQLQuery(
-//            " select idlinea, codrepuesto, descripcion, descrmodelo, preciolista, stock, unidadventa, costopromedio " +
-            " select idequipo, codrepuesto, descripcion, descrmodelo, preciolista, costopromedio, stock, unidadventa, codigoseg  " +
-            " from Repuestos where stock > 0")
+        List list =null;
+        try{
+        list= getHibernateTemplate().createQuery(
+//            " select idlinea, codrepuesto, descripcion, descrmodelo, preciolista, stock, unidadventa, costopromedio " +  
+            " select r.id.idrepuesto, r.equipos.descripcion, marca, r.modelos.descripcion, codrepuesto ,r.descripcion, stock, preciolista  " +
+            " from Repuestos r")
             .list();
+        }catch ( Exception e ) {
+            System.err.println("Error : " + e.getMessage());
+            
+        } finally {
+            session.close();
+        }
+        return list;
     }
 
     ////////////////
     public List Getx_NroParte(String nroparte) {
 //        System.out.println("nroParte::::" + nroparte);
 //            " select idlinea, codrepuesto, descripcion, descrmodelo, preciolista, stock, unidadventa, costopromedio " +
-        String query = " select idequipo, codrepuesto, descripcion, descrmodelo, preciolista, costopromedio, stock, unidadventa, codigoseg " +
-            " from Repuestos where codrepuesto like '" + nroparte + "%'";
+        String query = "select r.id.idrepuesto, r.equipos.descripcion, marca, r.modelos.descripcion, codrepuesto ,r.descripcion, stock, preciolista " +
+            " from Repuestos r where codrepuesto like '%" + nroparte + "%'";
 //        System.out.println("query:" + query);
-        List lst = getHibernateTemplate().createSQLQuery(query).list();
+        List lst = null;
+        try {
+        lst = getHibernateTemplate().createQuery(query).list();
+        } catch ( Exception e ) {
+            System.err.println("Error Getx_NroParte function:" + e.getMessage());
+            
+        } finally {
+            session.close();
+        }
 //            "from Repuestos r where r.codrepuesto like '" + nroparte + "%'").list();
 //        System.out.println("lista:" + lst);
 //        if ( lst != null ) { 
@@ -161,26 +179,26 @@ public class MaestrosDAO extends GenericDAO<Repuestos> {
             " from Repuestos where codrepuesto like '%" + nroparte + "%'").list();
     }
     
-    public List xEquipoMaestro(String equipo) {
+    public List xEquipoMaestro(String idEquipo) {
         return getHibernateTemplate().createQuery(
             //" select codrepuesto, codigoseg, descripcion, stock, preciolista, costopromedio, pcostoultimo, pcostotemporal " +
             " select r.id.idrepuesto, r.equipos.descripcion, marca, r.modelos.descripcion, codrepuesto,  descripcion, stock, fobultimo, pcostoultimo, preciolista " +
-            " from Repuestos r where r.id.idequipo like '%" + equipo + "%'").list();
+            " from Repuestos r where r.id.idequipo like '%" + idEquipo + "%'").list();
     }
     
-    public List xMarcaMaestro(String marca) {
+    public List xMarcaMaestro(String idMarca) {
         return getHibernateTemplate().createQuery(
             //" select codrepuesto, codigoseg, descripcion, stock, preciolista, costopromedio, pcostoultimo, pcostotemporal " +
             " select r.id.idrepuesto, r.equipos.descripcion, marca, r.modelos.descripcion, codrepuesto,  descripcion, stock, fobultimo, pcostoultimo, preciolista " +
-            " from Repuestos r where r.id.idmarca like '%" + marca + "%'").list();
+            " from Repuestos r where r.id.idmarca like '%" + idMarca + "%'").list();
     }
     
     
-    public List xModeloDeEquipoMaestro(String modelo) {
+    public List xModeloDeEquipoMaestro(String idModelo) {
         return getHibernateTemplate().createQuery(
             //" select codrepuesto, codigoseg, descripcion, stock, preciolista, costopromedio, pcostoultimo, pcostotemporal " +
             " select r.id.idrepuesto, r.equipos.descripcion, marca, r.modelos.descripcion, codrepuesto,  descripcion, stock, fobultimo, pcostoultimo, preciolista " +
-            " from Repuestos r where r.id.idmodelo like '%" + modelo + "%'").list();
+            " from Repuestos r where r.id.idmodelo like '%" + idModelo + "%'").list();
     }
     
     public List Getx_CodSec(String codSec) {
@@ -191,10 +209,20 @@ public class MaestrosDAO extends GenericDAO<Repuestos> {
     }
 
     public List Getx_Descripcion(String descripcion) {
-        return getHibernateTemplate().createSQLQuery(
-            " select idequipo, codrepuesto, descripcion, descrmodelo, preciolista, costopromedio, stock, unidadventa, codigoseg " +
-            " from Repuestos where descripcion like '%" + descripcion + "%'").list();
-//            "from Repuestos r where r.descripcion like '%" + descripcion + "%'").list();
+        
+        List list = null;
+        try{
+            list = getHibernateTemplate().createQuery(
+                "select r.id.idrepuesto, r.equipos.descripcion, marca, r.modelos.descripcion, codrepuesto ,r.descripcion, stock, preciolista " +
+                " from Repuestos r where descripcion like '%" + descripcion + "%'").list();
+    //            "from Repuestos r where r.descripcion like '%" + descripcion + "%'").list();
+        } catch ( Exception e ) {
+            System.err.println("Error Getx_NroParte function:" + e.getMessage());
+            
+        } finally {
+            session.close();
+        }
+        return list;
     }
     
     public List Getx_Descripcion2(String descripcion) {
@@ -203,6 +231,60 @@ public class MaestrosDAO extends GenericDAO<Repuestos> {
             " from Repuestos where descripcion like '%" + descripcion + "%'").list();
 //            "from Repuestos r where r.descripcion like '%" + descripcion + "%'").list();
     }
+    
+     public List Getx_Equipo(String idEquipo) {
+        
+        List list = null;
+        try{
+            list = getHibernateTemplate().createQuery(
+                "select r.id.idrepuesto, r.equipos.descripcion, marca, r.modelos.descripcion, codrepuesto ,r.descripcion, stock, preciolista " +
+                " from Repuestos r where r.id.idequipo like '%" + idEquipo + "%'").list();
+    //            "from Repuestos r where r.descripcion like '%" + descripcion + "%'").list();
+        } catch ( Exception e ) {
+            System.err.println("Error Getx_Equipo function:" + e.getMessage());
+            
+        } finally {
+            session.close();
+        }
+        return list;
+    }
+    
+     public List Getx_Marca(String idMarca) {
+        
+        List list = null;
+        try{
+            list = getHibernateTemplate().createQuery(
+                "select r.id.idrepuesto, r.equipos.descripcion, marca, r.modelos.descripcion, codrepuesto ,r.descripcion, stock, preciolista " +
+                " from Repuestos r where r.id.idmarca like '%" + idMarca + "%'").list();
+    //            "from Repuestos r where r.descripcion like '%" + descripcion + "%'").list();
+        } catch ( Exception e ) {
+            System.err.println("Error Getx_Marca function:" + e.getMessage());
+            
+        } finally {
+            session.close();
+        }
+        return list;
+    }
+     
+     
+     public List Getx_Modelo(String idModelo) {
+        
+        List list = null;
+        try{
+            list = getHibernateTemplate().createQuery(
+                "select r.id.idrepuesto, r.equipos.descripcion, marca, r.modelos.descripcion, codrepuesto ,r.descripcion, stock, preciolista " +
+                " from Repuestos r where r.id.idmodelo like '%" + idModelo + "%'").list();
+    //            "from Repuestos r where r.descripcion like '%" + descripcion + "%'").list();
+        } catch ( Exception e ) {
+            System.err.println("Error Getx_Modelo function:" + e.getMessage());
+            
+        } finally {
+            session.close();
+        }
+        return list;
+    }
+     
+     
     
     public List xDescripcionMaestro(String descripcion) {
         return getHibernateTemplate().createQuery(
@@ -217,7 +299,7 @@ public class MaestrosDAO extends GenericDAO<Repuestos> {
             " from Repuestos r where descripcion like '%" + descripcion + "%'").list();
     }
     
-    public List Getx_Modelo(String modelo) {
+    public List Getx_DescrModelo(String modelo) {
         return getHibernateTemplate().createSQLQuery(
 //            " select idlinea, codrepuesto, descripcion, descrmodelo, preciolista, stock, unidadventa, costopromedio " +
             " select idequipo, codrepuesto, descripcion, descrmodelo, preciolista, costopromedio, stock, unidadventa, codigoseg  " +
@@ -358,10 +440,10 @@ public class MaestrosDAO extends GenericDAO<Repuestos> {
     
     public List Get_Lista_Repuestos() {
         System.out.println("Get_Lista_Repuestos....");
-        return getHibernateTemplate().createSQLQuery(
+        return getHibernateTemplate().createQuery(
 //            " select idlinea, codrepuesto, descripcion, descrmodelo, preciolista, costopromedio, stock, unidadventa " +
-            " select idequipo, codrepuesto, descripcion, descrmodelo, preciolista, costopromedio, stock, unidadventa, codigoseg " +
-            " from repuestos ")
+            "select r.id.idrepuesto, r.equipos.descripcion, marca, r.modelos.descripcion, codrepuesto ,r.descripcion, stock, preciolista " +
+            " from Repuestos r ")
             .list();
     }
     

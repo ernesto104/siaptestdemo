@@ -152,7 +152,7 @@
         <set inverse="true" name="detallenotas">
             <key>
                 <column name="IDREPUESTO"/>
-                <column name="IDLINEA"/>
+                <column name="IDEQUIPO"/>
                 <column name="IDMARCA"/>
                 <column name="IDMODELO"/>
             </key>
@@ -161,7 +161,7 @@
         <set inverse="true" name="detallesugeridos">
             <key>
                 <column name="IDREPUESTO"/>
-                <column name="IDLINEA"/>
+                <column name="IDEQUIPO"/>
                 <column name="IDMARCA"/>
                 <column name="IDMODELO"/>
             </key>

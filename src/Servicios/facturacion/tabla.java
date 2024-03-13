@@ -28,7 +28,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class tabla extends AbstractTableModel {
 
-    String[] columnNames = {"Item", "Linea", "Nro Parte", 
+    String[] columnNames = {"ID", "Equipo", "Nro de Serie", 
 //                            "Cod. Secundario", 
                             "Descripción", 
                             "Aplicación", // = Equipos

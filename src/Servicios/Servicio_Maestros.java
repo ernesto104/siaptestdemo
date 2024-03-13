@@ -91,9 +91,15 @@ public class Servicio_Maestros {
             case 1:
                 return maestrosDAO.Getx_Descripcion(busq);
             case 2:
-                return maestrosDAO.Getx_Modelo(busq);
+                return maestrosDAO.Getx_DescrModelo(busq);
             case 3:
                 return maestrosDAO.Getx_CodSec(busq);
+            case 4:
+                return maestrosDAO.Getx_Equipo(busq);
+            case 5:
+                return maestrosDAO.Getx_Marca(busq);
+            case 6:
+                return maestrosDAO.Getx_Modelo(busq);    
 //            case 3:
 //                return maestrosDAO.Getx_Cod_PrecLista(busq);                
             default:

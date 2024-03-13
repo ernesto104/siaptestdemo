@@ -102,7 +102,7 @@ public class EquiposDAO extends GenericDAO<Equipos> {
     public String Obtener_NombreObjeto_por_codigo(int codigo) {
         String l = null;
         try {
-            iniciaOperacion();
+            //iniciaOperacion();
             l = (String) getHibernateTemplate().createQuery("select descripcion from Equipos where idequipo='" + codigo + "'").uniqueResult();
             session.getTransaction().commit();
         } catch (Exception e) {

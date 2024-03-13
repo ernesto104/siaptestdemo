@@ -2520,7 +2520,7 @@ public class FREP001 extends javax.swing.JFrame {
             //System.out.print(criterioBusque);
         } else {
             caso =12;
-            criterioBusque=String.valueOf(cbMarcaFiltro.getSelectedItem());
+            criterioBusque=String.valueOf(cbModeloFiltro.getSelectedItem());
             criterioBusque=criterioBusque.split(" - ")[0];
             //System.out.print(criterioBusque);
         }
@@ -2697,6 +2697,7 @@ public class FREP001 extends javax.swing.JFrame {
             Servicio_Marcas servmarca = new Servicio_Marcas(null);
             Marcas marcaselec = servmarca.getMarcas_por_codigo(Integer.parseInt(marcaId));
             llenar_modelosXmarca(marcaselec);
+            //System.out.println(marcaselec);
             //visibilidadElementosMarca(true);
         
         

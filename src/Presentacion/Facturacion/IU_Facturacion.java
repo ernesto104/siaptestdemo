@@ -912,7 +912,7 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
                     case 0: // Item
                         anchoColumna = (3 * ancho) / 100;
                         break;
-                    case 1: // Linea
+                    case 1: // Equipo
                         anchoColumna = (3 * ancho) / 100;
                         break;
                     case 2: // Nro Parte (7)

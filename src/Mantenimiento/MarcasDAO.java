@@ -89,10 +89,13 @@ public class MarcasDAO extends GenericDAO<Marcas> {
         Marcas m = new Marcas();
         try {
             m = (Marcas) getHibernateTemplate().createQuery("from Marcas where idmarca='" + codigo + "'").uniqueResult();
+            session.getTransaction().commit();
         } catch (Exception e) {
             System.err.println("Error : " + e.getLocalizedMessage());
         } finally {
-            session.close();
+            if(session  !=null) {
+            session.close();}
+        
         }
         return m;
     }

@@ -1,5 +1,8 @@
 package Presentacion.Facturacion;
 
+import Entidades.Equipos;
+import Entidades.Marcas;
+import Entidades.Modelos;
 import static Entidades.Otros.Constante.COL_MODELO_REPUESTOS;
 import static Entidades.Otros.Constante.DOLAR;
 import static Entidades.Otros.Constante.DOLAR_COMBO;
@@ -12,13 +15,17 @@ import Presentacion.IngresoSalidas.IU_DetalleIngSal;
 import Presentacion.IngresoSalidas.IU_NuevoRepuesto;
 import Servicios.Comision.Validar_Mayusculas;
 import Servicios.Servicio_Control_Sistema;
+import Servicios.Servicio_Equipos;
 import Servicios.Servicio_Maestros;
+import Servicios.Servicio_Marcas;
+import Servicios.Servicio_Modelos;
 import Servicios.Util;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -63,9 +70,9 @@ public final class IU_FMaestro extends javax.swing.JFrame {
         t = (DefaultTableModel) tb_rep.getModel();
         
 //        String titulosFactura[] = { "Linea", "Nro Parte", "Descripcion", "Modelo", "Precio Lista", "Stock", "Unidad Venta" };
-        String titulosFactura[] = { "Línea", "Nro Parte", "Codigo Sec", "Descripción", 
-                                    "Aplicación", // Modelo
-                                    "Precio Lista", "Stock", "Unidad Venta" };
+        String titulosFactura[] = { "ID", "Equipo", "Marca", "Modelo", 
+                                    "N° de Serie", // Modelo
+                                    "Descripcion", "Stock", "Precio Lista" };
         
         switch( f.monedaControlRepuestos ) {
             case DOLAR_COMBO:
@@ -86,6 +93,7 @@ public final class IU_FMaestro extends javax.swing.JFrame {
         } else {
             ListarRep(sm.getRepuestos_conStock().iterator());
         }
+        llenar_equipos();
         presionado = false;
         bt_nuevoRep.setVisible(false);
         tx_busqueda.setDocument(new Validar_Mayusculas(tx_busqueda, 15));
@@ -102,8 +110,8 @@ public final class IU_FMaestro extends javax.swing.JFrame {
     private void alinearDerecha() {
         DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
         tcr.setHorizontalAlignment(SwingConstants.RIGHT);
-        tb_rep.getColumnModel().getColumn(5).setCellRenderer(tcr);
         tb_rep.getColumnModel().getColumn(6).setCellRenderer(tcr);
+        tb_rep.getColumnModel().getColumn(7).setCellRenderer(tcr);
         
         
 //        System.out.println(" 8 : " + tb_rep.getColumnModel().getColumn(8));
@@ -120,12 +128,13 @@ public final class IU_FMaestro extends javax.swing.JFrame {
         f = null;
         paq = null;
         initComponents();
+        llenar_equipos();
         t = (DefaultTableModel) tb_rep.getModel();
         
 //        String titulosIngresoSalida[]={"Linea", "Nro Parte", "Descripcion", "Modelo", "Precio Costo", "Stock", "Unidad Venta"};
-        String titulosIngresoSalida[] = {"Línea", "Nro Parte", "Codigo Sec", "Descripción", 
-                                         "Aplicación", // Modelo
-                                         "Precio Costo", "Stock", "Unidad Venta"};
+        String titulosIngresoSalida[] = {"ID", "Equipo", "Marca", "Modelo", 
+                                         "Nro de Serie", // Modelo
+                                         "Descripcion", "Stock", "Precio de Lista"};
         t.setColumnIdentifiers(titulosIngresoSalida);
         
         setLocationRelativeTo(null);
@@ -158,6 +167,7 @@ public final class IU_FMaestro extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         initOtherComponents();
         ListarRep(sm.getList().iterator());
+        llenar_equipos();
         presionado = false;
         bt_nuevoRep.setVisible(false);
         alinearDerecha();
@@ -189,22 +199,22 @@ public final class IU_FMaestro extends javax.swing.JFrame {
                     anchoColumna = (15 * ancho) / 100;
                     break;
                 case 2: // Codigo SEc.
-                    anchoColumna = (8 * ancho) / 100;
+                    anchoColumna = (15 * ancho) / 100;
                     break;
                 case 3: // Descripción
-                    anchoColumna = (20 * ancho) / 100;
+                    anchoColumna = (15 * ancho) / 100;
                     break;
                 case 4: // Aplicación (Modelo)
-                    anchoColumna = (24 * ancho) / 100;
-                    break;
-                case 5: // Precio Costo
                     anchoColumna = (10 * ancho) / 100;
                     break;
-                case 6: // Stock
-                    anchoColumna = (8 * ancho) / 100;
+                case 5: // Precio Costo
+                    anchoColumna = (20 * ancho) / 100;
                     break;
-                case 7: // Unidad Venta
-                    anchoColumna = (8 * ancho) / 100;
+                case 6: // Stock
+                    anchoColumna = (3 * ancho) / 100;
+                    break;
+                case 7: // Precio lista
+                    anchoColumna = (5 * ancho) / 100;
                     break;
             }
             columnaTabla.setPreferredWidth(anchoColumna);
@@ -218,6 +228,17 @@ public final class IU_FMaestro extends javax.swing.JFrame {
         }
     }
     
+    private void llenar_equipos() {
+        Servicio_Equipos sr = new Servicio_Equipos(null);
+        Iterator it = sr.getList().iterator();
+
+        while ( it.hasNext() ) {
+            Equipos l = (Equipos) it.next();
+            cb_equipo.addItem(l.getIdequipo() + " - " + l.getDescripcion()); // llenar combobox de arriba
+
+        }
+    }
+        
     public void AgregarFila(Object[] repuesto) {        
         Object[] row = new Object[9];
         
@@ -226,20 +247,24 @@ public final class IU_FMaestro extends javax.swing.JFrame {
 
 //      row[2] = String.valueOf(repuesto[2]); // codigo Sec
 //        System.out.println("cod repuesto:" + row[1]);
-        row[2] = ( repuesto[8] == null ) ? "" : String.valueOf(repuesto[8]); // codigo. sec.        
-        row[3] = String.valueOf(repuesto[2]); // descripcion
-        row[4] = ( repuesto[3] == null ) ? "" : String.valueOf(repuesto[3]); // descrmodelo (aplicación)
+        row[2] = ( repuesto[2] == null ) ? "" : String.valueOf(repuesto[2]); // codigo. sec.        
+        row[3] = String.valueOf(repuesto[3]); // descripcion
+        row[4] = ( repuesto[4] == null ) ? "" : String.valueOf(repuesto[4]); // descrmodelo (aplicación)
         
         if ( this.f != null ) { // Proviene de IU_Facturacion
-            row[5] = util.DosDecimales(Double.parseDouble(String.valueOf(repuesto[4]))); // preciolista
+            //row[5] = util.DosDecimales(Double.parseDouble(String.valueOf(repuesto[4]))); // preciolista
+            row[5] = ( repuesto[5] == null ) ? "" : String.valueOf(repuesto[5]);
             row[6] = ( repuesto[6] == null ) ? "" : String.valueOf(repuesto[6]); // stock
-            row[7] = ( repuesto[7] == null ) ? "" : String.valueOf(repuesto[7]); // unidadVenta
+            row[7] = ( repuesto[7] == null ) ? "" : util.DosDecimales(Double.parseDouble(String.valueOf(repuesto[7]))); //precio lista
+            //row[7] = ( repuesto[7] == null ) ? "" : String.valueOf(repuesto[7]); // unidadVenta
 //                    util.DosDecimales(Double.parseDouble(String.valueOf(repuesto[5]))); // costopromedio
             
         } else if ( this.det != null ) { // Proviene de IU_DetalleIngSal
-            row[5] = ( repuesto[5] == null ) ? "" : util.DosDecimales(Double.parseDouble(String.valueOf(repuesto[5]))); // costopromedio
-            row[6] = Integer.parseInt(String.valueOf(repuesto[6])); // stock
-            row[7] = ( repuesto[7] == null ) ? "" : String.valueOf(repuesto[7]); // unidadVenta            
+            //row[5] = ( repuesto[5] == null ) ? "" : util.DosDecimales(Double.parseDouble(String.valueOf(repuesto[5]))); // costopromedio
+            row[5] = ( repuesto[5] == null ) ? "" : String.valueOf(repuesto[5]);
+            row[6] = ( repuesto[6] == null ) ? "" : Integer.parseInt(String.valueOf(repuesto[6])); // stock
+            row[7] = ( repuesto[7] == null ) ? "": util.DosDecimales(Double.parseDouble(String.valueOf(repuesto[7]))); //precio lista
+            //row[7] = ( repuesto[7] == null ) ? "" : String.valueOf(repuesto[7]); // unidadVenta            
         }
 
         t.addRow(row);
@@ -278,6 +303,10 @@ public final class IU_FMaestro extends javax.swing.JFrame {
         bt_buscar = new javax.swing.JButton();
         lb_mensaje = new javax.swing.JLabel();
         cb_busqueda = new javax.swing.JComboBox();
+        cb_equipo = new javax.swing.JComboBox();
+        cb_marca = new javax.swing.JComboBox();
+        cb_modelo = new javax.swing.JComboBox();
+        bt_buscar1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tb_rep = new javax.swing.JTable();
         bt_agregar = new javax.swing.JButton();
@@ -315,10 +344,43 @@ public final class IU_FMaestro extends javax.swing.JFrame {
 
         lb_mensaje.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
 
-        cb_busqueda.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nro Parte", "Descripcion", "Modelo", "Precio Lista" }));
+        cb_busqueda.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nro Serie", "Descripcion" }));
         cb_busqueda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cb_busquedaActionPerformed(evt);
+            }
+        });
+
+        cb_equipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Equipos" }));
+        cb_equipo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb_equipoItemStateChanged(evt);
+            }
+        });
+
+        cb_marca.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Marcas" }));
+        cb_marca.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb_marcaItemStateChanged(evt);
+            }
+        });
+        cb_marca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_marcaActionPerformed(evt);
+            }
+        });
+
+        cb_modelo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Modelos" }));
+        cb_modelo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_modeloActionPerformed(evt);
+            }
+        });
+
+        bt_buscar1.setText("Buscar");
+        bt_buscar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_buscar1ActionPerformed(evt);
             }
         });
 
@@ -328,13 +390,24 @@ public final class IU_FMaestro extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(cb_busqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tx_busqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(bt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addComponent(lb_mensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(cb_busqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tx_busqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(bt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lb_mensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(cb_equipo, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cb_marca, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cb_modelo, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(bt_buscar1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -347,6 +420,12 @@ public final class IU_FMaestro extends javax.swing.JFrame {
                         .addComponent(tx_busqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(bt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lb_mensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cb_equipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cb_marca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cb_modelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bt_buscar1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -355,7 +434,7 @@ public final class IU_FMaestro extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Línea", "Nro Parte", "Codigo Sec", "Descripción", "Aplicación", "Precio Lista", "Stock", "Unidad Venta"
+                "ID", "Equipo", "Marca", "Modelo", "N° de Serie", "Descripcion", "Aplicacion 1", "Stock"
             }
         ) {
             Class[] types = new Class [] {
@@ -416,21 +495,27 @@ public final class IU_FMaestro extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(132, 132, 132)
-                .addComponent(bt_agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63)
-                .addComponent(bt_nuevoRep, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67)
-                .addComponent(bt_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(199, 199, 199)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 872, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(199, 199, 199)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1079, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(191, 191, 191)
+                                .addComponent(bt_agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(63, 63, 63)
+                                .addComponent(bt_nuevoRep, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(67, 67, 67)
+                                .addComponent(bt_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -438,8 +523,8 @@ public final class IU_FMaestro extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -455,7 +540,7 @@ public final class IU_FMaestro extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 7, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -496,7 +581,7 @@ public final class IU_FMaestro extends javax.swing.JFrame {
                 if ( i == -1 ) {
                     i = tb_rep.getRowCount() - 1;
                 }
-                String codRep = String.valueOf(t.getValueAt(i, 1));
+                String codRep = String.valueOf(t.getValueAt(i, 4));
 //                System.out.println("codRep:" + codRep);
                 Repuestos rep = sm.getRepuesto_CodRep(codRep);
 //                System.out.println("rep:" + rep);
@@ -590,6 +675,136 @@ public final class IU_FMaestro extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tx_busquedaActionPerformed
 
+    private void cb_marcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_marcaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cb_marcaActionPerformed
+
+    private void cb_modeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_modeloActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cb_modeloActionPerformed
+
+    private void bt_buscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_buscar1ActionPerformed
+        // TODO add your handling code here:
+        
+        
+        int caso;
+        String criterioBusque;
+        /*if ("ADMINISTRADOR".equals(roltemporal)){        
+            caso = 0;
+        } else {
+            caso = 6;
+        }*/
+        
+        if(cb_equipo.getSelectedIndex()==0){
+            caso=4;
+            criterioBusque="";
+        }
+        else if(cb_marca.getSelectedIndex()==0){
+            caso=4;
+            criterioBusque=String.valueOf(cb_equipo.getSelectedItem());
+            criterioBusque=criterioBusque.split(" - ")[0];
+            //System.out.print(criterioBusque);
+        }
+        else if(cb_modelo.getSelectedIndex()==0){
+            caso=5;
+            criterioBusque=String.valueOf(cb_marca.getSelectedItem());
+            criterioBusque=criterioBusque.split(" - ")[0];
+            //System.out.print(criterioBusque);
+        } else {
+            caso =6;
+            criterioBusque=String.valueOf(cb_modelo.getSelectedItem());
+            criterioBusque=criterioBusque.split(" - ")[0];
+            //System.out.print(criterioBusque);
+        }
+        
+      
+        BorrarTabla();
+        
+            System.out.println("cb_busqueda.getSelectedIndex()" + caso);
+            ListarRep(sm.BuscarRep_por_(caso, criterioBusque).iterator());
+         
+            
+            /////////////
+            //List lista = sm.BuscarRepMaestro(caso, criterioBusque);
+    }//GEN-LAST:event_bt_buscar1ActionPerformed
+
+    private void cb_equipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_equipoItemStateChanged
+        // TODO add your handling code here
+        
+        String equipoDescrElement = String.valueOf(cb_equipo.getSelectedItem());
+        String equipoId ="0";
+        Marcas marcaselec = new Marcas();
+        //System.out.println(equipselec);
+        //textidmarca.setText("");
+        if (cb_equipo.getSelectedIndex() != 0) {
+            equipoId = equipoDescrElement.split(" - ")[0];
+            //visibilidadElementosMarca(true);
+        }
+            Servicio_Equipos servequip = new Servicio_Equipos(null);
+            Equipos equipselec = servequip.getEquipos_por_codigo(Integer.parseInt(equipoId));
+            //System.out.println(equipselec.getIdequipo());
+            llenar_marcasXequipo(equipselec);        
+            llenar_modelosXmarca(marcaselec);
+        
+            cb_marca.setSelectedIndex(0);
+            cb_modelo.setSelectedIndex(0);
+        
+    }//GEN-LAST:event_cb_equipoItemStateChanged
+
+    private void cb_marcaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_marcaItemStateChanged
+        // TODO add your handling code here:
+        String marcaoDescrElement = String.valueOf(cb_marca.getSelectedItem());
+        String marcaId ="0";
+        //System.out.println(equipselec);
+        //textidmarca.setText("");
+        if (cb_marca.getSelectedIndex() != 0) {
+            marcaId = marcaoDescrElement.split(" - ")[0];
+        
+
+        }
+            Servicio_Marcas servmarca = new Servicio_Marcas(null);
+            Marcas marcaselec = servmarca.getMarcas_por_codigo(Integer.parseInt(marcaId));
+            //System.out.print(marcaId);
+            llenar_modelosXmarca(marcaselec);
+            //visibilidadElementosMarca(true);
+        
+        
+            cb_modelo.setSelectedIndex(0);
+    }//GEN-LAST:event_cb_marcaItemStateChanged
+
+    
+    private void llenar_marcasXequipo(Equipos equipo) {
+        
+       DefaultComboBoxModel modelMarcCombo = new DefaultComboBoxModel();
+       Servicio_Marcas sm1 = new Servicio_Marcas(null);
+       
+       modelMarcCombo.addElement("Marcas");
+       if(equipo != null){
+        List<Marcas> listaMarc = sm1.buscarMarcasx_Equipo(equipo);
+         for (int i = 0; i < listaMarc.size(); i++) {
+             modelMarcCombo.addElement(listaMarc.get(i).getIdmarca()+" - "+listaMarc.get(i).getDescripcion());
+         }
+       }
+        cb_marca.setModel(modelMarcCombo); 
+    }
+    
+    
+    private void llenar_modelosXmarca(Marcas marca) {
+        
+       DefaultComboBoxModel modelModeloCombo = new DefaultComboBoxModel();
+       Servicio_Modelos smodelos = new Servicio_Modelos(null);
+       
+       modelModeloCombo.addElement("Modelos");
+       if(marca != null) {          // si la marca existe o no esta vacia
+        List<Modelos> listaModelos = smodelos.buscarModelosx_Marca(marca);
+         for (int i = 0; i < listaModelos.size(); i++) {
+             modelModeloCombo.addElement(listaModelos.get(i).getIdmodelo()+" - "+listaModelos.get(i).getDescripcion());
+         }
+       }
+       cb_modelo.setModel(modelModeloCombo); 
+    }
+    
+    
     public void BorrarTabla() {
         int numRows = t.getRowCount();
         for ( int i = 0; i < numRows; i++ ) {
@@ -667,9 +882,13 @@ public final class IU_FMaestro extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_agregar;
     private javax.swing.JButton bt_buscar;
+    private javax.swing.JButton bt_buscar1;
     private javax.swing.JButton bt_nuevoRep;
     private javax.swing.JButton bt_salir;
     public javax.swing.JComboBox cb_busqueda;
+    public javax.swing.JComboBox cb_equipo;
+    public javax.swing.JComboBox cb_marca;
+    public javax.swing.JComboBox cb_modelo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
