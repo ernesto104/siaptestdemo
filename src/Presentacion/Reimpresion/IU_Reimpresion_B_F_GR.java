@@ -155,8 +155,8 @@ public class IU_Reimpresion_B_F_GR extends javax.swing.JFrame {
             txtTrRUC.setText(cabeces.getTransportistas().getRuc());
         }
         
-        if ( !"null".equals(cabeces.getPlaca()) ) {
-            txtPlaca.setText(cabeces.getPlaca());
+        if ( !"null".equals(cabeces.getObservaciones()) ) {
+            txtPlaca.setText(cabeces.getObservaciones());
         }
         if ( !"null".equals(cabeces.getMarca()) ) {
             txtMarca.setText(cabeces.getMarca());

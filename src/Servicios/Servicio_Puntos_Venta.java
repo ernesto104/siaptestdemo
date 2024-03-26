@@ -40,6 +40,11 @@ public class Servicio_Puntos_Venta {
         puntosventaDao = new PuntosVentaDAO();
         this.it=it;    
     }
+    
+    public Servicio_Puntos_Venta(){
+        puntosventaDao = new PuntosVentaDAO();
+        //this.it=it;    
+    }
 
     public int getUltimo_id() {
         return ultimo_id;
@@ -51,9 +56,20 @@ public class Servicio_Puntos_Venta {
     
     
     public ArrayList<PuntosVenta> listar_PuntosVenta() {   
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Query q = (Query) session.createQuery("from PuntosVenta");
-        ArrayList lista = (ArrayList) q.list();        
+        ArrayList lista = null;
+        Session session = null;
+        try{
+            session = HibernateUtil.getSessionFactory().openSession();
+            Query q = (Query) session.createQuery("from PuntosVenta");
+            lista = (ArrayList) q.list();
+        } catch (Exception e){
+            e.getLocalizedMessage();
+            System.out.println("Error Puntos Venta: "+e);
+        } finally {
+            session.close();
+        }
+        
+                
         return lista;      
     }
     

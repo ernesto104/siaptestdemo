@@ -6,6 +6,9 @@
 
 package Entidades;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  *
  * @author User
@@ -17,6 +20,10 @@ public class PuntosVenta implements java.io.Serializable{
     int idpuntosventa;
     String descripcion;
     String estado;
+    private Set<Cabeces> cabeceses = new HashSet<>(0);
+    private Set<Cabecproformas> cabecproformases = new HashSet<>(0);
+    private Set<Cabecsalvar> cabecsalvars = new HashSet<>(0);
+
     
     public PuntosVenta() {
     }
@@ -53,6 +60,30 @@ public class PuntosVenta implements java.io.Serializable{
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+    
+    public Set<Cabeces> getCabeceses() {
+        return cabeceses;
+    }
+
+    public void setCabeceses(Set<Cabeces> cabeceses) {
+        this.cabeceses = cabeceses;
+    }
+
+    public Set<Cabecproformas> getCabecproformases() {
+        return cabecproformases;
+    }
+
+    public void setCabecproformases(Set<Cabecproformas> cabecproformases) {
+        this.cabecproformases = cabecproformases;
+    }
+
+    public Set<Cabecsalvar> getCabecsalvars() {
+        return cabecsalvars;
+    }
+
+    public void setCabecsalvars(Set<Cabecsalvar> cabecsalvars) {
+        this.cabecsalvars = cabecsalvars;
     }
 
 }

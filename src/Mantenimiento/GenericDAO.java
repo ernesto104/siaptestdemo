@@ -30,7 +30,9 @@ public abstract class GenericDAO<T> {
         } catch ( Exception e ) {
             System.out.println("Excepcion:" + e.getMessage());
             return null;
-        }
+        } /*finally {
+            session.close();
+        }*/
     }
 
     public boolean Modificar_Objeto(T t) {
@@ -97,9 +99,9 @@ public abstract class GenericDAO<T> {
         session.getTransaction().commit();
         } catch (Exception e) {
             System.err.println("Error : " + e.getLocalizedMessage());
-        } finally {
+        } /*finally { // se comento porque daba error con Lsita de Programas en Menu Accesos
             session.close();
-        }
+        }*/
         
         return returnList;
     }

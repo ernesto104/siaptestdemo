@@ -22,9 +22,10 @@ public class Cabeces  implements java.io.Serializable {
      private Cabecproformas cabecproformas;
      private Transportistas transportistas;
      private Clientes clientes;
+     private PuntosVenta puntosventa;
      
      private String marca;
-     private String placa;
+     private String observaciones;
      private String modelo;
      private String ordenTransportista;
      
@@ -95,7 +96,7 @@ public class Cabeces  implements java.io.Serializable {
        this.cabecproformas = cabecproformas;
        
        this.marca = marca;
-       this.placa = placa;
+       this.observaciones = placa;
        this.modelo = modelo;
        this.ordenTransportista = ordenTransportista;
        
@@ -199,6 +200,14 @@ public class Cabeces  implements java.io.Serializable {
     public void setClientes(Clientes clientes) {
         this.clientes = clientes;
     }
+    
+    public PuntosVenta getPuntosventa() {
+        return puntosventa;
+    }
+
+    public void setPuntosventa(PuntosVenta puntosventa) {
+        this.puntosventa = puntosventa;
+    }
 
     public String getMarca() {
         return marca;
@@ -208,12 +217,12 @@ public class Cabeces  implements java.io.Serializable {
         this.marca = marca;
     }
 
-    public String getPlaca() {
-        return placa;
+    public String getObservaciones() {
+        return observaciones;
     }
 
-    public void setPlaca(String placa) {
-        this.placa = placa;
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
     }
 
     public String getModelo() {

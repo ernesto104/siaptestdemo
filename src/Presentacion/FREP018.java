@@ -434,7 +434,8 @@ public class FREP018 extends javax.swing.JFrame {
         int[] filas = tb_listaProg.getSelectedRows();       
         Set<Programas> contiene = ((Roles)cb_roles.getSelectedItem()).getProgramases();
         if(filas.length>0){
-            for(int i : filas){
+            for(int i : filas){         //cambiando valores de 2 a 1 en filas[0], 1
+                System.out.print(contiene.toString());
                 contiene.add((Programas) dtm_listaprog.getValueAt(filas[0], 2));
                 AgregarPrograma( (Programas) dtm_listaprog.getValueAt(filas[0], 2), dtm_progasig);
                 dtm_listaprog.removeRow(filas[0]);

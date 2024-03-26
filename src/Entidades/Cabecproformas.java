@@ -14,6 +14,7 @@ public class Cabecproformas  implements java.io.Serializable {
 
      private Integer idcabproforma;
      private Vendedores vendedores;
+     private PuntosVenta puntosventa;
      private Cabeces cabeces;
      private Clientes clientes;
      private String codigocabproforma;
@@ -22,7 +23,7 @@ public class Cabecproformas  implements java.io.Serializable {
      
      private String referencia;
      private String marca;
-     private String placa;
+     private String observaciones;
      private String modelo;
      private String serie;
      private String motor;
@@ -63,7 +64,7 @@ public class Cabecproformas  implements java.io.Serializable {
        
        this.referencia = referencia;
        this.marca = marca;
-       this.placa = placa;
+       this.observaciones = placa;
        this.modelo = modelo;
        this.serie = serie;
        this.motor = motor;
@@ -98,6 +99,14 @@ public class Cabecproformas  implements java.io.Serializable {
     
     public void setVendedores(Vendedores vendedores) {
         this.vendedores = vendedores;
+    }
+    
+    public PuntosVenta getPuntosventa() {
+        return puntosventa;
+    }
+
+    public void setPuntosventa(PuntosVenta puntosventa) {
+        this.puntosventa = puntosventa;
     }
     public Cabeces getCabeces() {
         return this.cabeces;
@@ -143,12 +152,12 @@ public class Cabecproformas  implements java.io.Serializable {
     public void setMarca(String marca) {
         this.marca = marca;
     }
-    public String getPlaca() {
-        return this.placa;
+    public String getObservaciones() {
+        return this.observaciones;
     }
     
-    public void setPlaca(String placa) {
-        this.placa = placa;
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
     }
     public String getModelo() {
         return this.modelo;

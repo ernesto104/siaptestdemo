@@ -324,6 +324,12 @@ public class Servicio_Impresion implements Constantes {
                     vendedor = "Vend:" + c.getVendedores().getNombre();
                 }
                 parametros.put("vendedor", vendedor);
+                
+                String puntoventa = "";
+                if ( c.getPuntosventa() != null ) {
+                    puntoventa = "Punto Venta:" + c.getPuntosventa().getDescripcion();
+                }
+                parametros.put("puntoVenta", puntoventa);
                 // Fin - Para Impresión por jasper (1° Versión de M&D)
                 
                 // New Parameters
@@ -336,7 +342,7 @@ public class Servicio_Impresion implements Constantes {
                 } else {
                     System.out.println("cabecProforma NO es null");
                     parametros.put("marca", cp.getMarca());
-                    parametros.put("placa", "PLACA: " + cp.getPlaca());
+                    parametros.put("placa", "PLACA: " + cp.getObservaciones());
                     parametros.put("modelo", cp.getModelo());
                 }
                 
@@ -449,7 +455,7 @@ public class Servicio_Impresion implements Constantes {
                     parametros.put("siniestro", "SINIESTRO: " + siniestro);
                 } else {
                     parametros.put("marca", c.getMarca());
-                    parametros.put("placa", "PLACA: " + c.getPlaca());
+                    parametros.put("placa", "PLACA: " + c.getObservaciones());
                     parametros.put("ordenTransporte", "O/T: N° " + c.getOrdenTransportista());
                     parametros.put("siniestro", "SINIESTRO: " + c.getSiniestro());
                 }

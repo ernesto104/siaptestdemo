@@ -10,6 +10,9 @@
         </id>
         <many-to-one name="vendedores" class="Entidades.Vendedores" fetch="select">
             <column name="IDVENDEDOR" />
+        </many-to-one>
+                <many-to-one name="puntosventa" class="Entidades.PuntosVenta" fetch="select">
+            <column name="IDPUNTOVENTA" />
         </many-to-one>        
         <many-to-one name="sucursales" class="Entidades.Sucursales" fetch="select">
             <column name="IDSUCURSAL" />

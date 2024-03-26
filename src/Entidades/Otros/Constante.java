@@ -20,14 +20,17 @@ public final class Constante {
     public static final String REPUESTO_NO_SELECCIONADO = "NINGÚN " + Constantes.OBJETO_COMERCIALIZADOR + " SELECCIONADO"; 
     public static final String TABLA_VACIA_REPUESTOS = "TABLA VACÍA, AGREGUE Y SELECCIONE ITEM";
     
-    public static final int COLUMNA_STOCK = 5;
-    public static final int COLUMNA_CLIENTE = 16;
-    public static final int COLUMNA_DISPONIBILIDAD = 15;
-    public static final int COLUMNA_DSCTO3 = 12;
-    public static final int COLUMNA_DSCTO4 = 13;
+    // se les aumentara a algunos 3 unidades por las coumnas Equipo, Marca Y Modelo
+    public static final int COLUMNA_STOCK = 8;
+    public static final int COLUMNA_CLIENTE = 16; // no se utiliza
+    public static final int COLUMNA_DISPONIBILIDAD = 18;
+    public static final int COLUMNA_DSCTO1 = 13;
+    public static final int COLUMNA_DSCTO2 = 14;
+    public static final int COLUMNA_DSCTO3 = 15;
+    public static final int COLUMNA_DSCTO4 = 16;
     
 //    public static final int COLUMNA_CODSEC = 3;
-    public static final int COLUMNA_MODELO = 4;
+    public static final int COLUMNA_MODELO = 7; // Aplicacion 
     
     public static final int COLUMNA_ID_CLIENTE = 7;
     public static final String ESTADO_PROFORMA_PENDIENTE = "PENDIENTE";
@@ -56,7 +59,7 @@ public final class Constante {
     
     public static final int NUM_CARACT_DIR_TRUNCA = 45;
     public static final int FILA_INI_DET_BOL = 11;
-    public static final int FILA_INI_DET_PROF = 13;
+    public static final int FILA_INI_DET_PROF = 14; // aumenta 1 por punto de venta (valor anterior: 13)
     public static final int FILA_INI_DET_FACT = 14;
 //    public static final int FILA_INI_DET_GR = 19;
     public static final int FILA_INI_DET_GR = 20;

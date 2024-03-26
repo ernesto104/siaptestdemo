@@ -17,6 +17,8 @@ public class FREP019 extends javax.swing.JFrame {
         initComponents();
         this.usuario = usuario;
         this.valorVenta = valorVenta;
+        bt_web.setVisible(false);
+        bt_guiaR.setVisible(false);
 //        System.out.println("Roles : " + roles);
         Roles Querol = usuario.getRoles();
         System.out.println("Al comienzo Rol : " + Querol);
@@ -125,9 +127,9 @@ public class FREP019 extends javax.swing.JFrame {
                 .addComponent(bt_sk, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
                 .addComponent(bt_web, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
+                .addGap(0, 0, 0)
                 .addComponent(bt_guiaR, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
+                .addGap(0, 0, 0)
                 .addComponent(bt_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 

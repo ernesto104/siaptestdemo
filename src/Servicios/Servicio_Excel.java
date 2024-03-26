@@ -159,18 +159,18 @@ public class Servicio_Excel {
     // Genera excel para PROFORMA o FACTURA
     public String generarExcelDocumento(Cabeces c, ArrayList<Detallees> det, String env, String ped, String nroguia, Date fechaEmision, String siniestro, String marca, 
                                         String placa, String modelo, String ordenTransporte, boolean esFactura, String nroSerie, String nroDoc, String vendedor,
-                                        String condicion, String tipoCambio, tabla tablaFacturacion, Usuarios usuario)
+                                        String puntoventa ,String condicion, String tipoCambio, tabla tablaFacturacion, Usuarios usuario)
                                         throws FileNotFoundException, BiffException, IOException, WriteException, ParseException, FontFormatException {
         DatosDocumento documento = new DatosDocumento();
         documento = llenarDatosDocumento(documento, c, env, ped, nroguia, fechaEmision, siniestro, marca, placa, modelo, ordenTransporte, esFactura, nroSerie, nroDoc,
-                                         vendedor, condicion, tipoCambio, usuario);
+                                         vendedor,puntoventa , condicion, tipoCambio, usuario);
         Exportar_Excel_CabecDet_Factura(documento, det, esFactura, tablaFacturacion, usuario);
         return documento.getNombreExcelDocumento();
     }
     
     private DatosDocumento llenarDatosDocumento(DatosDocumento documento, Cabeces c, String enviado, String pedido, String nroguia, Date fechaEmision, String siniestro, 
                                                 String marca, String placa, String modelo, String ordenTransporte, boolean esFactura, String nroSerie, String nroDoc,
-                                                String vendedor, String condicion, String tipoCambio, Usuarios usuario) {
+                                                String vendedor, String puntoventa, String condicion, String tipoCambio, Usuarios usuario) {
         String nombreExcelDoc = "\\";
         if ( esFactura ) {
             System.out.println("tipo impresora:" + usuario.getImpresora());
@@ -225,10 +225,11 @@ public class Servicio_Excel {
         documento.setPedido(pedido);
         documento.setOrden(c.getId().getNrodocumento());
         documento.setVendedor(vendedor);
+        documento.setPuntoventa(puntoventa);
         
         if ( esFactura ) {
             documento.setMarca(marca);
-            documento.setPlaca("PLACA: " + placa);
+            documento.setObservaciones("OBSERVACIONES: " + placa);
             documento.setModelo(modelo);
         
             if ( !"null".equals(ordenTransporte) ) {
@@ -240,7 +241,8 @@ public class Servicio_Excel {
             
         } else { // Para Boleta
             documento.setMarca(null);
-            documento.setPlaca(null);
+            documento.setObservaciones("OBSERVACIONES: " + placa);
+            //documento.setObservaciones(null);
             documento.setModelo(null);
             documento.setSiniestro(null);
         }
@@ -367,7 +369,7 @@ public class Servicio_Excel {
 //            
 //        } else { // Para Boleta
             documento.setMarca(null);
-            documento.setPlaca(null);
+            documento.setObservaciones(null);
             documento.setModelo(null);
             documento.setSiniestro(null);
 //        }

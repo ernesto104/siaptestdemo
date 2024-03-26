@@ -16,6 +16,8 @@ import static Entidades.Otros.Constante.CBO_SALIDAS_VARIAS;
 //import static Entidades.Otros.Constante.COLUMNA_CODSEC;
 import static Entidades.Otros.Constante.COLUMNA_MODELO;
 import static Entidades.Otros.Constante.COLUMNA_DISPONIBILIDAD;
+import static Entidades.Otros.Constante.COLUMNA_DSCTO1;
+import static Entidades.Otros.Constante.COLUMNA_DSCTO2;
 import static Entidades.Otros.Constante.COLUMNA_DSCTO3;
 import static Entidades.Otros.Constante.COLUMNA_DSCTO4;
 import static Entidades.Otros.Constante.COLUMNA_STOCK;
@@ -79,6 +81,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import Servicios.Servicio_Excel;
 import Servicios.Servicio_Pagos;
+import Servicios.Servicio_Puntos_Venta;
 import Servicios.Servicio_Vendedor;
 import Servicios.Util;
 import javax.swing.SwingConstants;
@@ -104,6 +107,7 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
     TipoMensaje tm;
     tabla tablaFacturacion;
     Servicio_Documentos sf;
+    Servicio_Puntos_Venta spv;
     private JComponent[] comp;
     private JButton[] botones;
     private boolean prof;
@@ -297,7 +301,16 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
         tx_doc.setVisible(mostrar); // MOSTRAR 2017
     }
     
-    private void ocultarColumnaDscto3Dscto4() { 
+    private void ocultarColumnaDscto1Dscto2Dscto3Dscto4() { 
+        
+        tb_factura.getColumnModel().getColumn(COLUMNA_DSCTO1).setMaxWidth(0);
+        tb_factura.getColumnModel().getColumn(COLUMNA_DSCTO1).setMinWidth(0);
+        tb_factura.getColumnModel().getColumn(COLUMNA_DSCTO1).setPreferredWidth(0);
+        
+        tb_factura.getColumnModel().getColumn(COLUMNA_DSCTO2).setMaxWidth(0);
+        tb_factura.getColumnModel().getColumn(COLUMNA_DSCTO2).setMinWidth(0);
+        tb_factura.getColumnModel().getColumn(COLUMNA_DSCTO2).setPreferredWidth(0);
+        
         tb_factura.getColumnModel().getColumn(COLUMNA_DSCTO3).setMaxWidth(0);
         tb_factura.getColumnModel().getColumn(COLUMNA_DSCTO3).setMinWidth(0);
         tb_factura.getColumnModel().getColumn(COLUMNA_DSCTO3).setPreferredWidth(0);
@@ -326,14 +339,14 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
     private void alinearColumnaDerecha(){
         DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
         tcr.setHorizontalAlignment(SwingConstants.RIGHT);
-        tb_factura.getColumnModel().getColumn(5).setCellRenderer(tcr);      // Stock
-        tb_factura.getColumnModel().getColumn(6).setCellRenderer(tcr);      // Precio Lista
-        tb_factura.getColumnModel().getColumn(9).setCellRenderer(tcr);      // Precio
-        tb_factura.getColumnModel().getColumn(10).setCellRenderer(tcr);     // Descuento 1
-        tb_factura.getColumnModel().getColumn(11).setCellRenderer(tcr);     // Descuento 2
-        tb_factura.getColumnModel().getColumn(12).setCellRenderer(tcr);     // Descuento 3
-        tb_factura.getColumnModel().getColumn(13).setCellRenderer(tcr);     // Descuento 4
-        tb_factura.getColumnModel().getColumn(14).setCellRenderer(tcr);     // Total
+        //tb_factura.getColumnModel().getColumn(5).setCellRenderer(tcr);      // Modelo
+        tb_factura.getColumnModel().getColumn(9).setCellRenderer(tcr);      // Precio Lista
+        tb_factura.getColumnModel().getColumn(8).setCellRenderer(tcr);      // Stock
+        tb_factura.getColumnModel().getColumn(10).setCellRenderer(tcr);     // 
+        tb_factura.getColumnModel().getColumn(11).setCellRenderer(tcr);     // 
+        tb_factura.getColumnModel().getColumn(12).setCellRenderer(tcr);     // Precio
+        tb_factura.getColumnModel().getColumn(13).setCellRenderer(tcr);     // 
+        tb_factura.getColumnModel().getColumn(17).setCellRenderer(tcr);     // Total
         
         tb_factura.getColumnModel().getColumn(15).setCellRenderer(tcr);     // Disponibilidad
     }
@@ -366,7 +379,8 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
     }
     
     private void ocultarStockDispo() {
-        ocultarStockTabla();
+        //ocultarStockTabla();
+        ocultarColumnaDscto1Dscto2Dscto3Dscto4();
         ocultarDisponibilidadTabla();
     }
 
@@ -374,7 +388,14 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
         tablaFacturacion = new tabla();
         sf = new Servicio_Documentos();
         initComponents();
-        InitOtherComponents();
+        
+        cargarComboMoneda();
+        
+        controlDao = new ControlDAO();
+        control = controlDao.Obtener_Objeto(1);
+        monedaControlRepuestos = control.getMonedarepuestos() == SOL_COMBO ? 0 : DOLAR_COMBO;
+        
+        InitOtherComponents();                               
         String moneda = String.valueOf(cb_moneda.getSelectedItem());
         tablaFacturacion.agregarPR((ArrayList<PaquetesRepuestos>) Paq, moneda);
         alinearColumnaDerecha();
@@ -411,6 +432,7 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
         controlDao = new ControlDAO();
         control = controlDao.Obtener_Objeto(1);
         int maxItemsFact = control.getNrolineafac();
+        System.out.println(control.getNrolineagr());
         int maxItemsGR = control.getNrolineagr();
         int cantMaximaItemsFacturaGR = ( maxItemsFact < maxItemsGR ? maxItemsFact : maxItemsGR);
         
@@ -671,6 +693,7 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
         dt_fecha.setDate(new GregorianCalendar().getTime());
         ListarVendedores();
         ListarSoloClientes();
+        ListarPuntoVenta();
         
         servicioUbigeo = new Servicio_Ubigeo();
         Listar_Departamentos();
@@ -751,7 +774,7 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
         tx_serie.setDocument(new Validar_Mayusculas(tx_serie, 25));
         tx_orden.setDocument(new Validar_Mayusculas(tx_orden, 50));
         tx_nroGuia.setDocument(new Validar_Mayusculas(tx_nroGuia, 30));
-        tx_placa.setDocument(new Validar_Mayusculas(tx_placa, 10));
+        tx_observaciones.setDocument(new Validar_Mayusculas(tx_observaciones, 10));
         tx_marca.setDocument(new Validar_Mayusculas(tx_marca, 30));
         tx_modelo.setDocument(new Validar_Mayusculas(tx_modelo, 40));
         tx_motor.setDocument(new Validar_Mayusculas(tx_motor, 20));
@@ -812,7 +835,7 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
         tx_numSerie.setVisible(act);
         tx_doc.setVisible(act);
         
-        tx_placa.setVisible(act);
+        tx_observaciones.setVisible(act);
         tx_marca.setVisible(act);
         
         tx_nroGuia.setVisible(act);
@@ -845,15 +868,15 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
         TableColumnModel modeloColumna = tb_factura.getColumnModel();
         TableColumn columnaTabla;
         
-        if ( cb_doc.getSelectedIndex() == 2 ) {
+        if ( cb_doc.getSelectedIndex() == 2 ) {  // Aun no se llega a utilizar
             for (int i = 0; i < tb_factura.getColumnCount(); i++) {
                 columnaTabla = modeloColumna.getColumn(i);
                 switch (i) {
-                    case 0: // Item
+                    case 0: // Index Factura Item
                         anchoColumna = (3 * ancho) / 100;
                         break;
-                    case 1: // Linea
-                        anchoColumna = (3 * ancho) / 100;
+                    case 1: // Id Producto
+                        anchoColumna = (6 * ancho) / 100;
                         break;
                     case 2: // Nro Parte (5)
                         anchoColumna = (5 * ancho) / 100;
@@ -909,55 +932,65 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
             for (int i = 0; i < tb_factura.getColumnCount(); i++) {
                 columnaTabla = modeloColumna.getColumn(i);
                 switch (i) {
-                    case 0: // Item
-                        anchoColumna = (3 * ancho) / 100;
+                    case 0: // ID Factura Item
+                        anchoColumna = (4 * ancho) / 100;
                         break;
-                    case 1: // Equipo
-                        anchoColumna = (3 * ancho) / 100;
+                    case 1: // ID Producto
+                        anchoColumna = (0 * ancho) / 100;  //5
                         break;
                     case 2: // Nro Parte (7)
-                        anchoColumna = (10 * ancho) / 100;
+                        anchoColumna = (7 * ancho) / 100;
                         break;
+                    // Equipo, Marca y Modelo    
+                    case 3: // Equipo
+                        anchoColumna = (12 * ancho) / 100;
+                        break;
+                    case 4: // Marca
+                        anchoColumna = (12 * ancho) / 100;
+                        break;
+                    case 5: // Modelo
+                        anchoColumna = (12 * ancho) / 100;
+                        break;    
 //                    case 3: // Cod. Secundario
 //                        anchoColumna = (8 * ancho) / 100;
 //                        break;
-                    case 3: // Descripción (13)
-                        anchoColumna = (13 * ancho) / 100; // 10
+                    case 6: // Descripción (13)
+                        anchoColumna = (22 * ancho) / 100; // 10
                         break;
-                    case 4: // Modelo = Aplicación
-                        anchoColumna = (20 * ancho) / 100; // 14
+                    case 7: // Modelo = Aplicación
+                        anchoColumna = (0 * ancho) / 100; // 14
                         break;
-                    case 5: // Stock
-                        anchoColumna = (5 * ancho) / 100;
+                    case 8: // Stock
+                        anchoColumna = (4 * ancho) / 100;
                         break;
-                    case 6: // P. Lista
-                        anchoColumna = (5 * ancho) / 100;
-                        break;
-                    case 7: // Cant. pedida
-                        anchoColumna = (5 * ancho) / 100;
-                        break;
-                    case 8: // Cant. entregada
-                        anchoColumna = (5 * ancho) / 100;
-                        break;
-                    case 9: // Precio
+                    case 9: // P. Lista
                         anchoColumna = (6 * ancho) / 100;
                         break;
-                    case 10: // Dcto1
-                        anchoColumna = (4 * ancho) / 100;
-                        break;
-                    case 11: // Dcto2
-                        anchoColumna = (4 * ancho) / 100;
-                        break;
-                    case 12: // Dcto3
+                    case 10: // Cant. pedida
                         anchoColumna = (5 * ancho) / 100;
                         break;
-                    case 13: // Dcto4
+                    case 11: // Cant. entregada
                         anchoColumna = (5 * ancho) / 100;
                         break;
-                    case 14: // Total
-                        anchoColumna = (7 * ancho) / 100;
+                    case 12: // Precio
+                        anchoColumna = (6 * ancho) / 100;
                         break;
-                    case 15: // Disponibilidad
+                    case 13: // Dcto1
+                        anchoColumna = (0 * ancho) / 100;
+                        break;
+                    case 14: // Dcto2
+                        anchoColumna = (0 * ancho) / 100;
+                        break;
+                    case 15: // Dcto3
+                        anchoColumna = (0 * ancho) / 100;
+                        break;
+                    case 16: // Dcto4
+                        anchoColumna = (0 * ancho) / 100;
+                        break;
+                    case 17: // Total
+                        anchoColumna = (5 * ancho) / 100;
+                        break;
+                    case 18: // Disponibilidad
                         anchoColumna = (0 * ancho) / 100;
                         break;
                 }
@@ -1014,7 +1047,7 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
         jLabel20 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        cbPuntoVenta = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         tb_factura = new javax.swing.JTable();
         lb_Total = new javax.swing.JLabel();
@@ -1035,7 +1068,7 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
         lb_guia = new javax.swing.JLabel();
         lb_serie = new javax.swing.JLabel();
         lb_motor = new javax.swing.JLabel();
-        tx_placa = new javax.swing.JTextField();
+        tx_observaciones = new javax.swing.JTextField();
         tx_motor = new javax.swing.JTextField();
         tx_marca = new javax.swing.JTextField();
         tx_modelo = new javax.swing.JTextField();
@@ -1240,12 +1273,11 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jLabel1.setText("Punto de Venta");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.setMinimumSize(new java.awt.Dimension(32, 23));
-        jComboBox1.setPreferredSize(new java.awt.Dimension(32, 23));
-        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+        cbPuntoVenta.setMinimumSize(new java.awt.Dimension(32, 23));
+        cbPuntoVenta.setPreferredSize(new java.awt.Dimension(32, 23));
+        cbPuntoVenta.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBox1ItemStateChanged(evt);
+                cbPuntoVentaItemStateChanged(evt);
             }
         });
 
@@ -1334,7 +1366,7 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cbPuntoVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(lblOperacion, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1437,12 +1469,12 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
                         .addComponent(lb_tipoCambio, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbPuntoVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        tb_factura.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        tb_factura.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         tb_factura.setModel(tablaFacturacion);
         tb_factura.getTableHeader().setReorderingAllowed(false);
         tb_factura.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -1498,7 +1530,7 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
         pnl_doc.add(tx_orden, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 50, 130, -1));
 
         lb_placa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lb_placa.setText("N° de Placa");
+        lb_placa.setText("Observaciones");
         pnl_doc.add(lb_placa, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 110, 20));
 
         lb_guia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -1513,8 +1545,8 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
         lb_motor.setText("Motor");
         pnl_doc.add(lb_motor, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 110, 100, 20));
 
-        tx_placa.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        pnl_doc.add(tx_placa, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 160, -1));
+        tx_observaciones.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        pnl_doc.add(tx_observaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 160, -1));
 
         tx_motor.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         pnl_doc.add(tx_motor, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 110, 130, -1));
@@ -1663,7 +1695,8 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
             panelGenerarGRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelGenerarGRLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelGenerarGRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelGenerarGRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelGenerarGRLayout.createSequentialGroup()
                         .addGroup(panelGenerarGRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(pnl_doc, javax.swing.GroupLayout.PREFERRED_SIZE, 817, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1696,9 +1729,8 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
                             .addComponent(lb_Total, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lb_TotalBruto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lb_CostoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(140, 140, 140))
+                    .addComponent(jScrollPane1))
+                .addContainerGap())
         );
         panelGenerarGRLayout.setVerticalGroup(
             panelGenerarGRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1707,7 +1739,7 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(panelGenerarGRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelGenerarGRLayout.createSequentialGroup()
                         .addGroup(panelGenerarGRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1909,7 +1941,7 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
                 
                 if ( provieneDeProf == PROVIENE_PROFORMA ) { // Factura que proviene de proforma
                     Cabecproformas proforma = new ProformaDAO().Obtener_Objeto(idProforma);
-                    tx_placa.setText(proforma.getPlaca());
+                    tx_observaciones.setText(proforma.getObservaciones());
                     
                     tx_orden.setText(proforma.getTransportista()); // Por ahora N° orden se está guardando en transportista
                     
@@ -2352,10 +2384,10 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
         }
     }//GEN-LAST:event_panelGenerarGRMouseReleased
 
-    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+    private void cbPuntoVentaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbPuntoVentaItemStateChanged
         // TODO add your handling code here:
         
-    }//GEN-LAST:event_jComboBox1ItemStateChanged
+    }//GEN-LAST:event_cbPuntoVentaItemStateChanged
 
     // Validaciones para los documentos
     private String validarFacBol() {
@@ -2385,7 +2417,7 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
 
 //            System.out.println("P.Costo : " + tx_PcostoUltimo);
             
-            if ( (int) tablaFacturacion.getValueAt(i, 7) <= 0 ) {
+            if ( (int) tablaFacturacion.getValueAt(i, 10) <= 0 ) {
                 return "COMPLETE LOS PEDIDOS (Cantidad pedida diferente de 0)";
             }
         }
@@ -2400,7 +2432,7 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
             return tm.TABLA_VACIA;
         }
         for ( int i = 0; i < tablaFacturacion.getRowCount(); i++ ) {
-            if ( (int) tablaFacturacion.getValueAt(i, 7) <= 0 ) {
+            if ( (int) tablaFacturacion.getValueAt(i, 10) <= 0 ) {
                 return "COMPLETE LOS PEDIDOS";
             }
             String disponibilidad = String.valueOf(tablaFacturacion.getValueAt(i, 15));
@@ -2419,7 +2451,7 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
             return tm.TABLA_VACIA;
         }
         for ( int i = 0; i < tablaFacturacion.getRowCount(); i++ ) {
-            if ( (int) tablaFacturacion.getValueAt(i, 7) <= 0 ) {
+            if ( (int) tablaFacturacion.getValueAt(i, 10) <= 0 ) {
                 return "COMPLETE LOS PEDIDOS";
             }
         }
@@ -2566,7 +2598,7 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
         cabecP.setTransportista(tx_orden.getText());
         
         // Nuevos campos ingresados para ORBIT PARTS en Cabecproforma
-        cabecP.setPlaca(tx_placa.getText());
+        cabecP.setObservaciones(tx_observaciones.getText());
         cabecP.setMarca(tx_marca.getText());
         cabecP.setModelo(tx_modelo.getText());
         cabecP.setSerie(tx_serie.getText());
@@ -2574,6 +2606,11 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
         String vend = String.valueOf(cb_vend.getSelectedItem());
         Vendedores v = new VendedorDAO().Obtener_Vendedor_PorNombre(vend);
         cabecP.setVendedores(v);
+        
+        String pvt = String.valueOf(cbPuntoVenta.getSelectedItem());
+        PuntosVenta pv= spv.buscarPuntosVentax_Nombre(pvt);
+        cabecP.setPuntosventa(pv);
+        
         cabecP.setPunterogrupo(0);
         
         ArrayList<Detalleproformas> detProf = SetDetProf(cabecP, tablaFacturacion.getDt());
@@ -2616,12 +2653,13 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
         
         Vendedores vendedor = buscarVendedor();
         proforma.setVendedor(vendedor.getNombre());
+        proforma.setPuntoventa(String.valueOf(cbPuntoVenta.getSelectedItem()));
         proforma.setEmail(control.getCorreo());
         
         proforma.setMoneda(getMonedaEnLetras(lb_tipoCambio.getText()));
         proforma.setMarca(tx_marca.getText());
         
-        proforma.setPlaca(tx_placa.getText());
+        proforma.setObservaciones(tx_observaciones.getText());
         proforma.setModelo(tx_modelo.getText());
         
         proforma.setSerie(tx_serie.getText());
@@ -2722,6 +2760,8 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
         
         String nombreVendedor = String.valueOf(cb_vend.getSelectedItem());
         Vendedores vend = new Servicio_Vendedor().obtener_Vendedor_Nombre(nombreVendedor);
+        String nombrePuntVent = String.valueOf(cbPuntoVenta.getSelectedItem());
+        PuntosVenta puntvent = new Servicio_Puntos_Venta().buscarPuntosVentax_Nombre(nombrePuntVent);
         Date fecha = dt_fecha.getDate();
 
         int TipoOp = cb_operacion.getSelectedIndex() + 1;
@@ -2756,6 +2796,7 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
         cab.setId(cabID);
         cab.setClientes(c);
         cab.setVendedores(vend);
+        cab.setPuntosventa(puntvent);
 //        System.out.println("t:" + t);
 //        System.out.println("t-fecha:" + t.getFecha());
 //        System.out.println("t-venta:" + t.getValorventa());
@@ -2775,7 +2816,7 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
         
         /// Nuevos campos agregados para Siar Orbit
         cab.setMarca(tx_marca.getText());
-        cab.setPlaca(tx_placa.getText());
+        cab.setObservaciones(tx_observaciones.getText());
         cab.setModelo(tx_modelo.getText());
         cab.setOrdenTransportista(tx_orden.getText());
         cab.setSiniestro(tx_siniestro.getText());
@@ -2888,6 +2929,7 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
                     
                 boolean esFactura = false;
                 String vendedor = String.valueOf(cb_vend.getSelectedItem());
+                String puntoventa = String.valueOf(cbPuntoVenta.getSelectedItem());
                 String condicion = String.valueOf(cb_operacion.getSelectedItem());
                 String tipoCambio = lb_tipoCambio.getText();
                 
@@ -2921,9 +2963,9 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
                         esFactura = true;
                         String nombreExcelFactura = new Servicio_Excel(tb_factura, this).generarExcelDocumento(cab, detalles, tx_serie.getText(), tx_orden.getText(), 
                                                                                                                tx_nroGuia.getText(), fechaEmision, tx_siniestro.getText(),
-                                                                                                               tx_marca.getText(),tx_placa.getText(), tx_modelo.getText(), 
+                                                                                                               tx_marca.getText(),tx_observaciones.getText(), tx_modelo.getText(), 
                                                                                                                tx_orden.getText(), esFactura, tx_numSerie.getText(),
-                                                                                                               tx_doc.getText(), vendedor, condicion, tipoCambio, 
+                                                                                                               tx_doc.getText(), vendedor, puntoventa, condicion, tipoCambio, 
                                                                                                                tablaFacturacion, usuario);
                         Control control = new ControlDAO().Obtener_Objeto(1);
                         String rutaBDFacturas = control.getRutaprogramas();
@@ -3005,9 +3047,9 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
                             
                             // EXPORTAR A EXCEL, luego IMPRIMIR EXCEL DE BOLETA
                             nombreExcelBoleta = new Servicio_Excel(tb_factura, this).generarExcelDocumento(cab, detalles, tx_serie.getText(), tx_orden.getText(),
-                                                                                                           null, fechaEmision, null, null, null, null, 
+                                                                                                           null, fechaEmision, null, null, tx_observaciones.getText(), null, 
                                                                                                            tx_orden.getText(), esFactura, tx_numSerie.getText(),
-                                                                                                           tx_doc.getText(), vendedor, condicion, tipoCambio, 
+                                                                                                           tx_doc.getText(), vendedor, puntoventa, condicion, tipoCambio, 
                                                                                                            tablaFacturacion, usuario);
                             nombreExcelBoleta = rutaExcel + "\\" + nombreExcelBoleta;
                             new ImpresionExcel().imprimirDesdeExcel(nombreExcelBoleta);
@@ -3021,9 +3063,9 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
                             // EXPORTAR A EXCEL, luego IMPRIMIR EXCEL DE FACTURA
                             nombreExcelFactura = new Servicio_Excel(tb_factura, this).generarExcelDocumento(cab, detalles, tx_serie.getText(), tx_orden.getText(),
                                                                                                             tx_nroGuia.getText(), fechaEmision, tx_siniestro.getText(),
-                                                                                                            tx_marca.getText(),tx_placa.getText(), tx_modelo.getText(),
+                                                                                                            tx_marca.getText(),tx_observaciones.getText(), tx_modelo.getText(),
                                                                                                             tx_orden.getText(), esFactura, tx_numSerie.getText(),
-                                                                                                            tx_doc.getText(), vendedor, condicion, tipoCambio, 
+                                                                                                            tx_doc.getText(), vendedor, puntoventa, condicion, tipoCambio, 
                                                                                                             tablaFacturacion, usuario);
                             nombreExcelFactura = rutaExcel + "\\" + nombreExcelFactura;
                             new ImpresionExcel().imprimirDesdeExcel(nombreExcelFactura);
@@ -3134,6 +3176,9 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
         Vendedores vendedor = buscarVendedor();
         cabsal.setVendedores(vendedor);
         
+        PuntosVenta puntvent = new Servicio_Puntos_Venta().buscarPuntosVentax_Nombre(String.valueOf(cbPuntoVenta.getSelectedItem())); 
+        cabsal.setPuntosventa(puntvent);
+        
         cabsal.setValorventa(valorVenta);
         cabsal.setIgv(IGV);
         cabsal.setTotal(total);
@@ -3218,7 +3263,7 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
                 // Impresión por Excel 1° Versión del M&D
                 String nombreExcelSK = new Servicio_Excel(tb_factura, this).generarExcelDocumento(cabsal, detalles, tx_serie.getText(), tx_orden.getText(),
                                                                                                   tx_nroGuia.getText(), fechaEmision, tx_siniestro.getText(),
-                                                                                                  tx_marca.getText(),tx_placa.getText(), tx_modelo.getText(),
+                                                                                                  tx_marca.getText(),tx_observaciones.getText(), tx_modelo.getText(),
                                                                                                   tx_orden.getText(), tx_numSerie.getText(),
                                                                                                   tx_doc.getText(), vendedorString, condicion, tipoCambio, 
                                                                                                   tablaFacturacion);
@@ -3438,6 +3483,16 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
             cb_vend.addItem(v.getNombre());
         }
     }
+    
+    private void ListarPuntoVenta() {
+        
+        spv = new Servicio_Puntos_Venta();
+        Iterator it = spv.listar_PuntosVenta().iterator();
+        while ( it.hasNext() ) {
+            PuntosVenta pv1 = (PuntosVenta) it.next();
+            cbPuntoVenta.addItem(pv1.getDescripcion());
+        }
+    }
 
     private void ListarSoloClientes() {
         Iterator<Clientes> it = sf.getSoloClientes().iterator();
@@ -3490,7 +3545,7 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
                 System.out.println("imprimir factura...");
                 impresion.imprimeFactura(c, detalles, tx_serie.getText(), tx_orden.getText(), 
                                          tx_nroGuia.getText(), fechaEmision, tx_siniestro.getText(),
-                                         tx_marca.getText(),tx_placa.getText(), tx_modelo.getText(), tx_orden.getText());
+                                         tx_marca.getText(),tx_observaciones.getText(), tx_modelo.getText(), tx_orden.getText());
                 break;
                 
             case 1:
@@ -3538,6 +3593,7 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
     public javax.swing.JComboBox cbDepartamentos;
     public javax.swing.JComboBox cbDistritos;
     public javax.swing.JComboBox cbProvincias;
+    private javax.swing.JComboBox cbPuntoVenta;
     private javax.swing.JComboBox cb_cliente;
     public javax.swing.JComboBox cb_doc;
     public javax.swing.JComboBox cb_moneda;
@@ -3546,7 +3602,6 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
     private javax.swing.JComboBox cb_vend;
     public com.toedter.calendar.JDateChooser dt_fecha;
     private com.toedter.calendar.JDateChooser dt_venc;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -3604,8 +3659,8 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
     public javax.swing.JTextField tx_motor;
     private javax.swing.JTextField tx_nroGuia;
     public javax.swing.JTextField tx_numSerie;
+    public javax.swing.JTextField tx_observaciones;
     public javax.swing.JTextField tx_orden;
-    public javax.swing.JTextField tx_placa;
     private javax.swing.JTextField tx_referencia;
     private javax.swing.JTextField tx_ruc;
     private javax.swing.JTextField tx_serie;

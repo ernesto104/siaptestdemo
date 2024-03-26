@@ -208,7 +208,7 @@ public class IU_ImprimirGR extends javax.swing.JFrame {
         txt_NumeroGuia.setText(nroGuia);
         
         //Campos nuevos provenientes de Factura Siar Orbit
-        txt_Placa.setText(cabec.getPlaca());
+        txt_Placa.setText(cabec.getObservaciones());
         txt_Marca.setText(cabec.getMarca());
         txt_OT.setText(cabec.getOrdenTransportista());
         txt_Siniestro.setText(cabec.getSiniestro());
@@ -1175,7 +1175,7 @@ public class IU_ImprimirGR extends javax.swing.JFrame {
         guia.setMesLetras(Fecha.getMes(f));
         guia.setAño(Fecha.getAnio(f));
         
-        guia.setPlaca(iuf.tx_placa.getText());
+        guia.setPlaca(iuf.tx_observaciones.getText());
         guia.setOrdenTransporte(iuf.tx_orden.getText());
         guia.setMarca(iuf.tx_marca.getText());
         guia.setSiniestro(iuf.tx_siniestro.getText());

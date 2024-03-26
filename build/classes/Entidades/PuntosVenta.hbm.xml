@@ -11,6 +11,24 @@
     </property>
     <property name="estado" type="string">
       <column name="ESTADO" length="12"/>
-    </property>  
+    </property>
+    <set name="cabeceses" table="cabeces" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="IDPUNTOVENTA" />
+            </key>
+            <one-to-many class="Entidades.Cabeces" />
+        </set>
+        <set name="cabecproformases" table="cabecproformas" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="IDPUNTOVENTA" />
+            </key>
+            <one-to-many class="Entidades.Cabecproformas" />
+        </set>
+        <set name="cabecsalvars" table="cabecsalvar" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="IDPUNTOVENTA" />
+            </key>
+            <one-to-many class="Entidades.Cabecsalvar" />
+        </set>  
   </class>
 </hibernate-mapping>

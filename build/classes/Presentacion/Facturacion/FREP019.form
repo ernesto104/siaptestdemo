@@ -81,9 +81,9 @@
                   <Component id="bt_sk" min="-2" pref="33" max="-2" attributes="0"/>
                   <EmptySpace min="11" pref="11" max="-2" attributes="0"/>
                   <Component id="bt_web" min="-2" pref="33" max="-2" attributes="0"/>
-                  <EmptySpace min="11" pref="11" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                   <Component id="bt_guiaR" min="-2" pref="33" max="-2" attributes="0"/>
-                  <EmptySpace min="11" pref="11" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                   <Component id="bt_salir" min="-2" pref="33" max="-2" attributes="0"/>
               </Group>
           </Group>

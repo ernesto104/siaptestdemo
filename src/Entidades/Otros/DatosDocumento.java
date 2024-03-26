@@ -24,7 +24,7 @@ public class DatosDocumento {
     private String orden;
 
     private String marca;
-    private String placa;
+    private String observaciones;  //antes llamado placa
     private String modelo;
 
     private String ordenTransporte;
@@ -41,6 +41,7 @@ public class DatosDocumento {
     
     private String moneda;
     private String vendedor;
+    private String puntoventa;
     
     private String glosa;
     private String condicion;
@@ -169,12 +170,12 @@ public class DatosDocumento {
         this.marca = marca;
     }
 
-    public String getPlaca() {
-        return placa;
+    public String getObservaciones() {
+        return observaciones;
     }
 
-    public void setPlaca(String placa) {
-        this.placa = placa;
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
     }
 
     public String getModelo() {
@@ -281,6 +282,14 @@ public class DatosDocumento {
         this.vendedor = vendedor;
     }
 
+    public String getPuntoventa() {
+        return puntoventa;
+    }
+
+    public void setPuntoventa(String puntoventa) {
+        this.puntoventa = puntoventa;
+    }
+    
     public String getGlosa() {
         return glosa;
     }

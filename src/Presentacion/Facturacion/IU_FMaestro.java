@@ -242,18 +242,18 @@ public final class IU_FMaestro extends javax.swing.JFrame {
     public void AgregarFila(Object[] repuesto) {        
         Object[] row = new Object[9];
         
-        row[0] = Integer.parseInt(String.valueOf(repuesto[0])); // idLinea
-        row[1] = String.valueOf(repuesto[1]); // codRepuesto o NroParte
+        row[0] = Integer.parseInt(String.valueOf(repuesto[0])); // Id Producto
+        row[1] = String.valueOf(repuesto[1]); // Equipo 
 
 //      row[2] = String.valueOf(repuesto[2]); // codigo Sec
 //        System.out.println("cod repuesto:" + row[1]);
-        row[2] = ( repuesto[2] == null ) ? "" : String.valueOf(repuesto[2]); // codigo. sec.        
-        row[3] = String.valueOf(repuesto[3]); // descripcion
-        row[4] = ( repuesto[4] == null ) ? "" : String.valueOf(repuesto[4]); // descrmodelo (aplicación)
-        
+        row[2] = ( repuesto[2] == null ) ? "" : String.valueOf(repuesto[2]); // Marca        
+        row[3] = String.valueOf(repuesto[3]); // Modelo
+        row[4] = ( repuesto[4] == null ) ? "" : String.valueOf(repuesto[4]); // Numero de Serie
+                                                                              // descrmodelo (aplicación)
         if ( this.f != null ) { // Proviene de IU_Facturacion
             //row[5] = util.DosDecimales(Double.parseDouble(String.valueOf(repuesto[4]))); // preciolista
-            row[5] = ( repuesto[5] == null ) ? "" : String.valueOf(repuesto[5]);
+            row[5] = ( repuesto[5] == null ) ? "" : String.valueOf(repuesto[5]);  // Desripcion
             row[6] = ( repuesto[6] == null ) ? "" : String.valueOf(repuesto[6]); // stock
             row[7] = ( repuesto[7] == null ) ? "" : util.DosDecimales(Double.parseDouble(String.valueOf(repuesto[7]))); //precio lista
             //row[7] = ( repuesto[7] == null ) ? "" : String.valueOf(repuesto[7]); // unidadVenta
@@ -261,7 +261,7 @@ public final class IU_FMaestro extends javax.swing.JFrame {
             
         } else if ( this.det != null ) { // Proviene de IU_DetalleIngSal
             //row[5] = ( repuesto[5] == null ) ? "" : util.DosDecimales(Double.parseDouble(String.valueOf(repuesto[5]))); // costopromedio
-            row[5] = ( repuesto[5] == null ) ? "" : String.valueOf(repuesto[5]);
+            row[5] = ( repuesto[5] == null ) ? "" : String.valueOf(repuesto[5]); // Desripcion
             row[6] = ( repuesto[6] == null ) ? "" : Integer.parseInt(String.valueOf(repuesto[6])); // stock
             row[7] = ( repuesto[7] == null ) ? "": util.DosDecimales(Double.parseDouble(String.valueOf(repuesto[7]))); //precio lista
             //row[7] = ( repuesto[7] == null ) ? "" : String.valueOf(repuesto[7]); // unidadVenta            
@@ -497,25 +497,25 @@ public final class IU_FMaestro extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(199, 199, 199)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1079, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(191, 191, 191)
-                                .addComponent(bt_agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(63, 63, 63)
-                                .addComponent(bt_nuevoRep, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(67, 67, 67)
-                                .addComponent(bt_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1079, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(333, 333, 333))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(243, 243, 243)
+                .addComponent(bt_agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(63, 63, 63)
+                .addComponent(bt_nuevoRep, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(67, 67, 67)
+                .addComponent(bt_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -581,9 +581,9 @@ public final class IU_FMaestro extends javax.swing.JFrame {
                 if ( i == -1 ) {
                     i = tb_rep.getRowCount() - 1;
                 }
-                String codRep = String.valueOf(t.getValueAt(i, 4));
+                String idRep = String.valueOf(t.getValueAt(i, 0));
 //                System.out.println("codRep:" + codRep);
-                Repuestos rep = sm.getRepuesto_CodRep(codRep);
+                Repuestos rep = sm.GetRepuesto_Id(Integer.valueOf(idRep));
 //                System.out.println("rep:" + rep);
 //                System.out.println("rep.codigo:" + rep.getCodrepuesto());
                 repuestos.add(rep);

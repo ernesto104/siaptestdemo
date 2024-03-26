@@ -23,6 +23,7 @@ public class DatosProforma {
     private String telefonoFax;
     private String referencia;
     private String vendedor;
+    private String puntoventa;  
     private String email;
 
     private String moneda;
@@ -30,7 +31,7 @@ public class DatosProforma {
     private String marca;
     private String igv;
     private String total;
-    private String placa;
+    private String observaciones;  //antes llamado placa
     private String modelo;
     private String serie;
     private String motor;
@@ -140,6 +141,15 @@ public class DatosProforma {
         this.vendedor = vendedor;
     }
 
+    
+    public String getPuntoventa() {
+        return puntoventa;
+    }
+
+    public void setPuntoventa(String puntoventa) {
+        this.puntoventa = puntoventa;
+    }
+    
     public String getEmail() {
         return email;
     }
@@ -188,12 +198,12 @@ public class DatosProforma {
         this.total = total;
     }
 
-    public String getPlaca() {
-        return placa;
+    public String getObservaciones() {
+        return observaciones;
     }
 
-    public void setPlaca(String placa) {
-        this.placa = placa;
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
     }
 
     public String getModelo() {

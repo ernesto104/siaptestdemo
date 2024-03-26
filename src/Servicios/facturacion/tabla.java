@@ -28,8 +28,9 @@ import javax.swing.table.AbstractTableModel;
  */
 public class tabla extends AbstractTableModel {
 
-    String[] columnNames = {"ID", "Equipo", "Nro de Serie", 
+    String[] columnNames = {"Indice", "ID", "Nro de Serie", 
 //                            "Cod. Secundario", 
+                            "Equipo","Marca","Modelo",
                             "Descripción", 
                             "Aplicación", // = Equipos
                             "Stock", "P. Lista",
@@ -38,7 +39,8 @@ public class tabla extends AbstractTableModel {
                             "Total", 
                             "Disponibilidad",
                             "Cod.Sec"};
-    boolean[] habilitado = {false, false, false, 
+    boolean[] habilitado = {false, false, false,
+                            false, false, false, 
                             false, 
                             false, 
                             false, false, 
@@ -110,51 +112,59 @@ public class tabla extends AbstractTableModel {
             case 0:
                 return rowIndex + 1;
             case 1:
-                return rp.getEquipos().getIdequipo();
+                return rp.getId().getIdrepuesto();
             case 2:
                 return rp.getCodrepuesto();
+                ////////////// Equipo, Marca y Modelo
             case 3:
-                return rp.getDescripcion();
+                return rp.getEquipos().getDescripcion();
             case 4:
+                return rp.getMarca();
+            case 5:
+                return rp.getModelos().getDescripcion();
+                ////////////////
+            case 6:  // Descripcion
+                return rp.getDescripcion();
+            case 7:  // Aplicacion
                 return rp.getDescrmodelo();
 //            case 3:
 //                return rp.getCodigoseg();
-            case 5:
+            case 8:  // Stock
                 return rp.getStock();
-            case 6:
+            case 9:  // Precio lista
 //                System.out.println("(getValueAt)case 6...Precio Lista" + util.DosDecimales(pl));
 //                System.out.println("(getValueAt)case 6...Precio referencial:" + util.DosDecimales(pr));
 //                return util.DosDecimales(pl);
                 return util.DosDecimales(pr);
-            case 7:
+            case 10:  // Pedida
                 if ( getDt().get(rowIndex).getD().getCantpedida() < 0 ) {
                     return 0;
                     
                 } else {
                     return getDt().get(rowIndex).getD().getCantpedida();
                 }
-            case 8:
+            case 11:  // Entegado
                 if (getDt().get(rowIndex).getD().getCantentregada() < 0) {
                     return 0;
                 } else {
                     return getDt().get(rowIndex).getD().getCantentregada();
                 }
-            case 9:
+            case 12: // Precio 
 //                System.out.println("case 9...(getValueAt)" + util.DosDecimales(pl));
                 return util.DosDecimales(pl);
-            case 10:
+            case 13: // Columna Dscto 1
                 double d1 = getDt().get(rowIndex).getD().getDescuento1();
                 return d1 == 0.0 ? "0.00" : util.DosDecimales(d1);
-            case 11:
+            case 14:  // Columna Dscto 2
                 double d2 = getDt().get(rowIndex).getD().getDescuento2();
                 return d2 == 0.0 ? "0.00" : util.DosDecimales(d2);
-            case 12:
+            case 15:  // Columna Dscto 3
                 double d3 = getDt().get(rowIndex).getD().getDescuento3();
                 return d3 == 0.0 ? "0.00" : util.DosDecimales(d3);
-            case 13:
+            case 16:  // Columna Dscto 4
                 double d4 = getDt().get(rowIndex).getD().getDescuento4();
                 return d4 == 0.0 ? "0.00" : util.DosDecimales(d4);
-            case 14:
+            case 17:  // Columna Total
 //                System.out.println("pl:" + pl);
 //                System.out.println("rowIndex:" + rowIndex);
 //                System.out.println("cant.pedida:" + getDt().get(rowIndex).getD().getCantpedida());
@@ -173,11 +183,11 @@ public class tabla extends AbstractTableModel {
 //                    System.out.println("tot:" + tot);
                     return util.DosDecimales(tot);
                 }
-            case 15:
+            case 18:  // Disponibilidad
                 String disponibilidad = getDt().get(rowIndex).getD().getDisponibilidad();
                 return disponibilidad;
 
-            case 16:
+            case 19:  // Codigo Segundo
                  return rp.getCodigoseg();
 
         }
@@ -210,13 +220,13 @@ public class tabla extends AbstractTableModel {
             Object oldValue = getValueAt(rowIndex, columnIndex);
             
             switch (columnIndex) {
-                case 6:
+                case 9:  // P. lista
                     break;
                     
-                case 7:
+                case 10:   //Columna Pedida
                     int cp = Integer.parseInt(valor);
                     d.setCantpedida(cp);
-                    if ( (int) getValueAt(rowIndex, 5) >= cp ) {
+                    if ( (int) getValueAt(rowIndex, 8) >= cp ) {  // columna stock
                         d.setCantentregada(cp);
                     } else {
                         if ( d.getRepuestos().getStock() >= 0 ) {
@@ -234,9 +244,9 @@ public class tabla extends AbstractTableModel {
                     VerificarStockRepuestos();
                     break;
                     
-                case 8:
+                case 11:  // Entregada
                     int ce = Integer.parseInt(valor);
-                    if ( (int) getValueAt(rowIndex, 7) >= ce ) {
+                    if ( (int) getValueAt(rowIndex, 10) >= ce ) {  //Columna Pedida
                         if (Integer.parseInt(valor) <= d.getRepuestos().getStock()) {
                             d.setCantentregada(Integer.parseInt(valor));
                             tot = util.Redondear2Decimales(d.getCantentregada() * PrecioConDcto(rowIndex));
@@ -247,7 +257,7 @@ public class tabla extends AbstractTableModel {
                         JOptionPane.showMessageDialog(null, "Cantidad entregada no puede ser mayor que la cantidad pedida", "Validacion", JOptionPane.ERROR_MESSAGE);
                     }
                     break;
-                case 9:
+                case 12:   // Precio
 //                    System.out.println("case 9...(setValueAt)");
                     double value = Double.parseDouble(valor);
 //                    System.out.println("valor:" + value);
@@ -256,31 +266,31 @@ public class tabla extends AbstractTableModel {
                     det.setTotal(tot);
                     break;
                     
-                case 10:
+                case 13:  //Dscto 1
                     d.setDescuento1(Double.parseDouble(valor));
                     tot = util.Redondear2Decimales(d.getCantentregada() * PrecioConDcto(rowIndex));
                     det.setTotal(tot);
                     break;
                     
-                case 11:
+                case 14:  //Dscto2
                     d.setDescuento2(Double.parseDouble(valor));
                     tot = util.Redondear2Decimales(d.getCantentregada() * PrecioConDcto(rowIndex));
                     det.setTotal(tot);
                     break;
                     
-                case 12:
+                case 15:  //Dscto3
                     d.setDescuento3(Double.parseDouble(valor));
                     tot = util.Redondear2Decimales(d.getCantentregada() * PrecioConDcto(rowIndex));
                     det.setTotal(tot);
                     break;
                     
-                case 13:
+                case 16:  //Dscto4
                     d.setDescuento4(Double.parseDouble(valor));
                     tot = util.Redondear2Decimales(d.getCantentregada() * PrecioConDcto(rowIndex));
                     det.setTotal(tot);
                     break;
                     
-                case 15:
+                case 18: // Disponibilidad
                     d.setDisponibilidad(valor.toUpperCase());
                     break;
                     
@@ -460,7 +470,7 @@ public class tabla extends AbstractTableModel {
         double ultCos = rpt.getPcostoultimo();
         
         
-       System.out.println("P.Costo Ultimo : " + rpt.getPcostoultimo());
+       System.out.println("P.Costo Ultimo : " + rpt.getPcostoultimo());;
         
 // JSP 22.12.2023
         double precCosto = rpt.getPcostoultimo();
@@ -470,14 +480,14 @@ public class tabla extends AbstractTableModel {
         
 
         // Asignar preciolista para Detallees en BD
-        int monedaCombo = f.cb_moneda.getSelectedIndex();
+        int monedaCombo = f.cb_moneda.getSelectedIndex();        
         if ( monedaCombo == DOLAR_COMBO ) {
             d.setPreciolista(precRep);
-            
+                     
         } else if ( monedaCombo == SOL_COMBO ) {
             d.setPreciolista(ASoles(precRep));
-        }
-        
+        } 
+     
         // Asignar detalleFactura a Detallees en BD (d.getPreciolista es el preciolista de detallees en BD)
         DetalleFactura det = new DetalleFactura();
         det.setD(d);
@@ -491,7 +501,7 @@ public class tabla extends AbstractTableModel {
         det.setPrecioRepuesto(d.getPreciolista());
         det.setPrecioReferencial(d.getPreciolista());
 //        System.out.println("TOTALES seteados:::");
-//        System.out.println("Total de DetalleFactura:" + det.getTotal());
+        System.out.println("Precio lista de detalle:" + d.getPreciolista());
         return det;
     }
 

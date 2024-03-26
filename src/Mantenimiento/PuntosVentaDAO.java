@@ -98,7 +98,14 @@ public class PuntosVentaDAO extends GenericDAO<PuntosVenta> {
 
     public PuntosVenta Obtener_Objeto_por_nombre(String nombre) {
         PuntosVenta li = new PuntosVenta();
+        
+        try {
         li = (PuntosVenta) getHibernateTemplate().createQuery("from PuntosVenta where descripcion='" + nombre + "'").uniqueResult();       
+        } catch (Exception e) {
+            System.err.println("Error PuntoVenta x Descripcion: " + e.getLocalizedMessage());
+        } finally {
+            session.close();
+        }
         return li;
     }
 

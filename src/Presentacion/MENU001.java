@@ -18,6 +18,7 @@ import Presentacion.CuentasxCobrarLetras.FREP043;
 import Presentacion.Reportes.FREP055;
 import Presentacion.Estratificacion.FREP030;
 import Presentacion.Facturacion.FREP019;
+import Presentacion.ServicioTecnico.FREP058;
 import java.awt.CardLayout;
 import Presentacion.FREP002.*;
 import Presentacion.Importaciones.FREP025;
@@ -44,6 +45,7 @@ import Presentacion.EmisionPlanillas.FREP033;
 import Presentacion.Facturacion.IU_Facturacion;
 import Presentacion.FacturacionElectronica.FREP054;
 import Presentacion.ResumenGeneralCliente.FREP047;
+import Presentacion.ServicioTecnico.FREP059;
 
 import Presentacion.Stock_Minimo.FREP041;
 import Presentacion.historialMov.FREP035;
@@ -198,6 +200,10 @@ public class MENU001 extends javax.swing.JFrame {
         item_Gener_LetrasVarias.setVisible(false);
         item_ResumCliente.setVisible(false);
         
+        menu_TablaTipoServicioTecnico.setVisible(false);
+        item_Tabla_Tipo_ServicioTecnico.setVisible(false);
+        item_RegistroServicioTecnico.setVisible(false);
+        
         btnPagar_CCF = false;
         btnPagar_CCL = false;
         btnPagar_CCSA = false;
@@ -224,6 +230,7 @@ public class MENU001 extends javax.swing.JFrame {
         boolean menu_Movimiento = false;
         boolean menu_Consultas = false;
         boolean menu_Cuentas = false;
+        boolean menu_Soporte = false;
         boolean menu_Invent = false;
         
         for ( Accesos acceso : accesos ) {
@@ -455,6 +462,26 @@ public class MENU001 extends javax.swing.JFrame {
                 item_ResumCliente.setVisible(true);
             }
             
+            
+            
+            // OPCIONES DEL MENU SOPORTE TECNICO
+            if ( "Tabla Tipo de Servicio Tecnico".equals(descripcionPrograma) ) {
+                menu_Soporte =true;
+                item_Tabla_Tipo_ServicioTecnico.setVisible(true);
+            }
+            if ( "Registro de Servicio Tecnico".equals(descripcionPrograma) ) {
+                menu_Soporte =true;
+                item_RegistroServicioTecnico.setVisible(true);
+            }
+            if ( "Consultas de Servicio Tecnico".equals(descripcionPrograma) ) {
+                menu_Soporte =true;
+                item_ConsultasServicioTecnico.setVisible(true);
+            }
+            if ( menu_Soporte == true ) {
+                menu_TablaTipoServicioTecnico.setVisible(true);
+            }
+            
+            
             // Botones Pagar
             if ( "Cuentas x Cobrar - Facturas (Pagar)".equals(descripcionPrograma) ) {
                 btnPagar_CCF = true;
@@ -645,6 +672,10 @@ public class MENU001 extends javax.swing.JFrame {
         panelModelos = new javax.swing.JPanel();
         scrollPuntos_venta = new javax.swing.JScrollPane();
         panelPuntos_venta = new javax.swing.JPanel();
+        scrollServicio_Tecnico = new javax.swing.JScrollPane();
+        panelServicio_Tecnico = new javax.swing.JPanel();
+        scrollRegistro_ServicioTecnico = new javax.swing.JScrollPane();
+        panelRegistro_ServicioTecnico = new javax.swing.JPanel();
         panelInferior = new javax.swing.JPanel();
         btnClientes = new javax.swing.JButton();
         btnProductos = new javax.swing.JButton();
@@ -709,6 +740,10 @@ public class MENU001 extends javax.swing.JFrame {
         item_Gener_LetrasVarias = new javax.swing.JMenuItem();
         item_Letras_Protestadas = new javax.swing.JMenuItem();
         item_ResumCliente = new javax.swing.JMenuItem();
+        menu_TablaTipoServicioTecnico = new javax.swing.JMenu();
+        item_Tabla_Tipo_ServicioTecnico = new javax.swing.JMenuItem();
+        item_RegistroServicioTecnico = new javax.swing.JMenuItem();
+        item_ConsultasServicioTecnico = new javax.swing.JMenuItem();
         menu_Inventario = new javax.swing.JMenu();
         item_creacionarchivo = new javax.swing.JMenuItem();
         item_reporteinventario = new javax.swing.JMenuItem();
@@ -739,6 +774,11 @@ public class MENU001 extends javax.swing.JFrame {
         jLabel2.setText("Tipo de Usuario: ");
 
         txtRolUsuario.setEditable(false);
+        txtRolUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtRolUsuarioActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel3.setText("Fecha:");
@@ -834,7 +874,7 @@ public class MENU001 extends javax.swing.JFrame {
         panelInicioLayout.setVerticalGroup(
             panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInicioLayout.createSequentialGroup()
-                .addContainerGap(361, Short.MAX_VALUE)
+                .addContainerGap(373, Short.MAX_VALUE)
                 .addComponent(nombreEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(505, 505, 505))
         );
@@ -851,7 +891,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelSetLayout.setVerticalGroup(
             panelSetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollInicio.setViewportView(panelSet);
@@ -866,7 +906,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelMaestroRepuestosLayout.setVerticalGroup(
             panelMaestroRepuestosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollMaestroRepuestos.setViewportView(panelMaestroRepuestos);
@@ -881,7 +921,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelClientesLayout.setVerticalGroup(
             panelClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollClientes.setViewportView(panelClientes);
@@ -896,7 +936,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelCodigoEquiposLayout.setVerticalGroup(
             panelCodigoEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollCodigoEquipos.setViewportView(panelCodigoEquipos);
@@ -911,7 +951,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelOperacionesLayout.setVerticalGroup(
             panelOperacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollOperaciones.setViewportView(panelOperaciones);
@@ -926,7 +966,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelTransportistasLayout.setVerticalGroup(
             panelTransportistasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollTransportistas.setViewportView(panelTransportistas);
@@ -941,7 +981,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelVendedoresLayout.setVerticalGroup(
             panelVendedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollVendedores.setViewportView(panelVendedores);
@@ -956,7 +996,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelImportadoresLayout.setVerticalGroup(
             panelImportadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollImportadores.setViewportView(panelImportadores);
@@ -971,7 +1011,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelPaquetesLayout.setVerticalGroup(
             panelPaquetesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollPaquetes.setViewportView(panelPaquetes);
@@ -986,7 +1026,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelBancoLayout.setVerticalGroup(
             panelBancoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollBanco.setViewportView(panelBanco);
@@ -1001,7 +1041,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelEstratificacionLayout.setVerticalGroup(
             panelEstratificacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollEstratificacion.setViewportView(panelEstratificacion);
@@ -1016,7 +1056,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelTipoCambioLayout.setVerticalGroup(
             panelTipoCambioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollTipoCambio.setViewportView(panelTipoCambio);
@@ -1031,7 +1071,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelControlLayout.setVerticalGroup(
             panelControlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollControl.setViewportView(panelControl);
@@ -1046,7 +1086,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelSistemaLayout.setVerticalGroup(
             panelSistemaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollSistema.setViewportView(panelSistema);
@@ -1061,7 +1101,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelUsuarioLayout.setVerticalGroup(
             panelUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollUsuario.setViewportView(panelUsuario);
@@ -1076,7 +1116,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelProgramasLayout.setVerticalGroup(
             panelProgramasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollProgramas.setViewportView(panelProgramas);
@@ -1091,7 +1131,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelRolesLayout.setVerticalGroup(
             panelRolesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollRoles.setViewportView(panelRoles);
@@ -1106,7 +1146,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelAccesosLayout.setVerticalGroup(
             panelAccesosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollAccesos.setViewportView(panelAccesos);
@@ -1121,7 +1161,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelFacturacionLayout.setVerticalGroup(
             panelFacturacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollFacturacion.setViewportView(panelFacturacion);
@@ -1136,7 +1176,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelEmision_NotasLayout.setVerticalGroup(
             panelEmision_NotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollEmision_Notas.setViewportView(panelEmision_Notas);
@@ -1151,7 +1191,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelReImpresionLayout.setVerticalGroup(
             panelReImpresionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollReImpresion.setViewportView(panelReImpresion);
@@ -1166,7 +1206,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelGuias_RemisionLayout.setVerticalGroup(
             panelGuias_RemisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollGuias_Remision.setViewportView(panelGuias_Remision);
@@ -1181,7 +1221,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelAnulacion_DocumentosLayout.setVerticalGroup(
             panelAnulacion_DocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollAnulacion_Documentos.setViewportView(panelAnulacion_Documentos);
@@ -1196,7 +1236,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelPedidos_ImportacionLayout.setVerticalGroup(
             panelPedidos_ImportacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollPedidos_Importacion.setViewportView(panelPedidos_Importacion);
@@ -1211,7 +1251,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelImpresion_PedidoLayout.setVerticalGroup(
             panelImpresion_PedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollImpresion_Pedido.setViewportView(panelImpresion_Pedido);
@@ -1226,7 +1266,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelValoracion_PedidoLayout.setVerticalGroup(
             panelValoracion_PedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollValoracion_Pedido.setViewportView(panelValoracion_Pedido);
@@ -1241,7 +1281,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelConsulta_DemandaLayout.setVerticalGroup(
             panelConsulta_DemandaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollConsulta_Demanda.setViewportView(panelConsulta_Demanda);
@@ -1256,7 +1296,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelIngresos_SalidasLayout.setVerticalGroup(
             panelIngresos_SalidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollIngresos_Salidas.setViewportView(panelIngresos_Salidas);
@@ -1271,7 +1311,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelModifica_Anula_AlmacenLayout.setVerticalGroup(
             panelModifica_Anula_AlmacenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollModifica_Anula_Almacen.setViewportView(panelModifica_Anula_Almacen);
@@ -1286,7 +1326,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelEstratificar_RepuestosLayout.setVerticalGroup(
             panelEstratificar_RepuestosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollEstratificarRepuestos.setViewportView(panelEstratificar_Repuestos);
@@ -1301,7 +1341,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelCambioPreciosLayout.setVerticalGroup(
             panelCambioPreciosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollCambioPrecios.setViewportView(panelCambioPrecios);
@@ -1316,7 +1356,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelConsulta_maestro_repuestosLayout.setVerticalGroup(
             panelConsulta_maestro_repuestosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollconsulta_maestro_repuestos.setViewportView(panelConsulta_maestro_repuestos);
@@ -1331,7 +1371,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelEmision_planillaLayout.setVerticalGroup(
             panelEmision_planillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollEmision_planilla.setViewportView(panelEmision_planilla);
@@ -1346,7 +1386,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelComisionesLayout.setVerticalGroup(
             panelComisionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollComisiones.setViewportView(panelComisiones);
@@ -1361,7 +1401,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelHistorial_movimientoLayout.setVerticalGroup(
             panelHistorial_movimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollHistorial_movimiento.setViewportView(panelHistorial_movimiento);
@@ -1376,7 +1416,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelInventario_almacenLayout.setVerticalGroup(
             panelInventario_almacenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollInventario_almacen.setViewportView(panelInventario_almacen);
@@ -1391,7 +1431,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelLista_preciosLayout.setVerticalGroup(
             panelLista_preciosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollLista_precios.setViewportView(panelLista_precios);
@@ -1406,7 +1446,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelConsulta_clientesLayout.setVerticalGroup(
             panelConsulta_clientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollConsulta_clientes.setViewportView(panelConsulta_clientes);
@@ -1421,7 +1461,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelRepuestos_estratificacionLayout.setVerticalGroup(
             panelRepuestos_estratificacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollRepuestos_estratificacion.setViewportView(panelRepuestos_estratificacion);
@@ -1436,7 +1476,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelResumen_anual_ventasLayout.setVerticalGroup(
             panelResumen_anual_ventasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollResumen_anual_ventas.setViewportView(panelResumen_anual_ventas);
@@ -1451,7 +1491,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelStocks_minimosLayout.setVerticalGroup(
             panelStocks_minimosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollStocks_minimos.setViewportView(panelStocks_minimos);
@@ -1466,7 +1506,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelCuentas_cobrar_facturasLayout.setVerticalGroup(
             panelCuentas_cobrar_facturasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollCuentas_cobrar_facturas.setViewportView(panelCuentas_cobrar_facturas);
@@ -1481,7 +1521,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelCuentas_cobrar_letrasLayout.setVerticalGroup(
             panelCuentas_cobrar_letrasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollCuentas_cobrar_letras.setViewportView(panelCuentas_cobrar_letras);
@@ -1496,7 +1536,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelCuentas_cobrar_salidasLayout.setVerticalGroup(
             panelCuentas_cobrar_salidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollCuentas_cobrar_salidas.setViewportView(panelCuentas_cobrar_salidas);
@@ -1511,7 +1551,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelCanje_facturas_letrasLayout.setVerticalGroup(
             panelCanje_facturas_letrasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollCanje_facturas_letras.setViewportView(panelCanje_facturas_letras);
@@ -1526,7 +1566,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelGeneracion_letrasLayout.setVerticalGroup(
             panelGeneracion_letrasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollGeneracion_letras.setViewportView(panelGeneracion_letras);
@@ -1541,7 +1581,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelResumen_clienteLayout.setVerticalGroup(
             panelResumen_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollResumenCliente.setViewportView(panelResumen_cliente);
@@ -1556,7 +1596,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelCreacion_archivoLayout.setVerticalGroup(
             panelCreacion_archivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollCreacion_archivo.setViewportView(panelCreacion_archivo);
@@ -1571,7 +1611,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         panelReporte_inventario.setViewportView(jPanel2);
@@ -1586,7 +1626,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelDigitacion_inventarioLayout.setVerticalGroup(
             panelDigitacion_inventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollDigitacion_inventario.setViewportView(panelDigitacion_inventario);
@@ -1601,7 +1641,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelDiferencias_inventarioLayout.setVerticalGroup(
             panelDiferencias_inventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollDiferencias_inventario.setViewportView(panelDiferencias_inventario);
@@ -1616,7 +1656,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelCierre_inventarioLayout.setVerticalGroup(
             panelCierre_inventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollCierre_inventario.setViewportView(panelCierre_inventario);
@@ -1631,7 +1671,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelGenerarGRLayout.setVerticalGroup(
             panelGenerarGRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollGenerarGR.setViewportView(panelGenerarGR);
@@ -1646,7 +1686,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelFactura_electronicaLayout.setVerticalGroup(
             panelFactura_electronicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollFactura_electronica.setViewportView(panelFactura_electronica);
@@ -1661,7 +1701,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelFlujo_comparativoLayout.setVerticalGroup(
             panelFlujo_comparativoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollFlujo_comparativo.setViewportView(panelFlujo_comparativo);
@@ -1676,7 +1716,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelMarcasLayout.setVerticalGroup(
             panelMarcasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollMarcas.setViewportView(panelMarcas);
@@ -1691,7 +1731,7 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelModelosLayout.setVerticalGroup(
             panelModelosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollModelos.setViewportView(panelModelos);
@@ -1706,12 +1746,42 @@ public class MENU001 extends javax.swing.JFrame {
         );
         panelPuntos_ventaLayout.setVerticalGroup(
             panelPuntos_ventaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 937, Short.MAX_VALUE)
         );
 
         scrollPuntos_venta.setViewportView(panelPuntos_venta);
 
         panelCentral.add(scrollPuntos_venta, "scrollPuntos_venta");
+
+        javax.swing.GroupLayout panelServicio_TecnicoLayout = new javax.swing.GroupLayout(panelServicio_Tecnico);
+        panelServicio_Tecnico.setLayout(panelServicio_TecnicoLayout);
+        panelServicio_TecnicoLayout.setHorizontalGroup(
+            panelServicio_TecnicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1641, Short.MAX_VALUE)
+        );
+        panelServicio_TecnicoLayout.setVerticalGroup(
+            panelServicio_TecnicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 937, Short.MAX_VALUE)
+        );
+
+        scrollServicio_Tecnico.setViewportView(panelServicio_Tecnico);
+
+        panelCentral.add(scrollServicio_Tecnico, "scrollServicio_Tecnico");
+
+        javax.swing.GroupLayout panelRegistro_ServicioTecnicoLayout = new javax.swing.GroupLayout(panelRegistro_ServicioTecnico);
+        panelRegistro_ServicioTecnico.setLayout(panelRegistro_ServicioTecnicoLayout);
+        panelRegistro_ServicioTecnicoLayout.setHorizontalGroup(
+            panelRegistro_ServicioTecnicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1641, Short.MAX_VALUE)
+        );
+        panelRegistro_ServicioTecnicoLayout.setVerticalGroup(
+            panelRegistro_ServicioTecnicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 937, Short.MAX_VALUE)
+        );
+
+        scrollRegistro_ServicioTecnico.setViewportView(panelRegistro_ServicioTecnico);
+
+        panelCentral.add(scrollRegistro_ServicioTecnico, "scrollRegistro_ServicioTecnico");
 
         getContentPane().add(panelCentral, java.awt.BorderLayout.CENTER);
 
@@ -2401,6 +2471,46 @@ public class MENU001 extends javax.swing.JFrame {
         menu_CuentasCorrientes.add(item_ResumCliente);
 
         jMenuBar1.add(menu_CuentasCorrientes);
+
+        menu_TablaTipoServicioTecnico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/soporte tecnico.png"))); // NOI18N
+        menu_TablaTipoServicioTecnico.setText("<html> <center>Soporte Tecnico</center> </html>");
+        menu_TablaTipoServicioTecnico.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        menu_TablaTipoServicioTecnico.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                menu_TablaTipoServicioTecnicoMouseMoved(evt);
+            }
+        });
+
+        item_Tabla_Tipo_ServicioTecnico.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        item_Tabla_Tipo_ServicioTecnico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/gestion soporte.png"))); // NOI18N
+        item_Tabla_Tipo_ServicioTecnico.setText("Tabla Tipo de Servicio Tecnico");
+        item_Tabla_Tipo_ServicioTecnico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                item_Tabla_Tipo_ServicioTecnicoActionPerformed(evt);
+            }
+        });
+        menu_TablaTipoServicioTecnico.add(item_Tabla_Tipo_ServicioTecnico);
+
+        item_RegistroServicioTecnico.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        item_RegistroServicioTecnico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Registro_de_Servicio_Tecnico.jpg"))); // NOI18N
+        item_RegistroServicioTecnico.setText("Registro de Servicio Tecnico");
+        item_RegistroServicioTecnico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                item_RegistroServicioTecnicoActionPerformed(evt);
+            }
+        });
+        menu_TablaTipoServicioTecnico.add(item_RegistroServicioTecnico);
+
+        item_ConsultasServicioTecnico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Consulta_de_Servicio_Tecnico.png"))); // NOI18N
+        item_ConsultasServicioTecnico.setText("Consultas de Servicio Tecnico");
+        item_ConsultasServicioTecnico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                item_ConsultasServicioTecnicoActionPerformed(evt);
+            }
+        });
+        menu_TablaTipoServicioTecnico.add(item_ConsultasServicioTecnico);
+
+        jMenuBar1.add(menu_TablaTipoServicioTecnico);
 
         menu_Inventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/inventario_quickbooks.jpg"))); // NOI18N
         menu_Inventario.setText("<html> <center>Inventario<br />Fisico</center> </html>");
@@ -3878,6 +3988,64 @@ public class MENU001 extends javax.swing.JFrame {
         cambiarPanelesCambiante("scrollPuntos_venta");
     }//GEN-LAST:event_item_PuntosVentaActionPerformed
 
+    private void menu_TablaTipoServicioTecnicoMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menu_TablaTipoServicioTecnicoMouseMoved
+        // TODO add your handling code here:
+        
+            if (existetipocambio() == true) {
+                menu_TablaTipoServicioTecnico.setEnabled(true);
+            } else {
+                menu_TablaTipoServicioTecnico.setEnabled(false);
+            }
+        
+    }//GEN-LAST:event_menu_TablaTipoServicioTecnicoMouseMoved
+
+    private void item_RegistroServicioTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_RegistroServicioTecnicoActionPerformed
+        // TODO add your handling code here:
+        
+        
+        final FREP059 menuRegistroServicioTecnico = new FREP059(new UsuarioDAO().Obtener_Objeto_por_nombre(nombreUsuario), rolElegido);
+        menuRegistroServicioTecnico.btnSalir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panelRegistro_ServicioTecnico.removeAll();
+                menuRegistroServicioTecnico.dispose();
+                panelCentral.updateUI();
+            }
+        });
+        JPanel panel = menuRegistroServicioTecnico.panelRegistro_ServicioTecnico;
+        panel.setLocation(0, 0);
+        panelRegistro_ServicioTecnico.add(panel);
+        panelRegistro_ServicioTecnico.updateUI();
+        cambiarPanelesCambiante("scrollRegistro_ServicioTecnico");
+    }//GEN-LAST:event_item_RegistroServicioTecnicoActionPerformed
+
+    private void item_Tabla_Tipo_ServicioTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_Tabla_Tipo_ServicioTecnicoActionPerformed
+        // TODO add your handling code here:
+        
+        final FREP058 menuServicioTecnico1 = new FREP058(new UsuarioDAO().Obtener_Objeto_por_nombre(nombreUsuario), rolElegido);
+        menuServicioTecnico1.bt_salir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panelServicio_Tecnico.removeAll();
+                menuServicioTecnico1.dispose();
+                panelCentral.updateUI();
+            }
+        });
+        JPanel panel = menuServicioTecnico1.panelServicio_Tecnico;
+        panel.setLocation(0, 0);
+        panelServicio_Tecnico.add(panel);
+        panelServicio_Tecnico.updateUI();
+        cambiarPanelesCambiante("scrollServicio_Tecnico");
+    }//GEN-LAST:event_item_Tabla_Tipo_ServicioTecnicoActionPerformed
+
+    private void txtRolUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRolUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtRolUsuarioActionPerformed
+
+    private void item_ConsultasServicioTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_ConsultasServicioTecnicoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_item_ConsultasServicioTecnicoActionPerformed
+
     public void validarHabilitacion(JButton boton) {
 
         if (existetipocambio() == true) {
@@ -3926,6 +4094,7 @@ public class MENU001 extends javax.swing.JFrame {
     public javax.swing.JMenuItem item_Clientes;
     public javax.swing.JMenuItem item_CodigosEquipos;
     public javax.swing.JMenuItem item_ConsultaMaestroRep;
+    public javax.swing.JMenuItem item_ConsultasServicioTecnico;
     public javax.swing.JMenuItem item_Control;
     public javax.swing.JMenuItem item_CuentasCobrar_Almacen;
     public javax.swing.JMenuItem item_CuentasCobrar_Facturas;
@@ -3944,11 +4113,13 @@ public class MENU001 extends javax.swing.JFrame {
     public javax.swing.JMenuItem item_Programas;
     public javax.swing.JMenuItem item_PuntosVenta;
     public javax.swing.JMenuItem item_ReImpresionFBN;
+    public javax.swing.JMenuItem item_RegistroServicioTecnico;
     public javax.swing.JMenuItem item_Rep_Estratificacion;
     public javax.swing.JMenuItem item_ResumCliente;
     public javax.swing.JMenuItem item_Roles;
     public javax.swing.JMenuItem item_Sistema;
     public javax.swing.JMenuItem item_StockMin;
+    public javax.swing.JMenuItem item_Tabla_Tipo_ServicioTecnico;
     public javax.swing.JMenuItem item_TipoCambio;
     public javax.swing.JMenuItem item_Transportistas;
     public javax.swing.JMenuItem item_Usuario;
@@ -3991,6 +4162,7 @@ public class MENU001 extends javax.swing.JFrame {
     public javax.swing.JMenu menu_Importaciones;
     public javax.swing.JMenu menu_Inventario;
     public javax.swing.JMenu menu_Movimientos;
+    public javax.swing.JMenu menu_TablaTipoServicioTecnico;
     public javax.swing.JMenu menu_Tablas;
     public javax.swing.JLabel nombreEmpresa;
     public javax.swing.JPanel panelAccesos;
@@ -4041,11 +4213,13 @@ public class MENU001 extends javax.swing.JFrame {
     public javax.swing.JPanel panelProgramas;
     public javax.swing.JPanel panelPuntos_venta;
     public javax.swing.JPanel panelReImpresion;
+    public javax.swing.JPanel panelRegistro_ServicioTecnico;
     public javax.swing.JScrollPane panelReporte_inventario;
     public javax.swing.JPanel panelRepuestos_estratificacion;
     public javax.swing.JPanel panelResumen_anual_ventas;
     public javax.swing.JPanel panelResumen_cliente;
     public javax.swing.JPanel panelRoles;
+    public javax.swing.JPanel panelServicio_Tecnico;
     public javax.swing.JPanel panelSet;
     public javax.swing.JPanel panelSistema;
     public javax.swing.JPanel panelStocks_minimos;
@@ -4100,10 +4274,12 @@ public class MENU001 extends javax.swing.JFrame {
     public javax.swing.JScrollPane scrollProgramas;
     public javax.swing.JScrollPane scrollPuntos_venta;
     public javax.swing.JScrollPane scrollReImpresion;
+    public javax.swing.JScrollPane scrollRegistro_ServicioTecnico;
     public javax.swing.JScrollPane scrollRepuestos_estratificacion;
     public javax.swing.JScrollPane scrollResumenCliente;
     public javax.swing.JScrollPane scrollResumen_anual_ventas;
     public javax.swing.JScrollPane scrollRoles;
+    public javax.swing.JScrollPane scrollServicio_Tecnico;
     public javax.swing.JScrollPane scrollSistema;
     public javax.swing.JScrollPane scrollStocks_minimos;
     public javax.swing.JScrollPane scrollTipoCambio;

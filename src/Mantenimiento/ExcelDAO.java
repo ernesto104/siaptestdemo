@@ -3,6 +3,7 @@ package Mantenimiento;
 import Entidades.Control;
 import Entidades.Detallees;
 import Entidades.Detallenota;
+import Entidades.Otros.Constante;
 import static Entidades.Otros.Constante.A;
 import static Entidades.Otros.Constante.B;
 import static Entidades.Otros.Constante.C;
@@ -72,12 +73,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.BreakIterator;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -766,11 +769,14 @@ public class ExcelDAO {
         hoja.addCell(new Label(F, 9, "VENDEDOR", fTituloIzq));
         hoja.addCell(new Label(G, 9, proforma.getVendedor(), fTituloIzq));
         
-        hoja.addCell(new Label(F, 10, "E-MAIL", fTituloIzq));
-        hoja.addCell(new Label(G, 10, proforma.getEmail(), fTituloIzq));
+        hoja.addCell(new Label(F, 10, "PUNTO DE VENTA", fTituloIzq));
+        hoja.addCell(new Label(G, 10, proforma.getPuntoventa(), fTituloIzq));
         
-        hoja.addCell(new Label(F, 11, "REFERENCIA", fTituloIzq));
-        hoja.addCell(new Label(G, 11, proforma.getReferencia(), fTituloIzq));
+        hoja.addCell(new Label(F, 11, "E-MAIL", fTituloIzq));
+        hoja.addCell(new Label(G, 11, proforma.getEmail(), fTituloIzq));
+        
+        hoja.addCell(new Label(F, 12, "REFERENCIA", fTituloIzq));
+        hoja.addCell(new Label(G, 12, proforma.getReferencia(), fTituloIzq));
         
         // Detalle de Proforma
         WritableCellFormat fCabecera = new WritableCellFormat(titleFontCab);
@@ -779,7 +785,7 @@ public class ExcelDAO {
         
         hoja.addCell(new Label(0, FILA_INI_DET_PROF, "ITEM", fCabecera)); // N° Proforma
         hoja.addCell(new Label(1, FILA_INI_DET_PROF, "C.EMP.", fCabecera)); // N° Empresa
-        hoja.addCell(new Label(2, FILA_INI_DET_PROF, "CÓDIGO", fCabecera)); // Cliente
+        hoja.addCell(new Label(2, FILA_INI_DET_PROF, "N DE SERIE", fCabecera)); // Cliente
         hoja.addCell(new Label(3, FILA_INI_DET_PROF, "DESCRIPCIÓN", fCabecera)); // Fecha Proforma
         hoja.addCell(new Label(4, FILA_INI_DET_PROF, "CANT.", fCabecera)); // Cantidad       
         hoja.addCell(new Label(5, FILA_INI_DET_PROF, "P.LISTA", fCabecera)); // Precio Lista
@@ -809,13 +815,16 @@ public class ExcelDAO {
 //           String codRepuesto = d.getRepuestos().getCodigoseg();            
             
             agregarFilaAExcel(j, 0, fila, 0, hoja, fDetLetras); // ITEM
-            agregarFilaAExcel(j, 16, fila, 1, hoja, fDetIzq); // CÓDIGO EMPRESA
+            agregarFilaAExcel(j, 19, fila, 1, hoja, fDetIzq); // CÓDIGO EMPRESA  --> enrealidad es codigo segundo de repuesto y se encuentra ahora en colum 19 (antes 16)
             agregarFilaAExcel(j, 2, fila, 2, hoja, fDetIzq); // CÓDIGO
 
 //          Concatenar descripcion + aplicacion
-            String D1 = (String) table.getValueAt(j, 3);    // descripcion
-            String D2 = (String) table.getValueAt(j, 4);    // aplicacion
-            String DX = D1 + " - " +D2;
+            String D1 = (String) table.getValueAt(j, 3);   //equipo (empieza de la colum 3 porque 2da colum de tabla Facturacion se oculto)
+            String D2 = (String) table.getValueAt(j, 4);   //marca
+            String D3 = (String) table.getValueAt(j, 5);    // modelo
+            String D4 = (String) table.getValueAt(j, 6);    // descripcion
+            String D7 = (String) table.getValueAt(j, 7);  //  colum Aplicacion oculto, opcional si se llegara a utilizar
+            String DX = D1 + " " +D2 + " " + " "+ D3 + " "+ D4;
             agregarFilaAExcel(DX, fila, 3, hoja, fDetIzq); // se concatenan Descripcion concatenada
             
             agregarFilaAExcel(j, 8, fila, 4, hoja, fDetLetras); // CANT.
@@ -827,10 +836,10 @@ public class ExcelDAO {
             System.out.println("Descuentos : " + descuentos);
 
             
-            System.out.println(" j, 14" + table.getValueAt(j, 14));  //P.TOTAL   P.U.NETO = (j,14 / j,7)
+            System.out.println(" j, 17" + table.getValueAt(j, 17));  //P.TOTAL   P.U.NETO = (j,14 / j,7)-> se le aumentara 3 por colum Equipo Marca y Modelo agregados (j,17 / j,10)
 
-            int cant = (int) table.getValueAt(j, 8);
-            Object objeto = table.getValueAt(j, 14);
+            int cant = (int) table.getValueAt(j, 11);
+            Object objeto = table.getValueAt(j, 17);
             double vvNeto = new Util().Redondear2Decimales(Double.parseDouble(String.valueOf(objeto)) / cant);
             double vvTot = new Util().Redondear2Decimales(Double.parseDouble(String.valueOf(objeto)));
 
@@ -959,7 +968,15 @@ public class ExcelDAO {
         Workbook workbook = Workbook.getWorkbook(new File(rutaLibroMargen0)); // ORIGEN
         WritableWorkbook w = Workbook.createWorkbook(new File(rutaTemplate), workbook); // workbook DESTINO
         WritableSheet hoja = w.getSheet(0); // sheet
-        ajusteAnchoColumnasExcel(hoja);
+        //ajusteAnchoColumnasExcel(hoja);
+        
+        //Solo cambiaran tamaño de estas celdas para Boleta
+        /*hoja.setColumnView(0, 5);  // A Cantidad
+        hoja.setColumnView(2, 10);  // C N Serie
+        hoja.setColumnView(3, 8);  // D N Serie
+        hoja.setColumnView(10, 15); // K (para mas espacio para la descripcion
+        hoja.setColumnView(11, 10); // L Precio Unitario
+        hoja.setColumnView(12, 10); // L Precio Unitario Total*/
         
 // Declaración de Fuentes y formatos de letra para celdas(derecha, izquierda)
         WritableFont font10Normal = new WritableFont(WritableFont.ARIAL, 10, WritableFont.NO_BOLD);
@@ -978,6 +995,11 @@ public class ExcelDAO {
         cent10NormalSinborde.setAlignment(Alignment.CENTRE);
         cent10NormalSinborde.setBorder(Border.ALL, BorderLineStyle.NONE);
         
+        int tamanyo = 10;
+        WritableFont font11ArialNarrow = new WritableFont(WritableFont.createFont("Arial Narrow"), tamanyo, WritableFont.NO_BOLD);
+        WritableCellFormat izq11AN = new WritableCellFormat(font11ArialNarrow);
+        izq11AN.setAlignment(Alignment.LEFT);
+        
         // 1. CABECERA DE BOLETA
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         String dateInString = documento.getFechaEmision();
@@ -986,22 +1008,41 @@ public class ExcelDAO {
 
         String dia2Cifras = Fecha.getDia(dateEmision);
         String mes2Cifras = Fecha.getMes(dateEmision);
+        String año4cifras = Fecha.getAnio(dateEmision);
         String añoUltCifra = Fecha.getAnioUltimaCifra(dateEmision);
 
         // Asignar fecha de emisión en Boleta de Venta
-        hoja.addCell(new Label(D, 5, dia2Cifras, cent10NormalSinborde));
-        hoja.addCell(new Label(F, 5, mes2Cifras, cent10NormalSinborde));
-        hoja.addCell(new Label(H, 5, "             " + añoUltCifra, cent10NormalSinborde));
+        hoja.addCell(new Label(C, 5, dateInString, cent10NormalSinborde));  //antes en D
+        //hoja.addCell(new Label(D, 5, mes2Cifras, cent10NormalSinborde));   //antes en F
+        //hoja.addCell(new Label(F, 5, "" + año4cifras, cent10NormalSinborde));  //antes en H
         
-        hoja.addCell(new Label(D, 7, documento.getNombreEmpresa(), izq10Normal));
-        hoja.addCell(new Label(D, 9, documento.getDireccionEmpresa(), izq10Normal));
+        //Numero de boleta
+        hoja.addCell(new Label(L, 6, "N de Boleta: "+documento.getNroSerie()+"-"+documento.getNroDocumento(), izq10Normal));
+        //El punto de Venta
+        hoja.addCell(new Label(L, 7, documento.getPuntoventa(), izq10Normal));
         
+        //vendedor
+        hoja.addCell(new Label(L, 8, "Vendedor: "+documento.getVendedor(), izq10Normal));
+        
+        hoja.addCell(new Label(C, 7, documento.getNombreEmpresa(), izq10Normal));  //antes en D
+        hoja.addCell(new Label(C, 9, documento.getDireccionEmpresa(), izq10Normal));  //antes en D
+        
+        
+        hoja.addCell(new Label(A, 11, "Cantidad", izq10Normal));
+        hoja.addCell(new Label(C, 11, "N de Serie", izq10Normal));  // aca antes era Codigo Sec
+        hoja.addCell(new Label(D, 11, "Descripción", izq10Normal));        
+        hoja.addCell(new Label(L, 11, "Precio unitario", izq10Normal));        
+        hoja.addCell(new Label(M, 11, "Importe", izq10Normal));        
         // 2. DETALLE DE BOLETA
         int fila = FILA_INI_DET_BOL; // Conteo de filas empieza desde 0 (antes fila 8 excel)
         Util util = new Util();
+        int contFilas = 0; // si una descripcion ocupa mas de 1 linea
 //        hoja.addMergedRegion
         for ( Detallees d : det ) {
-            fila++;
+            fila++; 
+            fila = fila + contFilas;
+            contFilas = 0;
+            
             String cantidad = String.valueOf(d.getCantentregada());
             String unitario = formatearMonetario(String.valueOf(d.getPreciolista()), 2);
             
@@ -1033,25 +1074,53 @@ public class ExcelDAO {
             String unitString = String.valueOf(util.Redondear2Decimales( Double.parseDouble(cantidad) * Double.parseDouble(unitario) ));
             String unitarioTotal = util.formatearMonetario(unitString, 2);
         
+            String nserie = d.getRepuestos().getCodrepuesto();
+            
             String modelo = ( d.getRepuestos().getDescrmodelo() == null ? "" : d.getRepuestos().getDescrmodelo());
+            String equipo = d.getRepuestos().getEquipos().getDescripcion();
+            String marca = d.getRepuestos().getMarcas().getDescripcion();
+            String modeloEquip = d.getRepuestos().getModelos().getDescripcion();
             String descripcion = d.getRepuestos().getDescripcion(); // + " " + modelo; // ¿SE DEBE AGREGAR EL MODELO A LA DESCRIPCION EN BOLETA Y FACTURA?
-            descripcion = truncarCaracteres(descripcion, MAX_CARACTERES_DESCRIPCION); // + cadenaDsctos;
-                    
+            descripcion =   equipo+" "+ marca+" " +modeloEquip+" "+ descripcion;
+            //descripcion = agregarSaltoLineaCaracteres(descripcion, MAX_CARACTERES_DESCRIPCION); // + cadenaDsctos;
+            String[] descripcionPartes = agregarSaltoLineaCaracteres(descripcion, MAX_CARACTERES_DESCRIPCION);       
             if ( cantentregada > 0 ) {
-                hoja.addCell(new Label(B, fila, cantidad, der10Normal)); // CANTIDAD
+                hoja.addCell(new Label(A, fila, cantidad, der10Normal)); // CANTIDAD
+                //System.out.print(descripcionPartes[1]);
+                hoja.addCell(new Label(C, fila, nserie, izq11AN));
 //                hoja.addCell(new Label(C, fila, idRepuesto, fTituloIzq)); // CÓDIGO
-                hoja.addCell(new Label(EE, fila, descripcion, izq10Normal)); // DESCRIPCIÓN
+                if(descripcion.length() > MAX_CARACTERES_DESCRIPCION && descripcionPartes.length > 1) {  // si DESCRIPCION ES LARGA y tien salto de linea
+                    int tamañoIndexInterno=descripcionPartes.length;
+                    int filaDescripcion = fila;
+                    int i = 0;
+                    while(tamañoIndexInterno > 0){
+                    hoja.addCell(new Label(D, filaDescripcion, descripcionPartes[i], izq11AN));
+                    //hoja.addCell(new Label(D, fila+1, descripcionPartes[1], izq11AN));
+                    i++;
+                    filaDescripcion++;
+                    tamañoIndexInterno--;
+                    }
+                    contFilas =i-1;
+                } else {
+                    hoja.addCell(new Label(D, fila, descripcion, izq11AN)); // DESCRIPCIÓN
+                }
                 
-                hoja.addCell(new Label(J, fila, cadenaDsctos, izq10Normal)); // DESCUENTOS
+                //hoja.addCell(new Label(J, fila, cadenaDsctos, izq10Normal)); // DESCUENTOS  / Se comentara porque no es necesario para negocio de laptops
                 
 //                hoja.addCell(new Label(M, fila, util.formatearComaMillar(unitario), der10NormalSinBorde)); // P. UNITARIO
-                hoja.addCell(new Label(K, fila, util.formatearComaMillar(String.valueOf(PrecioLista)), der10NormalSinBorde)); // P. UNITARIO --> (Actualizado a Precio de Lista)
-                hoja.addCell(new Label(L, fila, util.formatearComaMillar(unitarioTotal), der10NormalSinBorde)); // IMPORTE
+                hoja.addCell(new Label(L, fila, util.formatearComaMillar(String.valueOf(PrecioLista)), der10NormalSinBorde)); // P. UNITARIO --> (Actualizado a Precio de Lista)
+                hoja.addCell(new Label(M, fila, util.formatearComaMillar(unitarioTotal), der10NormalSinBorde)); // IMPORTE
             }
-        }
-        fila = 23;
+        } 
+        fila = 33;
         String glosa = documento.getGlosa();
-        hoja.addCell(new Label(L, fila, glosa + " " + util.formatearComaMillar(documento.getTotal()), der10NormalSinBorde)); // TOTAL DEL IMPORTE
+        hoja.addCell(new Label(M, fila, glosa + " " + util.formatearComaMillar(documento.getTotal()), der10NormalSinBorde)); // TOTAL DEL IMPORTE
+        
+        
+        int fila1 = 29;
+        String obs = documento.getObservaciones();
+        hoja.addCell(new Label(C, fila1, obs, izq11AN)); // Las observaciones para Boleta
+        
         
         w.write();
         w.close();
@@ -1149,8 +1218,15 @@ public class ExcelDAO {
 //        s.addCell(new Label(D, 16, factura.getFechaEmision(), cen10NormalSinborde)); // FECHA formato dd/MM/AAAA
         
         // 2. Señor(es)
-        s.addCell(new Label(D, 10, factura.getNombreEmpresa(), izq10Normal));
+        s.addCell(new Label(D, 10,"Empresa: "+ factura.getNombreEmpresa(), izq10Normal));
         
+        
+        //2-4. N° de Factura
+        
+        s.addCell(new Label(S, 9,"N Factura: "+factura.getNroSerie()+" - "+factura.getNroDocumento(), izq10Normal));
+        //2-5. Punto de Venta
+        
+        s.addCell(new Label(S, 10,factura.getPuntoventa(), izq10Normal));
         // 3. Dirección
         String dirEmpresa = factura.getDireccionEmpresa();
 //        s.addCell(new Label(EE, 12, dirEmpresa, izq10Normal));
@@ -1162,7 +1238,7 @@ public class ExcelDAO {
 //            String direccionLinea2 = dirEmpresa.substring(53, dirEmpresa.length()) + ".";
 //            System.out.println("direccion1:" + direccionLinea1);
 //            System.out.println("direccion2:" + direccionLinea2);
-        s.addCell(new Label(D, 11, dirEmpresa, izq10Normal)); // Dirección Línea 1
+        s.addCell(new Label(D, 11,"Dir Empresa: "+ dirEmpresa, izq10Normal)); // Dirección Línea 1
 //            s.addCell(new Label(EE, 13, direccionLinea2, izq10Normal)); // Dirección Línea 2
 //        String ubigeoLinea2 = factura.getUbigeo();
 //        s.addCell(new Label(EE, 13, ubigeoLinea2, izq10Normal)); // Dirección Línea 2
@@ -1172,12 +1248,14 @@ public class ExcelDAO {
 //            String direccionLinea1 = dirEmpresa.substring(0, dirEmpresa.length());
 //            s.addCell(new Label(EE, 12, direccionLinea1, izq10Normal)); // Dirección Línea 1
 //        }
+        //3.5 Vendedor
+         s.addCell(new Label(S, 11,"Vendedor: "+ factura.getVendedor(), izq10Normal));
         
         // 4. R.U.C.
-        s.addCell(new Label(D, 12, factura.getRucEmpresa(), izq10Normal));
+        s.addCell(new Label(D, 12,"RUC: "+ factura.getRucEmpresa(), izq10Normal));
         
         // 5. Guía de Remisión
-        s.addCell(new Label(S, 12, factura.getNumeroGuia(), izq10Normal));
+        s.addCell(new Label(S, 12,"N° Guia: "+ factura.getNumeroGuia(), izq10Normal));
         
         // Condición (Contado o Crédito)
 //        s.addCell(new Label(G, 16, factura.getCondicion().toUpperCase(), cen10NormalSinborde));
@@ -1188,12 +1266,12 @@ public class ExcelDAO {
 //        s.addCell(new Label(H, 16, vendedor, cen10NormalSinborde));
         
         
-        s.addCell(new Label(A, 13, "Nro.Parte", izq11Normal));
-        s.addCell(new Label(B, 13, "Codigo Sec", izq11Normal));
+        s.addCell(new Label(A, 13, "Nro.Serie", izq11Normal));
+        s.addCell(new Label(B, 13, "Equipo Marca Modelo", izq11Normal));  // aca antes era Codigo Sec
         s.addCell(new Label(G, 13, "Descripción", izq11Normal));        
-        s.addCell(new Label(O, 13, "Cantidad", izq11Normal));        
-        s.addCell(new Label(Q, 13, "Precio", izq11Normal));        
-        s.addCell(new Label(S, 13, "Total", der11Normal));        
+        s.addCell(new Label(P, 13, "Cantidad", izq11Normal));        
+        s.addCell(new Label(S, 13, "Precio", izq11Normal));        
+        s.addCell(new Label(Constante.U, 13, "Total", der11Normal));        
         
 // II. DETALLE DE LA FACTURA
         int fila = FILA_INI_DET_FACT;
@@ -1203,8 +1281,10 @@ public class ExcelDAO {
         int filaTblFact = 0;
 //        System.out.println(" fila:" + fila);
         boolean conAnotacion = true;
-        
+        int contFilas = 0;
         for ( Detallees d : det ) {
+            /*fila = fila + contFilas;
+            contFilas = 0;*/
             
             String cantidad = String.valueOf(d.getCantentregada());
             String modelo = d.getRepuestos().getDescrmodelo();
@@ -1267,40 +1347,62 @@ public class ExcelDAO {
             
             String nroParte = d.getRepuestos().getCodrepuesto();
             String codRepuesto = d.getRepuestos().getCodigoseg();
+            String equipo = d.getRepuestos().getEquipos().getDescripcion();
+            String marca = d.getRepuestos().getMarcas().getDescripcion();
+            String modeloProduc = d.getRepuestos().getModelos().getDescripcion(); 
+            String descrBase = equipo +" "+marca + " "+modeloProduc;
             
             System.out.println("codRepuesto:" + codRepuesto);
 //            System.out.println("Codigoseg : " + codigoseg);
 //            descripcion = truncarCaracteres(descripcion, MAX_CARACTERES_DESCRIPCION);
                     
-            String subTotal = String.valueOf(tablaFacturacion.getValueAt(filaTblFact, 14));
+            String subTotal = String.valueOf(tablaFacturacion.getValueAt(filaTblFact, 17));
 //            System.out.println("subTotal:::" + subTotal);
             
             if ( cantentregada > 0 ) {
                 
                 // 0. Nro. de Parte del Repuesto
                 s.addCell(new Label(A, fila, nroParte, izq11V));
-                // 1. Código de Repuesto
-                s.addCell(new Label(B, fila, codRepuesto, izq11V));
+                // 1. Código de Repuesto --> ahora descripcion base +Descripcion y campo DescrModelo
+                descripcion = descrBase+" "+descripcion + " " + descrModelo;
                 
-                // 2. Descripción - Modelo
-                descripcion = descripcion + " " + descrModelo;
-                s.addCell(new Label(G, fila, descripcion, izq11AN));
+                String[] descripcionPorPartes = agregarSaltoLineaCaracteres(descripcion, MAX_CARACTERES_DESCRIPCION)/* + " " + aplicacion*/;
+                
+                if(descripcion.length() > MAX_CARACTERES_DESCRIPCION && descripcionPorPartes.length > 1) { // si despcripcion es grande y si tiene saltos de linea
+                    int tamañoIndexInterno=descripcionPorPartes.length;
+                    int filaDescripcion = fila;
+                    int i = 0;
+                    while(tamañoIndexInterno > 0){
+                        s.addCell(new Label(B, filaDescripcion, descripcionPorPartes[i], izq11AN));
+                        //hoja.addCell(new Label(D, fila+1, descripcionPartes[1], izq11AN));
+                        i++;
+                        filaDescripcion++;
+                        tamañoIndexInterno--;
+                    }
+                    contFilas =i-1;
+                } else {s.addCell(new Label(B, fila, descripcion, izq10Normal));  }// DESCRIPCIÓN
+                //s.addCell(new Label(B, fila, descripcion, izq11AN));
+                
+                
+                //s.addCell(new Label(G, fila, descripcion, izq11AN));
                 
                 // 3. Cantidad
-                s.addCell(new Label(O, fila, cantidad, der11V));
+                s.addCell(new Label(P, fila, cantidad, der11V));
                 
                 // 4. Anotación (descrLista)
                 // Si el repuesto tiene "anotacion1", la siguiente fila = fila + 2, sino fila = fila + 1
                 String anotacion1 = d.getRepuestos().getDesclista();
 //                System.out.println("fila:" + fila);
 //                System.out.println("anotacion1:" + anotacion1);
+                
+                /*Comentar DescLista porque no se sabe si seva a utilizar en Facturacion
                 if ( d.getRepuestos().getDesclista() == null ) {
                     conAnotacion = false;
                     
                 } else {
                     conAnotacion = true;
                     s.addCell(new Label(G, (fila + 1), anotacion1, izq11AN));
-                }
+                }*/
                 
                 // 5. Descuentos
 //                s.addCell(new Label(I, fila, cadenaDsctos, izq10AN));
@@ -1317,13 +1419,13 @@ public class ExcelDAO {
 //                System.out.println("importe:" + importe);
                 
                 String imp = util.formatearComaMillar(String.valueOf(util.Redondear2Decimales(importe)));
-                s.addCell(new Label(R, fila, formatearMonetario(imp, 2), der11V));
+                s.addCell(new Label(S, fila, formatearMonetario(imp, 2), der11V));
 //                s.addCell(new Label(L, fila, util.formatearComaMillar(String.valueOf(util.Redondear2Decimales(PrecioLista))), der11V));
                 
                 // 7. IMPORTE --Valor de Venta (Sub-Total)
 //                s.addCell(new Label(P, fila, util.formatearComaMillar(vut), der11V));
                 String subT = util.formatearComaMillar(subTotal);
-                s.addCell(new Label(TT, fila, formatearMonetario(subT, 2), der11V));
+                s.addCell(new Label(Constante.U, fila, formatearMonetario(subT, 2), der11V));
             }
             filaTblFact++;
             
@@ -1335,6 +1437,7 @@ public class ExcelDAO {
             }
         }
         
+        //39 - 14(ubicacion de fila donde empieza la lista de Detalles) = 25
         int filaSon = 39;
         int filaIGV = 43;
         if ( usuario != null ) {
@@ -1357,9 +1460,15 @@ public class ExcelDAO {
         
             // I.G.V. %
 //            s.addCell(new Label(L, 60, igv + "%", izq10Normal)); // %IGV
-            s.addCell(new Label(Q, filaIGV, String.valueOf(igv), der11V)); // %IGV
+            String IGVTexto = "IGV: "+String.valueOf(igv)+"%";
+            s.addCell(new Label(Q, filaIGV, IGVTexto, der11V)); // %IGV
             s.addCell(new Label(TT, filaIGV, glosa + " " + util.formatearComaMillar(factura.getTotalIgv()), der11V)); // I.G.V.
         
+            // Las Observaciones opcionales
+            String obs = factura.getObservaciones();
+            
+            
+            s.addCell(new Label(C, filaIGV, String.valueOf(obs), der11V));
             // TOTAL
             s.addCell(new Label(TT, filaSon + 7, glosa + " " + util.formatearComaMillar(factura.getTotal()), der11V));
             
@@ -1596,7 +1705,10 @@ public class ExcelDAO {
 
 //            String vutString = String.valueOf(util.Redondear2Decimales( Double.parseDouble(cantidad) * Double.parseDouble(vu) ));
 //            String vut = util.formatearMonetario(vutString, 2);
-        
+            
+            String equipo = d.getRepuestos().getEquipos().getDescripcion();
+            String marca = d.getRepuestos().getMarcas().getDescripcion();
+            String modeloEquip = d.getRepuestos().getModelos().getDescripcion();
             String descripcion = d.getRepuestos().getDescripcion(); // + " " + modelo;
             
             String descrModelo = d.getRepuestos().getDescrmodelo();
@@ -1608,7 +1720,7 @@ public class ExcelDAO {
 //            System.out.println("codRepuesto:" + codRepuesto);
 //            descripcion = truncarCaracteres(descripcion, MAX_CARACTERES_DESCRIPCION);
                     
-            String subTotal = String.valueOf(tablaFacturacion.getValueAt(filaTblFact, 14));
+            String subTotal = String.valueOf(tablaFacturacion.getValueAt(filaTblFact, 17));  //SubTotal es Total por producto
 //            System.out.println("subTotal:::" + subTotal);
             
             if ( cantentregada > 0 ) {
@@ -1623,7 +1735,7 @@ public class ExcelDAO {
                 
                 // 3. (Modelo - Descripción)
 //                descripcion = descripcion + " " + descrModelo; //  + " " + codRepuesto;
-                descripcion = descripcion + " " + descrModelo; //  + " " + codRepuesto;
+                descripcion = equipo+" " + marca+ " "+modeloEquip+ " "+ descripcion + " " + descrModelo; //  + " " + codRepuesto;
                 s.addCell(new Label(D, fila, descripcion, izq11AN));
                 
                 //////////////////////////////////////////////////////////////////////////
@@ -2461,12 +2573,24 @@ public class ExcelDAO {
         }
         return fila;
     }
-    
-    private String truncarCaracteres(String descripcion, int maxCaracteres) {
-        if ( descripcion.length() > maxCaracteres ) {
+        
+    //cambia de truncarCaracteres a agregar saltos de Linea
+    private String[] agregarSaltoLineaCaracteres(String descripcion, int maxCaracteres) {
+
+        
+        /*if ( descripcion.length() > maxCaracteres ) {
             descripcion = descripcion.substring(0, maxCaracteres);
+        }*/
+        StringBuilder sb = new StringBuilder(descripcion);
+
+        int i = 0;
+        while ((i = sb.indexOf(" ", i + maxCaracteres)) != -1) {
+            sb.replace(i, i + 1, " \n");
         }
-        return descripcion;
+        
+        String[] descripcionPartes = sb.toString().split("\n");
+        System.out.print(descripcionPartes);
+        return descripcionPartes;
     }
     
     private double obtenerDscto(int filaTabla, int columnaTabla) {
@@ -2481,10 +2605,10 @@ public class ExcelDAO {
     
     private void agregarVVconDsctoAExcel(double vv, int filaTabla, int filaExcel, int columnaExcel, WritableSheet s, WritableCellFormat fDetalle) {
         
-        double dscto1 = obtenerDscto(filaTabla, 10);
-        double dscto2 = obtenerDscto(filaTabla, 11);
-        double dscto3 = obtenerDscto(filaTabla, 12);
-        double dscto4 = obtenerDscto(filaTabla, 13);
+        double dscto1 = obtenerDscto(filaTabla, 13);
+        double dscto2 = obtenerDscto(filaTabla, 14);
+        double dscto3 = obtenerDscto(filaTabla, 15);
+        double dscto4 = obtenerDscto(filaTabla, 16);
         
         double valorVentaDscto = ( ( 100.00 - dscto1 ) / 100.00 ) * 
                                  ( ( 100.00 - dscto2 ) / 100.00 ) *
@@ -2521,9 +2645,9 @@ public class ExcelDAO {
     }
     
     private String getDescuentosExcel(int fila) {
-        String descuentos = concatenaDescuentos(fila, 10, "");
-        descuentos = concatenaDescuentos(fila, 11, descuentos);
-        descuentos = concatenaDescuentos(fila, 12, descuentos);
+        String descuentos = concatenaDescuentos(fila, 13, "");
+        descuentos = concatenaDescuentos(fila, 14, descuentos);
+        descuentos = concatenaDescuentos(fila, 15, descuentos);
 //      descuentos = concatenaDescuentos(fila, 13, descuentos);
         return descuentos;
     }
@@ -2808,6 +2932,9 @@ public class ExcelDAO {
             String unidadMedida =  (d.getRepuestos().getUnidadmedida() == null ? "" : d.getRepuestos().getUnidadmedida());
 //            String modelo = ( d.getRepuestos().getDescrmodelo() == null ? "" : d.getRepuestos().getDescrmodelo() );
 //            String descripcion = d.getRepuestos().getDescripcion() + " " + modelo;
+            String equipo = d.getRepuestos().getEquipos().getDescripcion();
+            String marca = d.getRepuestos().getMarcas().getDescripcion();
+            String modeloProduc = d.getRepuestos().getModelos().getDescripcion();
             String descripcion = d.getRepuestos().getDescripcion();
             String descrModelo = d.getRepuestos().getDescrmodelo();
             if ( d.getRepuestos().getDescrmodelo() == null ) {
@@ -2824,7 +2951,7 @@ public class ExcelDAO {
             // 2. DESCRIPCION - MODELO
 //            s.addCell(new Label(B, fila, idRepuesto, izq10Normal)); // CÓDIGO
 //            descripcion = truncarCaracteres(descripcion, MAX_CARACTERES_DESCRIPCION) + " " + descrModelo;
-            descripcion = descripcion + " " + descrModelo;
+            descripcion = equipo+" "+marca+" "+modeloProduc+" "+descripcion + " " + descrModelo;
             s.addCell(new Label(H, fila, descripcion, izq12Normal));
             
             // 3. ANOTACIÓN 1
@@ -3058,11 +3185,20 @@ public class ExcelDAO {
 // Detalle de Nota de Crédito
         Util util = new Util();
         int fila = FILA_INI_DET_NC;
+        int contFilas = 0;
         
         for ( Detallenota d : det ) {
             fila++;
+            fila = fila + contFilas;
+            contFilas = 0;
+            
             String cantidad = String.valueOf(d.getCantidad());
+            String modelo = ( d.getRepuestos().getDescrmodelo() == null ? "" : d.getRepuestos().getDescrmodelo());
+            String equipo = d.getRepuestos().getEquipos().getDescripcion();
+            String marca = d.getRepuestos().getMarcas().getDescripcion();
+            String modeloEquip = d.getRepuestos().getModelos().getDescripcion();
             String descripcion = d.getDescripcion();
+            descripcion = equipo+" "+marca+" "+modeloEquip+" "+descripcion;
             String importe = String.valueOf(d.getValor());
             String pu = String.valueOf(util.Redondear2Decimales(Double.parseDouble(importe)/Integer.parseInt(cantidad)));
             String precUnitario = formatearMonetario(pu, 2);
@@ -3082,15 +3218,51 @@ public class ExcelDAO {
                 s.addCell(new Label(B, fila, codRepuesto, izq10Normal)); // CODIGO
                 s.addCell(new Label(EE, fila, cantidad, izq10Normal)); // CANTIDAD
 //                s.addCell(new Label(C, fila, idRepuesto, fDetIzq)); // CÓDIGO
-                descripcion = truncarCaracteres(descripcion, MAX_CARACTERES_DESCRIPCION) + " " + aplicacion;
-                s.addCell(new Label(F, fila, descripcion, izq10Normal)); // DESCRIPCIÓN
+                
+                descripcion = descripcion+ " " + aplicacion; 
+                String[] descripcionPorPartes = agregarSaltoLineaCaracteres(descripcion, MAX_CARACTERES_DESCRIPCION)/* + " " + aplicacion*/;
+                if(descripcion.length() > MAX_CARACTERES_DESCRIPCION && descripcionPorPartes.length > 1) { // si despcripcion es grande y si tiene saltos de linea
+                    int tamañoIndexInterno=descripcionPorPartes.length;
+                    int filaDescripcion = fila;
+                    int i = 0;
+                    while(tamañoIndexInterno > 0){
+                        s.addCell(new Label(D, filaDescripcion, descripcionPorPartes[i], izq10Normal));
+                        i++;
+                        filaDescripcion++;
+                        tamañoIndexInterno--;
+                    }
+                    contFilas =i-1;
+                } else {s.addCell(new Label(B, fila, descripcion, izq10Normal));  }// DESCRIPCIÓN
+                //s.addCell(new Label(EE, fila, descripcion, izq10Normal)); // DESCRIPCIÓN
+                
+                
+                /*descripcion = agregarSaltoLineaCaracteres(descripcion, MAX_CARACTERES_DESCRIPCION) + " " + aplicacion;
+                s.addCell(new Label(F, fila, descripcion, izq10Normal)); // DESCRIPCIÓN*/
+                
+                
+                
                 s.addCell(new Label(L, fila, util.formatearComaMillar(Monetario.formatearMonetario(precUnitario, 2)), der10Normal)); // PRECIO UNITARIO
                 s.addCell(new Label(O, fila, util.formatearComaMillar(Monetario.formatearMonetario(importe, 2)), der10Normal)); // IMPORTE
                 
             } else {
 //                System.out.println("cantidad <= 0");
-                descripcion = truncarCaracteres(descripcion, MAX_CARACTERES_DESCRIPCION);
-                s.addCell(new Label(F, fila, descripcion, izq10Normal)); // DESCRIPCIÓN
+                String[] descripcionPorPartes = agregarSaltoLineaCaracteres(descripcion, MAX_CARACTERES_DESCRIPCION)/* + " " + aplicacion*/;
+                if(descripcion.length() > MAX_CARACTERES_DESCRIPCION && descripcionPorPartes.length > 1) { // si despcripcion es grande y si tiene saltos de linea
+                    int tamañoIndexInterno=descripcionPorPartes.length;
+                    int filaDescripcion = fila;
+                    int i = 0;
+                    while(tamañoIndexInterno > 0){
+                        s.addCell(new Label(F, filaDescripcion, descripcionPorPartes[i], izq10Normal));
+                        i++;
+                        filaDescripcion++;
+                        tamañoIndexInterno--;
+                    }
+                    contFilas =i-1;
+                } else {s.addCell(new Label(F, fila, descripcion, izq10Normal));  }// DESCRIPCIÓN
+                //descripcion = agregarSaltoLineaCaracteres(descripcion, MAX_CARACTERES_DESCRIPCION);
+                
+                
+                //s.addCell(new Label(F, fila, descripcion, izq10Normal)); // DESCRIPCIÓN
                 s.addCell(new Label(O, fila, util.formatearComaMillar(Monetario.formatearMonetario(importe, 2)), der10Normal)); // IMPORTE
             }
         }
@@ -3215,11 +3387,20 @@ public class ExcelDAO {
         // Detalle de Nota de Débito
         Util util = new Util();
         int fila = FILA_INI_DET_NC;
+        int contFila = 0;
         
         for ( Detallenota d : det ) {
             fila++;
+            fila = fila +contFila;
+            contFila =0; 
             String cantidad = String.valueOf(d.getCantidad());
+            String modelo = ( d.getRepuestos().getDescrmodelo() == null ? "" : d.getRepuestos().getDescrmodelo());
+            String equipo = d.getRepuestos().getEquipos().getDescripcion();
+            String marca = d.getRepuestos().getMarcas().getDescripcion();
+            String modeloEquip = d.getRepuestos().getModelos().getDescripcion();
             String descripcion = d.getDescripcion();
+            descripcion = equipo +" "+marca+" "+modeloEquip+" "+descripcion;
+                    
 //            System.out.println("cantidad:" + cantidad);
 //            System.out.println("descripcion:" + descripcion);
             
@@ -3242,15 +3423,45 @@ public class ExcelDAO {
                 s.addCell(new Label(B, fila, cantidad, der10Normal)); // CANTIDAD
                 s.addCell(new Label(D, fila, codRepuesto, izq10Normal)); // CODIGO
 //                s.addCell(new Label(C, fila, idRepuesto, fDetIzq)); // CÓDIGO
-                descripcion = truncarCaracteres(descripcion, MAX_CARACTERES_DESCRIPCION) + " " + aplicacion;
-                s.addCell(new Label(EE, fila, descripcion, izq10Normal)); // DESCRIPCIÓN
+                
+                
+                descripcion = descripcion+" "+aplicacion;
+                String[] descripcionPorPartes = agregarSaltoLineaCaracteres(descripcion, MAX_CARACTERES_DESCRIPCION)/* + " " + aplicacion*/;
+                if(descripcion.length() > MAX_CARACTERES_DESCRIPCION && descripcionPorPartes.length > 1) { // si despcripcion es grande y si tiene saltos de linea
+                    int tamañoIndexInterno=descripcionPorPartes.length;
+                    int filaDescripcion = fila;
+                    int i = 0;
+                    while(tamañoIndexInterno > 0){
+                        s.addCell(new Label(EE, filaDescripcion, descripcionPorPartes[i], izq10Normal));
+                        i++;
+                        filaDescripcion++;
+                        tamañoIndexInterno--;
+                    }
+                    contFila =i-1;
+                } else {s.addCell(new Label(EE, fila, descripcion, izq10Normal));  }// DESCRIPCIÓN
+                //s.addCell(new Label(EE, fila, descripcion, izq10Normal)); // DESCRIPCIÓN
+                
+                
                 s.addCell(new Label(M, fila, util.formatearComaMillar(Monetario.formatearMonetario(precUnitario, 2)), der10Normal)); // PRECIO UNITARIO
                 s.addCell(new Label(O, fila, util.formatearComaMillar(Monetario.formatearMonetario(importe, 2)), der10Normal)); // IMPORTE
                 
             } else {
 //                System.out.println("cantidad <= 0");
-                descripcion = truncarCaracteres(descripcion, MAX_CARACTERES_DESCRIPCION);
-                s.addCell(new Label(EE, fila, descripcion, izq10Normal)); // DESCRIPCIÓN
+                String[] descripcionPorPartes = agregarSaltoLineaCaracteres(descripcion, MAX_CARACTERES_DESCRIPCION)/* + " " + aplicacion*/;
+                if(descripcion.length() > MAX_CARACTERES_DESCRIPCION && descripcionPorPartes.length > 1) { // si despcripcion es grande y si tiene saltos de linea
+                    int tamañoIndexInterno=descripcionPorPartes.length;
+                    int filaDescripcion = fila;
+                    int i = 0;
+                    while(tamañoIndexInterno > 0){
+                        s.addCell(new Label(EE, filaDescripcion, descripcionPorPartes[i], izq10Normal));
+                        i++;
+                        filaDescripcion++;
+                        tamañoIndexInterno--;
+                    }
+                    contFila =i-1;
+                } else {s.addCell(new Label(EE, fila, descripcion, izq10Normal));  }// DESCRIPCIÓN
+                //descripcion = agregarSaltoLineaCaracteres(descripcion, MAX_CARACTERES_DESCRIPCION);
+                //s.addCell(new Label(EE, fila, descripcion, izq10Normal)); // DESCRIPCIÓN
                 s.addCell(new Label(O, fila, util.formatearComaMillar(Monetario.formatearMonetario(importe, 2)), der10Normal)); // IMPORTE
             }
         }

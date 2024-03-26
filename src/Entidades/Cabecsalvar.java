@@ -14,6 +14,7 @@ public class Cabecsalvar  implements java.io.Serializable {
 
      private Integer idsalida;
      private Vendedores vendedores;
+     private PuntosVenta puntosventa;
      
      private Sucursales sucursales;
      
@@ -89,6 +90,14 @@ public class Cabecsalvar  implements java.io.Serializable {
     
     public void setVendedores(Vendedores vendedores) {
         this.vendedores = vendedores;
+    }
+    
+    public PuntosVenta getPuntosventa() {
+        return puntosventa;
+    }
+
+    public void setPuntosventa(PuntosVenta puntosventa) {
+        this.puntosventa = puntosventa;
     }
     
     public Cabeces getCabeces() {
