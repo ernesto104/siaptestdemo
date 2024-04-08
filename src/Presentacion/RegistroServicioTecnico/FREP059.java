@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package Presentacion.ServicioTecnico;
+package Presentacion.RegistroServicioTecnico;
 
 import Entidades.Roles;
 import Entidades.Usuarios;
@@ -20,6 +20,7 @@ public class FREP059 extends javax.swing.JFrame {
      */
     Usuarios usuario;
     String valorVenta;
+    String tipoServicio;
     
     public FREP059(Usuarios usuario, String valorVenta) {
         initComponents();
@@ -60,7 +61,7 @@ public class FREP059 extends javax.swing.JFrame {
         jLabel1.setText("Tipo de Servicio");
 
         cbTipoVal.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        cbTipoVal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Reclamo de Garantia                |  Si", "Soporte Tecnico                       |  No" }));
+        cbTipoVal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Reclamo de Garantia                |  No", "Soporte Tecnico                       |  Si" }));
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel6.setText("Favor seleccione su Tipo de Servicio a Registrar");
@@ -164,8 +165,6 @@ public class FREP059 extends javax.swing.JFrame {
                 .addContainerGap(133, Short.MAX_VALUE))
         );
 
-        jPanel2.getAccessibleContext().setAccessibleName("Tipo de Servicio Tecnico");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -186,7 +185,10 @@ public class FREP059 extends javax.swing.JFrame {
         String TipoFecha = "";
         String Fecha = "";
         String otro = "";
-
+        tipoServicio = cbTipoVal.getSelectedItem().toString();
+        IU_RegistroServicioT rs = new IU_RegistroServicioT(tipoServicio);
+        rs.setTipoServicio(tipoServicio); //salidas
+        dispose();
        /* if ( rbAlafecha.isSelected() ) {
             Fecha = fechasistema();
             TipoFecha = "A la fecha";
@@ -218,7 +220,7 @@ public class FREP059 extends javax.swing.JFrame {
     }//GEN-LAST:event_btnContinuarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-
+        
     }//GEN-LAST:event_btnSalirActionPerformed
 
     /**

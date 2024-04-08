@@ -656,7 +656,7 @@ public class RepuestosDAO extends GenericDAO<Repuestos> {
     public ArrayList<Repuestos> buscarXMarca(String marca) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query q = (Query) session.createQuery("from Repuestos as r"
-        + " where r.marca like '"+marca+"' order by r.id.idlinea asc, r.id.idrepuesto asc");
+        + " where r.marca like '"+marca+"' order by r.id.idequipo asc, r.id.idrepuesto asc");
         ArrayList lista = (ArrayList) q.list();
         return lista;
     }
@@ -948,25 +948,25 @@ public class RepuestosDAO extends GenericDAO<Repuestos> {
     public List getRepuestosXLinea(String linea) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         List joinList = session.createQuery("from Repuestos as r"
-        + " where r.id.idlinea like '"+linea+"' order by r.descripcion asc").list();
+        + " where r.id.idequipo like '"+linea+"' order by r.descripcion asc").list();
         return joinList;
     }
     public List repuestosXLinea(int idlinea) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         List joinList = session.createQuery("from Repuestos as r"
-        + " where r.id.idlinea like '"+idlinea+"' order by r.id.idlinea, r.id.idrepuesto asc").list();
+        + " where r.id.idequipo like '"+idlinea+"' order by r.id.idequipo, r.id.idrepuesto asc").list();
         return joinList;
     }
     public List getRepuestosXNumSecundario(String numSecundario) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        List joinList = session.createQuery("select r.id.idrepuesto,r.id.idlinea from "
+        List joinList = session.createQuery("select r.id.idrepuesto,r.id.idequipo from "
                 + "Repuestos as r where r.codigoseg like '"+numSecundario+"%' "
                 + "order by r.codrepuesto asc").list();
         return joinList;
     }
     public List getRepuestosXDescricion(String descripcion) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        List joinList = session.createQuery("select r.id.idrepuesto,r.id.idlinea from "
+        List joinList = session.createQuery("select r.id.idrepuesto,r.id.idequipo from "
                 + "Repuestos as r where r.descripcion like '"+descripcion+"%' "
                 + "order by r.codrepuesto asc").list();
         return joinList;

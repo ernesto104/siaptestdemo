@@ -18,7 +18,7 @@ import Presentacion.CuentasxCobrarLetras.FREP043;
 import Presentacion.Reportes.FREP055;
 import Presentacion.Estratificacion.FREP030;
 import Presentacion.Facturacion.FREP019;
-import Presentacion.ServicioTecnico.FREP058;
+import Presentacion.TipoServicioTecnico.FREP058;
 import java.awt.CardLayout;
 import Presentacion.FREP002.*;
 import Presentacion.Importaciones.FREP025;
@@ -45,7 +45,7 @@ import Presentacion.EmisionPlanillas.FREP033;
 import Presentacion.Facturacion.IU_Facturacion;
 import Presentacion.FacturacionElectronica.FREP054;
 import Presentacion.ResumenGeneralCliente.FREP047;
-import Presentacion.ServicioTecnico.FREP059;
+import Presentacion.RegistroServicioTecnico.FREP059;
 
 import Presentacion.Stock_Minimo.FREP041;
 import Presentacion.historialMov.FREP035;

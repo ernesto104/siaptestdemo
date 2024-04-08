@@ -35,11 +35,11 @@ public class tabla_IngSal extends AbstractTableModel {
 
     private String Moneda; // solo interno en la tabla 
     private Tipocambio t;
-    String[] columnNames = {"Item", "Nro Parte", "Cod. Secundario", "Descripcion", "Stock",
+    String[] columnNames = {"Item","Equipo", "Marca", "Modelo","Nro de Serie", "Cod. Secundario", "Descripcion", "Stock",
                             "Precio Costo", "Cantidad", "Dcto1", "Dcto2", "Dcto3", 
                             "Dcto4", "Total",
-                            "Modelo"};
-    boolean[] habilitado = {false, false, false, false, false, 
+                            "Modelo"}; // se agregar 3 columnas mas: Equipo Marca y Modelo
+    boolean[] habilitado = {false, false, false, false, false, false, false, false, 
                             true, true, true, true, true,
                             true, false, false};
     private final ArrayList<DetalleFactura> detalles;
@@ -81,28 +81,34 @@ public class tabla_IngSal extends AbstractTableModel {
             case 0:
                 return rowIndex + 1;
             case 1:
-                return rp.getCodrepuesto(); // CAMBIO
+                return rp.getEquipos().getDescripcion();
             case 2:
-                return rp.getCodigoseg();
+                return rp.getMarcas().getDescripcion();
             case 3:
-                return rp.getDescripcion();
+                return rp.getModelos().getDescripcion();
             case 4:
-                return rp.getStock();
+                return rp.getCodrepuesto(); // CAMBIO
             case 5:
-                return util.DosDecimales(detalle.getPrecioRepuesto());
+                return rp.getCodigoseg();    
             case 6:
-                return detalle.getD().getCantpedida();
+                return rp.getDescripcion();
             case 7:
-                return detalle.getD().getDescuento1() == 0.0 ? " " : util.DosDecimales(detalle.getD().getDescuento1());
+                return rp.getStock();
             case 8:
-                return detalle.getD().getDescuento2() == 0.0 ? " " : util.DosDecimales(detalle.getD().getDescuento2());
+                return util.DosDecimales(detalle.getPrecioRepuesto());
             case 9:
-                return detalle.getD().getDescuento3() == 0.0 ? " " : util.DosDecimales(detalle.getD().getDescuento3());
+                return detalle.getD().getCantpedida();
             case 10:
-                return detalle.getD().getDescuento4() == 0.0 ? " " : util.DosDecimales(detalle.getD().getDescuento4());
+                return detalle.getD().getDescuento1() == 0.0 ? " " : util.DosDecimales(detalle.getD().getDescuento1());
             case 11:
-                return util.DosDecimales(detalle.getTotal());
+                return detalle.getD().getDescuento2() == 0.0 ? " " : util.DosDecimales(detalle.getD().getDescuento2());
             case 12:
+                return detalle.getD().getDescuento3() == 0.0 ? " " : util.DosDecimales(detalle.getD().getDescuento3());
+            case 13:
+                return detalle.getD().getDescuento4() == 0.0 ? " " : util.DosDecimales(detalle.getD().getDescuento4());
+            case 14:
+                return util.DosDecimales(detalle.getTotal());
+            case 15:
                 return rp.getDescrmodelo();
             default:
                 return 0;
@@ -117,35 +123,35 @@ public class tabla_IngSal extends AbstractTableModel {
             String valor = String.valueOf(aValue);
             double tot;
             switch (columnIndex) {
-                case 5:
+                case 8:                         //Precio Costo
                     double cant = Double.parseDouble(valor);
                     det.setPrecioRepuesto(cant);
                     tot = util.Redondear2Decimales(deta.getCantentregada() * PrecioConDcto(rowIndex));
                     det.setTotal(tot);
                     break;
-                case 6:
+                case 9:                         //Cantidad
                     int cantidad = Integer.parseInt(valor);
                     deta.setCantpedida(cantidad);
                     deta.setCantentregada(cantidad);
                     tot = util.Redondear2Decimales(deta.getCantentregada() * PrecioConDcto(rowIndex));
                     det.setTotal(tot);
                     break;
-                case 7:
+                case 10:                         //Dcto1
                     deta.setDescuento1(Double.parseDouble(valor));
                     tot = util.Redondear2Decimales(deta.getCantentregada() * PrecioConDcto(rowIndex));
                     det.setTotal(tot);
                     break;
-                case 8:
+                case 11:                         //Dcto2
                     deta.setDescuento2(Double.parseDouble(valor));
                     tot = util.Redondear2Decimales(deta.getCantentregada() * PrecioConDcto(rowIndex));
                     det.setTotal(tot);
                     break;
-                case 9:
+                case 12:                         //Dcto3
                     deta.setDescuento3(Double.parseDouble(valor));
                     tot = util.Redondear2Decimales(deta.getCantentregada() * PrecioConDcto(rowIndex));
                     det.setTotal(tot);
                     break;
-                case 10:
+                case 13:                        //Dcto4
                     deta.setDescuento4(Double.parseDouble(valor));
                     tot = util.Redondear2Decimales(deta.getCantentregada() * PrecioConDcto(rowIndex));
                     det.setTotal(tot);
@@ -177,7 +183,7 @@ public class tabla_IngSal extends AbstractTableModel {
         double d3 = d.getDescuento3() / 100.0;
         double d4 = d.getDescuento4() / 100.0;
 
-        double Precio = Double.parseDouble(String.valueOf(getValueAt(row, 5)));
+        double Precio = Double.parseDouble(String.valueOf(getValueAt(row, 8)));  //antes 5
 
         Precio = ((((Precio * (1 - d1)) * (1 - d2))) * (1 - d3)) * (1 - d4);
         return Precio;
@@ -278,7 +284,7 @@ public class tabla_IngSal extends AbstractTableModel {
     public void aplicarDctos(double... n) {
         for ( int i = 0; i < getDetalles().size(); i++ ) {
             for ( int j = 0; j < n.length; j++ ) {
-                setValueAt(n[j], i, j + 7);
+                setValueAt(n[j], i, j + 10);  // antes 7 (por agregar Equipo, Marca y Modelo)
             }
         }
         CalcularTotales();
@@ -289,8 +295,8 @@ public class tabla_IngSal extends AbstractTableModel {
             int size = getDetalles().size();
             for ( int i = 0; i < size; i++ ) {
                 DetalleFactura df = getDetalles().get(i);
-                setValueAt(ADolares(df.getPrecioRepuesto(), getT()), i, 5);
-                setValueAt(ADolares(df.getD().getPreciolista(), getT()), i, 8);
+                setValueAt(ADolares(df.getPrecioRepuesto(), getT()), i, 8);   //antes 5 (por agregar Equipo, Marca y Modelo)
+                setValueAt(ADolares(df.getD().getPreciolista(), getT()), i, 11);   // antes 8 (por agregar Equipo, Marca y Modelo)
             }
         }
     }
@@ -300,8 +306,8 @@ public class tabla_IngSal extends AbstractTableModel {
             int size = getDetalles().size();
             for ( int i = 0; i < size; i++ ) {
                 DetalleFactura df = getDetalles().get(i);
-                setValueAt(Asoles(df.getPrecioRepuesto(), getT()), i, 5);
-                setValueAt(Asoles(df.getD().getPreciolista(), getT()), i, 8);
+                setValueAt(Asoles(df.getPrecioRepuesto(), getT()), i, 8);   //antes 5 (por agregar Equipo, Marca y Modelo)
+                setValueAt(Asoles(df.getD().getPreciolista(), getT()), i, 11);  // antes 8 (por agregar Equipo, Marca y Modelo)
             }
         }
     }
@@ -350,12 +356,16 @@ public class tabla_IngSal extends AbstractTableModel {
     }
 
     public final void CeldasEditables() {
-        habilitado[7] = false;
-        habilitado[8] = false;
-        habilitado[9] = false;
-        habilitado[10] = false;
+        habilitado[10] = false;  // antes 7 (por agregar Equipo, Marca y Modelo)
+        habilitado[11] = false;  // antes 8 (por agregar Equipo, Marca y Modelo)
+        habilitado[12] = false;  // antes 9 (por agregar Equipo, Marca y Modelo)
+        habilitado[13] = false; // antes 10 (por agregar Equipo, Marca y Modelo)
     }
 
+    public void CeldasOcultas() {
+        
+    }
+    
     /**
      * @return the detalles
      */

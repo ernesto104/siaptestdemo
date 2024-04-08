@@ -54,13 +54,13 @@ public class InventarioValorizadoDAO extends GenericDAO<Detallees> {
                 + "d.idoperacion,"                
                 + "d.cantentregada, " // 8
                 + "d.fecha, "
-                + "r.idlinea, "
+                + "r.idequipo, "
                 + "r.costopromedio, "
                 + "r.preciolista, "
                 + "r.codigoseg, " // 13
                 + "r.aplicacion, "
-                + "r.desclista2 "
-                + "r.foxultimo "
+                + "r.desclista2, "
+                + "r.fobultimo, "
                 + "r.marca "                
                 + "from repuestos r left join detallees d on r.idrepuesto = d.idrepuesto "
                 + "left join operaciones o on d.idoperacion = o.idoperacion "

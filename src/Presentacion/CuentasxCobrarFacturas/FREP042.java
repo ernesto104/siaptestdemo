@@ -72,6 +72,7 @@ public class FREP042 extends javax.swing.JFrame {
     
     String rolElegido;
     Util util;
+    int clienteId;  //CAMBIO DE CLIENTE ID
 
 
     public FREP042(Usuarios usuario, String rol, boolean btnCCF) {
@@ -93,7 +94,8 @@ public class FREP042 extends javax.swing.JFrame {
 
         num = new BigDecimal(100);
         model = (DefaultTableModel) tablaFactura.getModel();
-        iniciarTabla(tablaFactura);
+        clienteId = 0; //CAMBIO DE CLIENTE ID
+        iniciarTabla(tablaFactura, clienteId); //CAMBIO DE CLIENTE ID
         
         this.usuario = new Usuarios();
         this.usuario = usuario;
@@ -104,7 +106,7 @@ public class FREP042 extends javax.swing.JFrame {
         m = new MENU001(usuario.getNombre(), rol, 0, 0);
 //        m = new MENU001("", rol, 0, 0);
         util = new Util();
-        alinearDerecha();
+        alinearDerecha();      
     }
     
     private void alinearDerecha() {
@@ -193,12 +195,20 @@ public class FREP042 extends javax.swing.JFrame {
         return cont;
     }
 
-    public DefaultTableModel iniciarTabla(JTable tabla) {
+    public DefaultTableModel iniciarTabla(JTable tabla, int clienteID) {  //CAMBIO DE CLIENTE ID
         TextoFacturas.setText("FACTURAS PENDIENTES POR COBRAR AL " + fechaSistema());
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
-        Servicio_CobrarFacturas sc = new Servicio_CobrarFacturas();
-        List li1 = sc.Listar_Cuentas_x_Cobrar();
-        
+        Servicio_CobrarFacturas sc = new Servicio_CobrarFacturas(); 
+        //CAMBIO DE CLIENTE ID ////////////////
+        clienteId = clienteID;
+        System.out.print("ClienteId: "+clienteId+"\n");
+        List li1 = new ArrayList();
+        if (clienteId != 0) { 
+            li1 = sc.Listar_Cuentas_General_Cliente(clienteId);
+        } else { 
+            li1 = sc.Listar_Cuentas_x_Cobrar();
+        }
+        //CAMBIO DE CLIENTE ID ////////////////
 //El objeto es lil, el campo clientes es el 4 , empezando desde 
 //        DefaultTableModel.
 //        Servicio_CobrarFacturas.
@@ -616,7 +626,8 @@ public class FREP042 extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Seleccione un cliente! ", "Pagar Cuenta", JOptionPane.ERROR_MESSAGE);
             
         } else {
-            IU_PagarFacturasxCobrar pf = new IU_PagarFacturasxCobrar(model, filaseleccionada, m, usuario, tablaFactura, rolElegido, botonPagar.isEnabled());
+            IU_PagarFacturasxCobrar pf = new IU_PagarFacturasxCobrar(model, filaseleccionada, m, usuario, tablaFactura, rolElegido, botonPagar.isEnabled(), this.clienteId);  //CAMBIO DE CLIENTE ID //
+            System.out.print("ClienteId en btn Pagar: ¨"+this.clienteId+"\n");
             pf.setVisible(true);
         }
     }//GEN-LAST:event_botonPagarActionPerformed
@@ -728,6 +739,7 @@ public class FREP042 extends javax.swing.JFrame {
         Servicio_CobrarFacturas sc = new Servicio_CobrarFacturas();
 
         List li1 = sc.Listar_Cuentas_General();
+        clienteId = 0; //CAMBIO DE CLIENTE ID ///
         int tam = li1.size();
 
         if ( tam != 0 ) {
@@ -795,7 +807,8 @@ public class FREP042 extends javax.swing.JFrame {
         limpiar();
         model.getDataVector().removeAllElements();
         model.fireTableDataChanged();
-        iniciarTabla(tablaFactura);
+        clienteId = 0; //CAMBIO DE CLIENTE ID //
+        iniciarTabla(tablaFactura, clienteId); //CAMBIO DE CLIENTE ID //
     }//GEN-LAST:event_botonPendientesActionPerformed
 
     private void btn_1clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_1clienteActionPerformed

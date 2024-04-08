@@ -11,16 +11,33 @@ public class DetalleIngSal {
     String cantidad;
     String precioLista;
     String total;
+    String descrModelo;
+    String equipo;
+    String marca;
     String modelo;
 
-    public DetalleIngSal(String nroParte, String codSec, String descripcion, String cantidad, String precioLista, String total, String modelo) {
+    //nuevo constructor con Equipo, Marca y Modelo
+    public DetalleIngSal(String nroParte, String codSec, String descripcion, String cantidad, String precioLista, String total, String descrModelo, String equipo, String marca, String modelo) {
         this.nroParte = nroParte;
         this.codSec = codSec;
         this.descripcion = descripcion;
         this.cantidad = cantidad;
         this.precioLista = precioLista;
         this.total = total;
+        this.descrModelo = descrModelo;
+        this.equipo = equipo;
+        this.marca = marca;
         this.modelo = modelo;
+    }
+    
+    public DetalleIngSal(String nroParte, String codSec, String descripcion, String cantidad, String precioLista, String total, String descrModelo) {
+        this.nroParte = nroParte;
+        this.codSec = codSec;
+        this.descripcion = descripcion;
+        this.cantidad = cantidad;
+        this.precioLista = precioLista;
+        this.total = total;
+        this.descrModelo = descrModelo;
     }
 
     public String getNroParte() {
@@ -71,6 +88,30 @@ public class DetalleIngSal {
         this.total = total;
     }
 
+    public String getDescrModelo() {
+        return descrModelo;
+    }
+
+    public void setDescrModelo(String descrModelo) {
+        this.descrModelo = descrModelo;
+    }
+    
+    public String getEquipo() {
+        return equipo;
+    }
+
+    public void setEquipo(String equipo) {
+        this.equipo = equipo;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
     public String getModelo() {
         return modelo;
     }
@@ -78,4 +119,5 @@ public class DetalleIngSal {
     public void setModelo(String modelo) {
         this.modelo = modelo;
     }
+
 }

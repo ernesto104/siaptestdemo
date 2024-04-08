@@ -38,10 +38,12 @@ public class IU_1Cliente extends javax.swing.JFrame {
     BigDecimal cont_Fac_C;
     BigDecimal cont_Sal_G;
     BigDecimal cont_Sal_C;
+    //int clienteId; //CAMBIO DE CLIENTE ID ////
 
     public IU_1Cliente(FREP042 lc) {
         this.lc = lc;
         mod = (DefaultTableModel) lc.tablaFactura.getModel();
+        //clienteId = lc.clienteId; //CAMBIO DE CLIENTE ID ////
         cont_Fac_G = new BigDecimal(0);
         cont_Fac_C = new BigDecimal(0);
         cont_Sal_G = new BigDecimal(0);
@@ -194,8 +196,10 @@ public class IU_1Cliente extends javax.swing.JFrame {
                     lc.t3.setText("RUC : ");
                     lc.t4.setText(clie.getRuc());
 
-                    System.out.println("idCliente:" + clie.getIdcliente());
+                    System.out.println("idCliente:" + clie.getIdcliente());                  
                     List list = scab.Listar_Cuentas_General_Cliente(clie.getIdcliente());
+                    lc.clienteId = clie.getIdcliente(); //CAMBIO DE CLIENTE ID //
+                    System.out.print("ClienteId en Filtro: "+lc.clienteId+"\n");
                     
                     int tam = list.size();
                     System.out.println("tamaño de lista:" + tam);
@@ -264,6 +268,8 @@ public class IU_1Cliente extends javax.swing.JFrame {
                     System.out.println("ELSE...");
                     System.out.println("idCliente:" + clie.getIdcliente());
                     List list = scab.Listar_Cuentas_xCobrar_Cliente(clie.getIdcliente());
+                    lc.clienteId = clie.getIdcliente(); //CAMBIO DE CLIENTE ID //
+                    System.out.print("ClienteId en Filtro: "+lc.clienteId+"\n");
                     int tam = list.size();
                     System.out.println("tamaño de lista:" + tam);
                     

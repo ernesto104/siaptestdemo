@@ -190,15 +190,15 @@ public class Servicio_InventarioRepuestos {
             String precioVta = formatearMonetario(String.valueOf(repuestoMaestro[12]), 2); //11
 
 ///////////////////////            
-                System.out.println("Linea 10: " + repuestoMaestro[10]);   //idlinea          
+                System.out.println("Linea 10: " + repuestoMaestro[10]);   //idequipo          
                 System.out.println("repuestoMaestro [10] : " + repuestoMaestro[10]); //
                 System.out.println("repuestoMaestro [11] : " + repuestoMaestro[11]); //
                 System.out.println("repuestoMaestro [12] : " + repuestoMaestro[12]); //
                 System.out.println("repuestoMaestro [13] : " + repuestoMaestro[13]); //
                 
-                System.out.println("repuesto[13] : " + repuesto[13]); //cod.sec.
-                System.out.println("repuesto[14] : " + repuesto[14]); //aplicacion2
-                System.out.println("repuesto[15] : " + repuesto[15]); //anotacion2
+                //System.out.println("repuesto[13] : " + repuesto[13]); //cod.sec.
+                //System.out.println("repuesto[14] : " + repuesto[14]); //aplicacion2
+                //System.out.println("repuesto[15] : " + repuesto[15]); //anotacion2
                 System.out.println("lstMaestroResto[13] : " + repuestoMaestro[13]); //cod.sec.
                 System.out.println("lstMaestroResto[14] : " + repuestoMaestro[14]); //aplicacion2
                 System.out.println("lstMaestroResto[15] : " + repuestoMaestro[15]); //anotacion2

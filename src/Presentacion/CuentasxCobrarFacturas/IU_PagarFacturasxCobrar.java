@@ -30,8 +30,13 @@ import java.nio.file.StandardCopyOption;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -65,8 +70,9 @@ public class IU_PagarFacturasxCobrar extends javax.swing.JFrame {
     File imagenGuardar;
     boolean seleccImagen;
     File imagenPagoSelect;
+    int clienteId;  //CAMBIO DE CLIENTE ID //
 
-    public IU_PagarFacturasxCobrar(DefaultTableModel t, int fila, MENU001 m, Usuarios usuario, JTable ta, String rol, boolean botonPagar) {
+    public IU_PagarFacturasxCobrar(DefaultTableModel t, int fila, MENU001 m, Usuarios usuario, JTable ta, String rol, boolean botonPagar, int clienteId) {
         modelo = new Tabla_CobrarFacturas();
         initComponents();
         setLocationRelativeTo(null);
@@ -75,8 +81,13 @@ public class IU_PagarFacturasxCobrar extends javax.swing.JFrame {
         this.m = m;
         tt = ta;
         filaseleccionada = fila;
+        //CAMBIO DE CLIENTE ID ////////////////
         lc = new FREP042(usuario, rol, botonPagar);
-
+        lc.clienteId = clienteId;
+        this.clienteId = clienteId;
+        System.out.print("ClienteId despues de btn Pagar: ¨"+lc.clienteId+"\n");
+        //CAMBIO DE CLIENTE ID ////////////////
+        
         iniciarDatosCliente();
         iniciarBanco();
         fechaSistema();
@@ -878,7 +889,9 @@ public class IU_PagarFacturasxCobrar extends javax.swing.JFrame {
                     tabla.fireTableDataChanged();
 
                     ((AbstractTableModel) tablaPagos.getModel()).fireTableDataChanged();
-                    lc.iniciarTabla(tt);
+                    //clienteId = p.getCabeces().getClientes().getIdcliente(); 
+                    System.out.print("ClienteId antes de aceptar Pagar: ¨"+lc.clienteId+"\n");
+                    lc.iniciarTabla(tt, lc.clienteId); //CAMBIO DE CLIENTE ID ///
 
                     actualizarSaldo();
 
@@ -921,7 +934,16 @@ public class IU_PagarFacturasxCobrar extends javax.swing.JFrame {
         for ( int i = 0; i < tablaPagos.getRowCount(); i++ ) {
             d = d + Double.parseDouble(String.valueOf(tablaPagos.getValueAt(i, 0)));
         }
-        d = Double.parseDouble(String.valueOf(tabla.getValueAt(filaseleccionada, 7))) - d;
+        
+        //String cadena= valorMonetario;
+        Locale locale = new Locale ("en", "UK");
+        NumberFormat objNF = NumberFormat.getInstance (locale);
+        try {
+            //d = Double.parseDouble(String.valueOf(tabla.getValueAt(filaseleccionada, 7))) - d;
+            d = objNF.parse(String.valueOf(tabla.getValueAt(filaseleccionada, 7))).doubleValue() - d;
+        } catch (ParseException ex) {
+            Logger.getLogger(IU_PagarFacturasxCobrar.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return d;
 //        txt_totalFactura.setText(moneda + " " + String.valueOf(tabla.getValueAt(filaseleccionada, 7)));
     }
@@ -1300,7 +1322,7 @@ public class IU_PagarFacturasxCobrar extends javax.swing.JFrame {
 
                         ((AbstractTableModel) tablaPagos.getModel()).fireTableDataChanged();
 
-                        lc.iniciarTabla(tt);
+                        lc.iniciarTabla(tt, clienteId); //CAMBIO DE CLIENTE ID ///
                         limpiarDatos();
 
                         String moneda = tabla.getValueAt(filaseleccionada, 6).toString();
@@ -1354,7 +1376,7 @@ public class IU_PagarFacturasxCobrar extends javax.swing.JFrame {
                     tabla.fireTableDataChanged();
                     ((AbstractTableModel) tablaPagos.getModel()).fireTableDataChanged();
 
-                    lc.iniciarTabla(tt);
+                    lc.iniciarTabla(tt, clienteId); //CAMBIO DE CLIENTE ID //
                     limpiarDatos();
                     String moneda = tabla.getValueAt(filaseleccionada, 6).toString();
                     double valorMon = new Util().Redondear2Decimales(actualizarSaldo());

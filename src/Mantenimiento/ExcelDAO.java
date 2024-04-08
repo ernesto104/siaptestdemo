@@ -1089,6 +1089,7 @@ public class ExcelDAO {
                 //System.out.print(descripcionPartes[1]);
                 hoja.addCell(new Label(C, fila, nserie, izq11AN));
 //                hoja.addCell(new Label(C, fila, idRepuesto, fTituloIzq)); // CÓDIGO
+                //////////////////////
                 if(descripcion.length() > MAX_CARACTERES_DESCRIPCION && descripcionPartes.length > 1) {  // si DESCRIPCION ES LARGA y tien salto de linea
                     int tamañoIndexInterno=descripcionPartes.length;
                     int filaDescripcion = fila;
@@ -1104,7 +1105,7 @@ public class ExcelDAO {
                 } else {
                     hoja.addCell(new Label(D, fila, descripcion, izq11AN)); // DESCRIPCIÓN
                 }
-                
+                //////////////////////////////
                 //hoja.addCell(new Label(J, fila, cadenaDsctos, izq10Normal)); // DESCUENTOS  / Se comentara porque no es necesario para negocio de laptops
                 
 //                hoja.addCell(new Label(M, fila, util.formatearComaMillar(unitario), der10NormalSinBorde)); // P. UNITARIO
@@ -1978,7 +1979,7 @@ public class ExcelDAO {
             // 3. Descripción
             String descripcion = d.getDescripcion();
 //            System.out.println("descripcion:" + descripcion);
-            String modelo = d.getModelo();
+            String modelo = d.getDescrModelo();
 //            System.out.println("modelo:" + modelo);
             String descripcion_modelo = descripcion + " " + modelo;
             s.addCell(new Label(D, fila, descripcion_modelo, izq10Calibri));
@@ -2219,7 +2220,7 @@ public class ExcelDAO {
             // 3. Descripción
             String descripcion = d.getDescripcion();
             System.out.println("descripcion:" + descripcion);
-            String modelo = d.getModelo();
+            String modelo = d.getDescrModelo();
             System.out.println("modelo:" + modelo);
             String descripcion_modelo = descripcion + " " + modelo;
             s.addCell(new Label(D, fila, descripcion_modelo, izq10Calibri));

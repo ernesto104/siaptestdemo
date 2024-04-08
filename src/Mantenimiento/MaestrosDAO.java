@@ -458,7 +458,7 @@ public class MaestrosDAO extends GenericDAO<Repuestos> {
         String consulta
                 = "select r.codrepuesto, r.descripcion, r.descrmodelo, r.desclista, r.stock, "
                 + "r.preciolista, (r.stock * r.preciolista) as total, "
-                + "'', '', '', r.idlinea, r.costopromedio, "
+                + "'', '', '', r.idequipo, r.costopromedio, "
                 + "r.preciolista, r.codigoseg, r.aplicacion, r.desclista2 "
                 + "from repuestos r " 
                 + "where r.codrepuesto not in (" + lstCodigosRepuestos + ") "

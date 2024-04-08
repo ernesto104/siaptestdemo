@@ -98,9 +98,6 @@
               </Border>
             </Property>
           </Properties>
-          <AccessibilityProperties>
-            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Tipo de Servicio Tecnico"/>
-          </AccessibilityProperties>
 
           <Layout>
             <DimensionLayout dim="0">
@@ -162,8 +159,8 @@
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="2">
-                    <StringItem index="0" value="Reclamo de Garantia                |  Si"/>
-                    <StringItem index="1" value="Soporte Tecnico                       |  No"/>
+                    <StringItem index="0" value="Reclamo de Garantia                |  No"/>
+                    <StringItem index="1" value="Soporte Tecnico                       |  Si"/>
                   </StringArray>
                 </Property>
               </Properties>

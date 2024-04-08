@@ -108,14 +108,14 @@ public class IU_DetalleIngSal extends javax.swing.JFrame implements Constantes {
     private void alinearColumnasDerecha() {
         DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
         tcr.setHorizontalAlignment(SwingConstants.RIGHT);
-        tb_detalle.getColumnModel().getColumn(4).setCellRenderer(tcr);      // Stock
-        tb_detalle.getColumnModel().getColumn(5).setCellRenderer(tcr);      // Precio Costo
-        tb_detalle.getColumnModel().getColumn(6).setCellRenderer(tcr);      // Cantidad
-        tb_detalle.getColumnModel().getColumn(7).setCellRenderer(tcr);      // Dcto 1
-        tb_detalle.getColumnModel().getColumn(8).setCellRenderer(tcr);      // Dcto 2
-        tb_detalle.getColumnModel().getColumn(9).setCellRenderer(tcr);      // Dcto 3
-        tb_detalle.getColumnModel().getColumn(10).setCellRenderer(tcr);     // Dcto 4
-        tb_detalle.getColumnModel().getColumn(11).setCellRenderer(tcr);     // Total
+        tb_detalle.getColumnModel().getColumn(7).setCellRenderer(tcr);      // Stock antes 4
+        tb_detalle.getColumnModel().getColumn(8).setCellRenderer(tcr);      // Precio Costo antes 5
+        tb_detalle.getColumnModel().getColumn(9).setCellRenderer(tcr);      // Cantidad antes 6
+        tb_detalle.getColumnModel().getColumn(10).setCellRenderer(tcr);      // Dcto 1 antes 7
+        tb_detalle.getColumnModel().getColumn(11).setCellRenderer(tcr);      // Dcto 2 antes 8
+        tb_detalle.getColumnModel().getColumn(12).setCellRenderer(tcr);      // Dcto 3 antes 9
+        tb_detalle.getColumnModel().getColumn(13).setCellRenderer(tcr);     // Dcto 4 antes 10
+        tb_detalle.getColumnModel().getColumn(14).setCellRenderer(tcr);     // Total antes 11
     }
 
     public IU_DetalleIngSal(int tipo, String importeFac, Clientes Proveedor, String moneda, String motivo,
@@ -150,6 +150,11 @@ public class IU_DetalleIngSal extends javax.swing.JFrame implements Constantes {
         sis = new Servicio_IngresoSalida();
         t = sis.getTipoCambio(GregorianCalendar.getInstance().getTime());
         MaxLineas = sis.getMaxLineas();
+    }
+    
+    
+    private void ocultarColumnas () {
+         //tb_detalle.getColumnModel().getColumn(7).set
     }
 
     private void SetEditor() {
@@ -427,7 +432,7 @@ public class IU_DetalleIngSal extends javax.swing.JFrame implements Constantes {
         boolean cantidad0 = false;
         
         for ( int fila = 0; fila < tb_detalle.getRowCount(); fila++ ) {
-            if ( (int) tb_detalle.getValueAt(fila, 6) <= 0 ) {
+            if ( (int) tb_detalle.getValueAt(fila, 9) <= 0 ) {
                 cantidad0 = true;
                 break;
             }
@@ -441,8 +446,8 @@ public class IU_DetalleIngSal extends javax.swing.JFrame implements Constantes {
         //boolean cantidad0 = false;
         
         for ( int fila = 0; fila < tb_detalle.getRowCount(); fila++ ) {
-            int cant = (int) tb_detalle.getValueAt(fila, 6);
-            int stock = (int) tb_detalle.getValueAt(fila, 4);
+            int cant = (int) tb_detalle.getValueAt(fila, 9);
+            int stock = (int) tb_detalle.getValueAt(fila, 7);
             
             if ( cant > stock ) {
                 //cantidad0 = true;
@@ -530,23 +535,28 @@ public class IU_DetalleIngSal extends javax.swing.JFrame implements Constantes {
         ArrayList<DetalleIngSal> lista = new ArrayList<>();
         
         for ( int i = 0; i < tb_detalle.getRowCount(); i++ ) {
-            String nroParte = String.valueOf(tabla.getValueAt(i, 1));
+            String nroParte = String.valueOf(tabla.getValueAt(i, 4)); //antes 1
             
-            String codSecundario = String.valueOf(tabla.getValueAt(i, 2));
+            String codSecundario = String.valueOf(tabla.getValueAt(i, 5));   //antes 2
             String codSec = ( "null".equals(codSecundario) ? "" : codSecundario);
-            String descripcion = String.valueOf(tabla.getValueAt(i, 3));
-            String cantidad = String.valueOf(tabla.getValueAt(i, 6));
-
-            String precioLista = String.valueOf(tabla.getValueAt(i, 5));
-            String total = String.valueOf(tabla.getValueAt(i, 11));
             
-            String modelo = String.valueOf(tabla.getValueAt(i, 12));
-            String descrModelo = ( "null".equals(modelo) ? "" : modelo);
+            String equipo = String.valueOf(tabla.getValueAt(i, 3));
+            String marca = String.valueOf(tabla.getValueAt(i, 4));
+            String modelo = String.valueOf(tabla.getValueAt(i, 5));
+            
+            String descripcion = String.valueOf(tabla.getValueAt(i, 6));    //antes 3
+            String cantidad = String.valueOf(tabla.getValueAt(i, 9));          //antes 6
+
+            String precioLista = String.valueOf(tabla.getValueAt(i, 8));        //antes 5
+            String total = String.valueOf(tabla.getValueAt(i, 14));             //antes 11
+            
+            String descrModeloText = String.valueOf(tabla.getValueAt(i, 15));   //antes 12
+            String descrModelo = ( "null".equals(descrModeloText) ? "" : descrModeloText);
             
 //            lista.add(new DetalleIngSal(nroParte, codSec, descripcion, descrModelo, cantidad, precioLista, total));
             lista.add(new DetalleIngSal(nroParte, 
                                         codSec,
-                                        descripcion, cantidad, precioLista, total, descrModelo));
+                                        descripcion, cantidad, precioLista, total, descrModelo, equipo, marca, modelo));
         }
         return lista;
     }
