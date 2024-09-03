@@ -94,6 +94,13 @@ public class UI_ModificarPlanilla extends javax.swing.JFrame {
             dc_Fecha.setDate(cabeces.getTipocambio().getFecha());
             cb_Forma.setSelectedIndex(Integer.parseInt(cabeces.getTipoperacion()));
             
+            if(cabeces.getTxtgen()== 0) {
+                cbGenTxt.setSelectedIndex(0);//
+            } else {
+                cbGenTxt.setSelectedIndex(1);
+            }
+            
+            
             if ( filaSeleccionada == -1 ) {
                 cbVendedor.setSelectedItem(cabeces.getVendedores().getNombre());
                 
@@ -109,6 +116,12 @@ public class UI_ModificarPlanilla extends javax.swing.JFrame {
             lb_documento.setText(cabsal.getCodigosalida());
             lb_total.setText(String.valueOf("$ " + cabsal.getTotal()));
             dc_Fecha.setDate(cabsal.getFecha());
+            
+            if(cabeces.getTxtgen()== 0) {
+                cbGenTxt.setSelectedIndex(0);//
+            } else {
+                cbGenTxt.setSelectedIndex(1);
+            }
             
             if ( filaSeleccionada == -1 ) {
                 cbVendedor.setSelectedItem(cabeces.getVendedores().getNombre());
@@ -148,6 +161,8 @@ public class UI_ModificarPlanilla extends javax.swing.JFrame {
         jl_nroserie = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         cbVendedor = new javax.swing.JComboBox();
+        jLabel9 = new javax.swing.JLabel();
+        cbGenTxt = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -192,6 +207,10 @@ public class UI_ModificarPlanilla extends javax.swing.JFrame {
 
         jLabel8.setText("Vendedor:");
 
+        jLabel9.setText("Enviado a Sunat:");
+
+        cbGenTxt.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "No Enviado", "Enviado" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -203,6 +222,11 @@ public class UI_ModificarPlanilla extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbGenTxt, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
@@ -277,7 +301,11 @@ public class UI_ModificarPlanilla extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(cbVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(cbGenTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_Aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -316,18 +344,30 @@ public class UI_ModificarPlanilla extends javax.swing.JFrame {
                     cabeces.setTipoperacion(String.valueOf(cb_Forma.getSelectedIndex()));
                     Tipocambio t = new Servicio_TipoCambio().obtenerTipoCambio(dc_Fecha.getDate());
                     cabeces.setTipocambio(t);
+                    System.out.println(cbGenTxt.getSelectedItem().toString());
+                    if(cbGenTxt.getSelectedIndex()==0) {
+                        
+                            cabeces.setTxtgen(0);
+                    } else {
+                        cabeces.setTxtgen(1);
+                    }
                     
                     String nombreVend = String.valueOf(cbVendedor.getSelectedItem());
                     Vendedores vendedor = new VendedorDAO().Obtener_Vendedor_PorNombre(nombreVend);
                     if (new Servicio_Cabeces().actualizarDoc(cabeces, vendedor)) {
                         tm.Mensaje("SE GUARDARON LOS CAMBIOS");
-                        
+                        System.out.println(cabeces.getTxtgen());
                         dispose();
                     } else {
                         tm.Error("ERROR AL MODIFICAR EL REGISTRO");
                     }                    
                 } else if (cabsal != null) {
                     cabsal.setFecha(dc_Fecha.getDate());
+                    if(cbGenTxt.getSelectedIndex()==0) {
+                            cabeces.setTxtgen(0);
+                    } else {
+                        cabeces.setTxtgen(1);
+                    }
                     if (new Servicio_Documentos().Actualizar_SK(cabsal)) {
                         tm.Mensaje("SE GUARDARON LOS CAMBIOS");
                         dispose();
@@ -376,6 +416,7 @@ public class UI_ModificarPlanilla extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_Aceptar;
     private javax.swing.JButton btn_Salir;
+    private javax.swing.JComboBox cbGenTxt;
     private javax.swing.JComboBox cbVendedor;
     private javax.swing.JComboBox cb_Forma;
     private com.toedter.calendar.JDateChooser dc_Fecha;
@@ -387,6 +428,7 @@ public class UI_ModificarPlanilla extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel jl_nroserie;
     private javax.swing.JLabel lb_documento;

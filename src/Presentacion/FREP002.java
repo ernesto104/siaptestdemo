@@ -749,7 +749,7 @@ public class FREP002 extends javax.swing.JFrame {
     private void Listar_Clientes() {
         cant_client = servicioCliente.Listar_clientes(modelo);
         cant_client++;
-        txtID.setText("" + (servicioCliente.getUltimo_id() + 1));
+        txtID.setText("" + (servicioCliente.nextId()));
     }
 
     private void Listar_Transportistas() {
@@ -826,7 +826,7 @@ public class FREP002 extends javax.swing.JFrame {
         numMaximo.add(20); //telefon1
         numMaximo.add(20); //telefon2
         numMaximo.add(13); //celular
-        numMaximo.add(11); //ruc
+        numMaximo.add(13); //ruc
         numMaximo.add(8); //credito
         numMaximo.add(4); //desc1
         numMaximo.add(4); //desc2
@@ -1184,7 +1184,7 @@ public class FREP002 extends javax.swing.JFrame {
         limpiarModelo();
 //        tblClientes.setModel(new DefaultTableModel());
         servicioCliente.Listar_clientes(modelo);
-        txtID.setText("" + (servicioCliente.getUltimo_id() + 1));
+        txtID.setText("" + (servicioCliente.nextId()));
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void limpiarModelo(){

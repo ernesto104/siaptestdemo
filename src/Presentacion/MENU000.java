@@ -6,6 +6,7 @@ import Servicios.HibernateUtil;
 import Servicios.Servicio_Control;
 import Servicios.Servicio_Usuarios;
 import Servicios.TipoMensaje;
+import Servicios.UserSession;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
@@ -226,6 +227,8 @@ public class MENU000 extends javax.swing.JFrame {
                 
             }else{
                 IU_VerificacionPassword password = new IU_VerificacionPassword(idseleccionado, rol, nombreusuario);
+                UserSession.USER =nombreusuario;
+                UserSession.ROL =rol;
                 dispose();
                 password.setVisible(true);
             }               

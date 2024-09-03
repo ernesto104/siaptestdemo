@@ -183,4 +183,23 @@ public class ModelosDAO extends GenericDAO<Modelos> {
         return lista;
 
     }
+    
+    
+    public List Obtener_Lista_Objetos_OrderCodigoMarcas(int idMarca) {
+        List<Modelos> lista = new LinkedList();
+        try {
+            iniciaOperacion();
+//            lista = sesion.createQuery("from Equipos order by idlinea ASC").list();
+            lista = sesion.createQuery("from Modelos where marca.idmarca like '"+idMarca+"' order by descripcion ASC").list();
+            tx.commit();
+
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+        } finally {
+
+                sesion.close();
+            
+        }
+        return lista;
+    }
 }

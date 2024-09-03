@@ -1,8 +1,0 @@
-Presentacion.ProgressBarDemo
-Presentacion.SwingWorkerB
-Presentacion.LongTaskB
-Presentacion.SwingWorkerB$ThreadVar
-Presentacion.SwingWorkerB$2
-Presentacion.SwingWorkerB$1
-Presentacion.LongTaskB$1
-Presentacion.LongTaskB$ActualTask

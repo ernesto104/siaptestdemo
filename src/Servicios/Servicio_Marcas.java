@@ -127,6 +127,11 @@ public class Servicio_Marcas {
         
     }
     
+    public List buscarMarcasx_CodigoEquipo(int idEquipo){
+        return marcaDao.Listar_Marcas_por_CodigoEquipo(idEquipo);
+        
+    }
+    
     
     public void ListarMarcasx_Equipo(Equipos equipo){
         //return marcaDao.Listar_Marcas_por_Equipo(equipo);

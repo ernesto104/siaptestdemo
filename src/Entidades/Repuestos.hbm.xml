@@ -30,7 +30,7 @@
             <column name="IDMODELO" not-null="true"/>
         </many-to-one>
         <property name="codrepuesto" type="string">
-            <column length="40" name="CODREPUESTO" not-null="true"/>
+            <column length="60" name="CODREPUESTO" not-null="true"/>
         </property>
         <property name="codigoseg" type="string">
             <column length="15" name="CODIGOSEG"/>
@@ -39,7 +39,10 @@
             <column name="NROALTERNATIVO"/>
         </property>
         <property name="descripcion" type="string">
-            <column length="60" name="DESCRIPCION"/>
+            <column length="150" name="DESCRIPCION"/>
+        </property>
+        <property name="descrfactura" type="string">
+            <column length="200" name="DESCRFACTURA"/>
         </property>
         <property name="preciolista" type="java.lang.Double">
             <column name="PRECIOLISTA" precision="8"/>
@@ -48,13 +51,13 @@
             <column name="COSTOPROMEDIO" precision="8"/>
         </property>
         <property name="descrmodelo" type="string">
-            <column length="40" name="DESCRMODELO"/>
+            <column length="80" name="DESCRMODELO"/>
         </property>
         <property name="desclista" type="string">
-            <column length="40" name="DESCLISTA"/>
+            <column length="80" name="DESCLISTA"/>
         </property>
         <property name="desclista2" type="string">
-            <column length="40" name="DESCLISTA2"/>
+            <column length="80" name="DESCLISTA2"/>
         </property>
         <property name="pcostoultimo" type="java.lang.Double">
             <column name="PCOSTOULTIMO" precision="8"/>

@@ -54,11 +54,30 @@ public class Monetario {
         return valorMonetario;
     }
     
+    public static String formatearTotal(double total) {
+        return formatearCeros(String.valueOf(redondear2Decimales(total)), 2);
+    }
+    
     public static String asignarMoneda(int tipoMoneda) { // tipoMoneda = 0(Dolar), 1(Soles)
         String moneda = DOLAR_STANDARD;
         if ( tipoMoneda == 1 ) {
             moneda = SOL;
         }
         return moneda;
+    }
+    
+    
+    private static String formatearCeros(String numero, int cantidadDigitos) {
+        String formateado = numero;
+        int longitudCeros = cantidadDigitos - numero.length();
+        
+        for ( int i = 0; i < longitudCeros; i++ ) {
+            formateado = "0" + formateado;
+        }
+        return formateado;
+    }
+    
+    public static double redondear2Decimales(double valor){
+        return Math.round(valor*100.0)/100.0;
     }
 }

@@ -1081,16 +1081,17 @@ public class ExcelDAO {
             String marca = d.getRepuestos().getMarcas().getDescripcion();
             String modeloEquip = d.getRepuestos().getModelos().getDescripcion();
             String descripcion = d.getRepuestos().getDescripcion(); // + " " + modelo; // ¿SE DEBE AGREGAR EL MODELO A LA DESCRIPCION EN BOLETA Y FACTURA?
-            descripcion =   equipo+" "+ marca+" " +modeloEquip+" "+ descripcion;
+            descripcion =   equipo+" "+ marca+" " +modeloEquip+" "+ descripcion; // Se utilizara variable de abajo para descripcion modificables
+            String descrelementfact = d.getRepuestos().getDescrfactura();
             //descripcion = agregarSaltoLineaCaracteres(descripcion, MAX_CARACTERES_DESCRIPCION); // + cadenaDsctos;
-            String[] descripcionPartes = agregarSaltoLineaCaracteres(descripcion, MAX_CARACTERES_DESCRIPCION);       
+            String[] descripcionPartes = agregarSaltoLineaCaracteres(descrelementfact, MAX_CARACTERES_DESCRIPCION);       
             if ( cantentregada > 0 ) {
                 hoja.addCell(new Label(A, fila, cantidad, der10Normal)); // CANTIDAD
                 //System.out.print(descripcionPartes[1]);
                 hoja.addCell(new Label(C, fila, nserie, izq11AN));
 //                hoja.addCell(new Label(C, fila, idRepuesto, fTituloIzq)); // CÓDIGO
                 //////////////////////
-                if(descripcion.length() > MAX_CARACTERES_DESCRIPCION && descripcionPartes.length > 1) {  // si DESCRIPCION ES LARGA y tien salto de linea
+                if(descrelementfact.length() > MAX_CARACTERES_DESCRIPCION && descripcionPartes.length > 1) {  // si DESCRIPCION ES LARGA y tien salto de linea
                     int tamañoIndexInterno=descripcionPartes.length;
                     int filaDescripcion = fila;
                     int i = 0;
@@ -1103,7 +1104,7 @@ public class ExcelDAO {
                     }
                     contFilas =i-1;
                 } else {
-                    hoja.addCell(new Label(D, fila, descripcion, izq11AN)); // DESCRIPCIÓN
+                    hoja.addCell(new Label(D, fila, descrelementfact, izq11AN)); // DESCRIPCIÓN
                 }
                 //////////////////////////////
                 //hoja.addCell(new Label(J, fila, cadenaDsctos, izq10Normal)); // DESCUENTOS  / Se comentara porque no es necesario para negocio de laptops
@@ -1365,11 +1366,11 @@ public class ExcelDAO {
                 // 0. Nro. de Parte del Repuesto
                 s.addCell(new Label(A, fila, nroParte, izq11V));
                 // 1. Código de Repuesto --> ahora descripcion base +Descripcion y campo DescrModelo
-                descripcion = descrBase+" "+descripcion + " " + descrModelo;
+                descripcion = descrBase+" "+descripcion + " " + descrModelo; // Se utilizara variable de abajo para probar modificables
+                String descrelementfact = d.getRepuestos().getDescrfactura();
+                String[] descripcionPorPartes = agregarSaltoLineaCaracteres(descrelementfact, MAX_CARACTERES_DESCRIPCION)/* + " " + aplicacion*/;
                 
-                String[] descripcionPorPartes = agregarSaltoLineaCaracteres(descripcion, MAX_CARACTERES_DESCRIPCION)/* + " " + aplicacion*/;
-                
-                if(descripcion.length() > MAX_CARACTERES_DESCRIPCION && descripcionPorPartes.length > 1) { // si despcripcion es grande y si tiene saltos de linea
+                if(descrelementfact.length() > MAX_CARACTERES_DESCRIPCION && descripcionPorPartes.length > 1) { // si despcripcion es grande y si tiene saltos de linea
                     int tamañoIndexInterno=descripcionPorPartes.length;
                     int filaDescripcion = fila;
                     int i = 0;
@@ -1381,7 +1382,7 @@ public class ExcelDAO {
                         tamañoIndexInterno--;
                     }
                     contFilas =i-1;
-                } else {s.addCell(new Label(B, fila, descripcion, izq10Normal));  }// DESCRIPCIÓN
+                } else {s.addCell(new Label(B, fila, descrelementfact, izq10Normal));  }// DESCRIPCIÓN
                 //s.addCell(new Label(B, fila, descripcion, izq11AN));
                 
                 
@@ -1977,12 +1978,33 @@ public class ExcelDAO {
 //            s.addCell(new Label(C, fila, codSecundario, izq10Calibri));
             
             // 3. Descripción
+            String equipo = d.getEquipo();
+            String marca = d.getMarca();
+            String modelo_de_marca = d.getModelo();
             String descripcion = d.getDescripcion();
+            descripcion = equipo+" " + marca +" "+modelo_de_marca + " "+ d.getDescripcion();
 //            System.out.println("descripcion:" + descripcion);
             String modelo = d.getDescrModelo();
+            
 //            System.out.println("modelo:" + modelo);
             String descripcion_modelo = descripcion + " " + modelo;
-            s.addCell(new Label(D, fila, descripcion_modelo, izq10Calibri));
+            //s.addCell(new Label(D, fila, descripcion_modelo, izq10Calibri));
+            
+            String[] descripcionPorPartes = agregarSaltoLineaCaracteres(descripcion_modelo, 50)/* + " " + aplicacion*/;
+            System.out.print("Campos:"+ equipo+" " + marca + " "+modelo_de_marca );    
+            if(descripcion_modelo.length() > 50 && descripcionPorPartes.length > 1) { // si despcripcion es grande y si tiene saltos de linea
+                    int tamañoIndexInterno=descripcionPorPartes.length;
+                    int filaDescripcion = fila;
+                    int i = 0;
+                    while(tamañoIndexInterno > 0){
+                        s.addCell(new Label(D, filaDescripcion, descripcionPorPartes[i], izq10Calibri));
+                        //hoja.addCell(new Label(D, fila+1, descripcionPartes[1], izq11AN));
+                        i++;
+                        filaDescripcion++;
+                        tamañoIndexInterno--;
+                    }
+                    //contFilas =i-1;
+           } else {s.addCell(new Label(D, fila, descripcion_modelo, izq10Calibri));  }// DESCRIPCIÓN
             
             // 4. Cantidad
             String cantidad = d.getCantidad();
@@ -2032,6 +2054,19 @@ public class ExcelDAO {
                 s.addCell(new Label(B, fila, nroParte, izqFinDetalle));
 //                s.addCell(new Label(C, fila, codSecundario, izqFinDetalle));
                 s.addCell(new Label(C, fila, "", izqFinDetalle));
+                /*if(descripcion_modelo.length() > 50 && descripcionPorPartes.length > 1) { // si despcripcion es grande y si tiene saltos de linea
+                    int tamañoIndexInterno=descripcionPorPartes.length;
+                    int filaDescripcion = fila;
+                    int i = 0;
+                    while(tamañoIndexInterno > 0){
+                        s.addCell(new Label(D, filaDescripcion, descripcionPorPartes[i], izqFinDetalle));
+                        //hoja.addCell(new Label(D, fila+1, descripcionPartes[1], izq11AN));
+                        i++;
+                        filaDescripcion++;
+                        tamañoIndexInterno--;
+                    }
+                    //contFilas =i-1;
+                   } else {s.addCell(new Label(D, fila, descripcion_modelo, izqFinDetalle));  }// DESCRIPCIÓN*/
                 s.addCell(new Label(D, fila, descripcion_modelo, izqFinDetalle));
                 s.addCell(new Label(EE, fila, "", izqFinDetalle));
                 s.addCell(new Label(F, fila, cantidad, derFinDetalle));
@@ -2218,12 +2253,34 @@ public class ExcelDAO {
 //            s.addCell(new Label(C, fila, codSecundario, izq10Calibri));
             
             // 3. Descripción
+            String equipo = d.getEquipo();
+            String marca = d.getMarca();
+            String modelo_de_marca = d.getModelo();
             String descripcion = d.getDescripcion();
-            System.out.println("descripcion:" + descripcion);
+            String descripcion_completa= equipo +' ' +marca+' ' + modelo_de_marca +' ' +descripcion;
+            System.out.println("descripcion completa:" + equipo +' ' +marca+' ' + modelo_de_marca +' ' +descripcion);
             String modelo = d.getDescrModelo();
-            System.out.println("modelo:" + modelo);
-            String descripcion_modelo = descripcion + " " + modelo;
-            s.addCell(new Label(D, fila, descripcion_modelo, izq10Calibri));
+            System.out.println("Descr modelo:" + modelo);
+            //String descripcion_modelo = descripcion + " " + modelo;
+            String descripcion_modelo = descripcion_completa + " " + modelo;
+            //s.addCell(new Label(D, fila, descripcion_modelo, izq10Calibri));
+            
+            String[] descripcionPorPartes = agregarSaltoLineaCaracteres(descripcion_modelo, 50)/* + " " + aplicacion*/;
+                
+                if(descripcion_modelo.length() > 50 && descripcionPorPartes.length > 1) { // si despcripcion es grande y si tiene saltos de linea
+                    int tamañoIndexInterno=descripcionPorPartes.length;
+                    int filaDescripcion = fila;
+                    int i = 0;
+                    while(tamañoIndexInterno > 0){
+                        s.addCell(new Label(D, filaDescripcion, descripcionPorPartes[i], izq10Calibri));
+                        //hoja.addCell(new Label(D, fila+1, descripcionPartes[1], izq11AN));
+                        i++;
+                        filaDescripcion++;
+                        tamañoIndexInterno--;
+                    }
+                    //contFilas =i-1;
+                } else {s.addCell(new Label(D, fila, descripcion_modelo, izq10Calibri));  }// DESCRIPCIÓN
+            
             
             // 4. Cantidad
             String cantidad = d.getCantidad();
@@ -2273,7 +2330,22 @@ public class ExcelDAO {
                 s.addCell(new Label(B, fila, nroParte, izqFinDetalle));
 //                s.addCell(new Label(C, fila, codSecundario, izqFinDetalle));
                 s.addCell(new Label(C, fila, "", izqFinDetalle));
-                s.addCell(new Label(D, fila, descripcion_modelo, izqFinDetalle));
+                //String[] descripcionPorPartes = agregarSaltoLineaCaracteres(descripcion_modelo, 50)/* + " " + aplicacion*/;
+                
+                if(descripcion_modelo.length() > 50 && descripcionPorPartes.length > 1) { // si despcripcion es grande y si tiene saltos de linea
+                    int tamañoIndexInterno=descripcionPorPartes.length;
+                    int filaDescripcion = fila;
+                    int i = 0;
+                    while(tamañoIndexInterno > 0){
+                        s.addCell(new Label(D, filaDescripcion, descripcionPorPartes[i], izqFinDetalle));
+                        //hoja.addCell(new Label(D, fila+1, descripcionPartes[1], izq11AN));
+                        i++;
+                        filaDescripcion++;
+                        tamañoIndexInterno--;
+                    }
+                    //contFilas =i-1;
+                } else {s.addCell(new Label(D, fila, descripcion_modelo, izqFinDetalle));  }// DESCRIPCIÓN
+                //s.addCell(new Label(D, fila, descripcion_modelo, izqFinDetalle));
                 s.addCell(new Label(EE, fila, "", izqFinDetalle));
                 s.addCell(new Label(F, fila, cantidad, derFinDetalle));
                 s.addCell(new Label(G, fila, precioLista, derFinDetalle));

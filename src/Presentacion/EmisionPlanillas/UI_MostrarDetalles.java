@@ -69,22 +69,22 @@ public class UI_MostrarDetalles extends javax.swing.JFrame {
                     anchoColumna = (10 * ancho) / 100;
                     break;
                 case 1:
-                    anchoColumna = (30 * ancho) / 100;
+                    anchoColumna = (10 * ancho) / 100;
                     break;
                 case 2:
-                    anchoColumna = (20 * ancho) / 100;
+                    anchoColumna = (70 * ancho) / 100;
                     break;
                 case 3:
                     anchoColumna = (10 * ancho) / 100;
                     break;
                 case 4:
-                    anchoColumna = (10 * ancho) / 100;
+                    anchoColumna = (0 * ancho) / 100;
                     break;
                 case 5:
-                    anchoColumna = (10 * ancho) / 100;
+                    anchoColumna = (0 * ancho) / 100;
                     break;
                 case 6:
-                    anchoColumna = (10 * ancho) / 100;
+                    anchoColumna = (0 * ancho) / 100;
                     break;
             }
             columnaTabla.setPreferredWidth(anchoColumna);

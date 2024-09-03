@@ -18,7 +18,7 @@ public class FREP019 extends javax.swing.JFrame {
         this.usuario = usuario;
         this.valorVenta = valorVenta;
         bt_web.setVisible(false);
-        bt_guiaR.setVisible(false);
+        //bt_guiaR.setVisible(false);
 //        System.out.println("Roles : " + roles);
         Roles Querol = usuario.getRoles();
         System.out.println("Al comienzo Rol : " + Querol);

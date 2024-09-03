@@ -21,6 +21,11 @@ public class Repuestos  implements java.io.Serializable {
      private String codigoseg;
      private Integer nroalternativo;
      private String descripcion;
+     private String descrfactura;
+     private String descrequipfact;
+     private String descrmarcfact;
+     private String descrmodfact;
+     private String descrDescrfact;
      private Double preciolista;
      private Double costopromedio;
      private String descrmodelo;
@@ -183,6 +188,46 @@ public class Repuestos  implements java.io.Serializable {
     
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+ 
+    public String getDescrfactura() {
+        return this.descrfactura;
+    }
+    
+    public void setDescrfactura(String descrfactura) {
+        this.descrfactura = descrfactura;
+    }
+    
+    public String getDescrequipfact() {
+        return descrequipfact;
+    }
+
+    public void setDescrequipfact(String descrequipfact) {
+        this.descrequipfact = descrequipfact;
+    }
+
+    public String getDescrmarcfact() {
+        return descrmarcfact;
+    }
+
+    public void setDescrmarcfact(String descrmarcfact) {
+        this.descrmarcfact = descrmarcfact;
+    }
+
+    public String getDescrmodfact() {
+        return descrmodfact;
+    }
+
+    public void setDescrmodfact(String descrmodfact) {
+        this.descrmodfact = descrmodfact;
+    }
+
+    public String getDescrDescrfact() {
+        return descrDescrfact;
+    }
+
+    public void setDescrDescrfact(String descrDescrfact) {
+        this.descrDescrfact = descrDescrfact;
     }
     
     public Double getPreciolista() {

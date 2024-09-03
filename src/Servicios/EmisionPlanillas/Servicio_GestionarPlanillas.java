@@ -216,8 +216,9 @@ public class Servicio_GestionarPlanillas {
         
         if ( fila >= 0 ) {
             String tipoDoc = String.valueOf(dftm_Planillas.getValueAt(fila, 1));
+            String nroSerie = String.valueOf(dftm_Planillas.getValueAt(fila, 2));
             String nroDoc = String.valueOf(dftm_Planillas.getValueAt(fila, 3));
-            int index = Buscar_en_Lista(tipoDoc, nroDoc);
+            int index = Buscar_en_Lista(tipoDoc, nroDoc, nroSerie);
             Object c = ListaCab.get(index);
             UI_MostrarDetalles ui = new UI_MostrarDetalles(c);
             ui.setLocationRelativeTo(null);
@@ -228,7 +229,7 @@ public class Servicio_GestionarPlanillas {
         }
     }
 
-    private int Buscar_en_Lista(String tipo, String nro) {
+    private int Buscar_en_Lista(String tipo, String nro, String nroSerie) {
         int i = 0;
         
         for ( Object c : ListaCab ) {
@@ -236,7 +237,8 @@ public class Servicio_GestionarPlanillas {
             if ( Cabec ) {
                 Cabeces cabe = (Cabeces) c;
                 
-                if ( tipo.equals(TipoDoc(cabe.getId().getTipodoc())) && nro.equals(cabe.getId().getNrodocumento()) ) {
+                if ( tipo.equals(TipoDoc(cabe.getId().getTipodoc())) && nro.equals(cabe.getId().getNrodocumento()) 
+                        && nroSerie.equals(cabe.getId().getNrorserie())) {
                     return i;
                 }
             }

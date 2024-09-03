@@ -56,6 +56,10 @@ public class Servicio_Cabeces {
         System.out.println("newCab::" + newCab.toString());
     }
     
+    public List<Cabeces> obtenerPlanillaLetras(Date desde, Date hasta) {
+        return dao.obtenerPlanillaLetras(desde, hasta);
+    }
+    
 //    public boolean ActualizarTodasCabecera(List<Cabeces> listaCab) {
 //        boolean valor = false;
 //        Session session = dao.getHibernateTemplate();
@@ -113,6 +117,10 @@ public class Servicio_Cabeces {
         return dao.obtenerPlanillaVentas(desde, hasta);
     }
 
+    
+    public List<Cabeces> obtenerPlanillaVentasElectronicas(Date desde, Date hasta) {
+        return dao.ObtenerCabecesSinTxt(desde, hasta);
+    }
     public List<Cabeces> obtenerPlanillaCompras(Date desde, Date hasta) {
         return dao.obtenerPlanillaCompras(desde, hasta);
     }

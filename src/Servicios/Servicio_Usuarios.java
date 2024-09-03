@@ -10,6 +10,7 @@ import Presentacion.FREP015;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -61,6 +62,11 @@ public class Servicio_Usuarios {
             table.addRow(row);
         }
     }    
+    
+    
+    public List getList() {
+        return uDAO.Obtener_Lista_Objetos();
+    }
     
     public boolean actualizarUsuarios(Usuarios t) {
         return uDAO.Modificar_Objeto(t);

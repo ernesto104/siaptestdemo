@@ -10,6 +10,7 @@ import static Entidades.Otros.Constante.SAL_REGULARIZACION;
 import static Entidades.Otros.Constante.SOL;
 import static Entidades.Otros.Constante.SOL_COMBO;
 import Entidades.Repuestos;
+import Entidades.Usuarios;
 import Presentacion.IU_Paquete_Repuestos;
 import Presentacion.IngresoSalidas.IU_DetalleIngSal;
 import Presentacion.IngresoSalidas.IU_NuevoRepuesto;
@@ -19,6 +20,7 @@ import Servicios.Servicio_Equipos;
 import Servicios.Servicio_Maestros;
 import Servicios.Servicio_Marcas;
 import Servicios.Servicio_Modelos;
+import Servicios.Servicio_Usuarios;
 import Servicios.Util;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -94,6 +96,7 @@ public final class IU_FMaestro extends javax.swing.JFrame {
             ListarRep(sm.getRepuestos_conStock().iterator());
         }
         llenar_equipos();
+        llenar_usuarios();
         presionado = false;
         bt_nuevoRep.setVisible(false);
         tx_busqueda.setDocument(new Validar_Mayusculas(tx_busqueda, 15));
@@ -239,6 +242,19 @@ public final class IU_FMaestro extends javax.swing.JFrame {
         }
     }
         
+    
+    private void llenar_usuarios() {
+        Servicio_Usuarios su = new Servicio_Usuarios(null);
+        Iterator it = su.getList().iterator();
+
+        while ( it.hasNext() ) {
+            Usuarios l = (Usuarios) it.next();
+            System.out.println();
+            cbUsuarios.addItem(l.getIdusuario() + " - " + l.getNombre()); // llenar combobox de arriba
+
+        }
+    }
+    
     public void AgregarFila(Object[] repuesto) {        
         Object[] row = new Object[9];
         
@@ -307,6 +323,12 @@ public final class IU_FMaestro extends javax.swing.JFrame {
         cb_marca = new javax.swing.JComboBox();
         cb_modelo = new javax.swing.JComboBox();
         bt_buscar1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        txtFechaRegistroInicial = new com.toedter.calendar.JDateChooser();
+        jLabel45 = new javax.swing.JLabel();
+        txtFechaRegistroFinal = new com.toedter.calendar.JDateChooser();
+        bt_buscar2 = new javax.swing.JButton();
+        cbUsuarios = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         tb_rep = new javax.swing.JTable();
         bt_agregar = new javax.swing.JButton();
@@ -344,7 +366,7 @@ public final class IU_FMaestro extends javax.swing.JFrame {
 
         lb_mensaje.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
 
-        cb_busqueda.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nro Serie", "Descripcion" }));
+        cb_busqueda.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nro Serie", "Descripcion", "Anotacion 1", "Aplicacion 1" }));
         cb_busqueda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cb_busquedaActionPerformed(evt);
@@ -384,6 +406,23 @@ public final class IU_FMaestro extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setText("Fecha Registro:");
+
+        txtFechaRegistroInicial.setDateFormatString("dd-MM-yyyy");
+
+        jLabel45.setText("a");
+
+        txtFechaRegistroFinal.setDateFormatString("dd-MM-yyyy");
+
+        bt_buscar2.setText("Buscar");
+        bt_buscar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_buscar2ActionPerformed(evt);
+            }
+        });
+
+        cbUsuarios.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todos" }));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -397,16 +436,32 @@ public final class IU_FMaestro extends javax.swing.JFrame {
                         .addComponent(tx_busqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(bt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(cbUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lb_mensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(cb_equipo, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cb_marca, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cb_modelo, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(bt_buscar1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtFechaRegistroInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel45, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cb_equipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtFechaRegistroFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(bt_buscar2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(cb_marca, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(cb_modelo, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(bt_buscar1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -415,20 +470,31 @@ public final class IU_FMaestro extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cb_busqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tx_busqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(bt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lb_mensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cb_equipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cb_marca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cb_modelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bt_buscar1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(bt_buscar2)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cb_busqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tx_busqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(bt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lb_mensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cb_equipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cb_marca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cb_modelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bt_buscar1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel45)
+                            .addComponent(txtFechaRegistroFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtFechaRegistroInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
+        tb_rep.setAutoCreateRowSorter(true);
         tb_rep.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -438,7 +504,7 @@ public final class IU_FMaestro extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false, false
@@ -495,14 +561,12 @@ public final class IU_FMaestro extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1079, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(0, 1, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -772,6 +836,14 @@ public final class IU_FMaestro extends javax.swing.JFrame {
             cb_modelo.setSelectedIndex(0);
     }//GEN-LAST:event_cb_marcaItemStateChanged
 
+    private void bt_buscar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_buscar2ActionPerformed
+        // TODO add your handling code here:
+        
+        BorrarTabla();
+        
+        ListarRep(sm.Consultar_Repuestos_xFechas(txtFechaRegistroInicial.getDate(), txtFechaRegistroFinal.getDate()).iterator());
+    }//GEN-LAST:event_bt_buscar2ActionPerformed
+
     
     private void llenar_marcasXequipo(Equipos equipo) {
         
@@ -883,18 +955,24 @@ public final class IU_FMaestro extends javax.swing.JFrame {
     private javax.swing.JButton bt_agregar;
     private javax.swing.JButton bt_buscar;
     private javax.swing.JButton bt_buscar1;
+    private javax.swing.JButton bt_buscar2;
     private javax.swing.JButton bt_nuevoRep;
     private javax.swing.JButton bt_salir;
+    private javax.swing.JComboBox cbUsuarios;
     public javax.swing.JComboBox cb_busqueda;
     public javax.swing.JComboBox cb_equipo;
     public javax.swing.JComboBox cb_marca;
     public javax.swing.JComboBox cb_modelo;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel45;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lb_mensaje;
     public javax.swing.JTable tb_rep;
     private javax.swing.JTextField tx_busqueda;
+    private com.toedter.calendar.JDateChooser txtFechaRegistroFinal;
+    private com.toedter.calendar.JDateChooser txtFechaRegistroInicial;
     // End of variables declaration//GEN-END:variables
 }

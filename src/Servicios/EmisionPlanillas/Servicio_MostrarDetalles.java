@@ -53,7 +53,12 @@ public class Servicio_MostrarDetalles {
     private void listaDetalles() {
         for (int i = 0; i < listaDetalles.size(); i++) {
             Detallees d = listaDetalles.get(i);
-            Object[] fila = {d.getRepuestos().getEquipos().getIdequipo(), d.getRepuestos().getCodrepuesto(),d.getRepuestos().getDescripcion(), d.getCantentregada(),
+            String descripcionEquipo = d.getRepuestos().getEquipos().getDescripcion();
+            String descripcionMarca = d.getRepuestos().getMarcas().getDescripcion();
+            String descripcionModelo = d.getRepuestos().getModelos().getDescripcion();
+            String descripcionDetalle = d.getRepuestos().getDescripcion();
+            String descripcionCompleta = descripcionEquipo + ' ' + descripcionMarca + ' ' + descripcionModelo+ ' '+ descripcionDetalle;
+            Object[] fila = {d.getRepuestos().getEquipos().getIdequipo(), d.getRepuestos().getCodrepuesto(),descripcionCompleta, d.getCantentregada(),
                 d.getDescuento1(), d.getDescuento2(), d.getDescuento3(), d.getDescuento4()};
             dftm_Detalles.addRow(fila);
         }

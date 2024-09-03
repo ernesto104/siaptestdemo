@@ -61,11 +61,11 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
-                                  <Component id="bt_tablaTipoServicio" min="-2" pref="124" max="-2" attributes="0"/>
+                                  <Component id="bt_agregar" min="-2" pref="124" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="Modificar" min="-2" pref="128" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                                  <Component id="bt_consultaServicioTecnico" min="-2" pref="100" max="-2" attributes="0"/>
+                                  <Component id="bt_limpiar" min="-2" pref="100" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                                   <Component id="bt_salir" min="-2" pref="96" max="-2" attributes="0"/>
                               </Group>
@@ -90,9 +90,9 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="bt_salir" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
-                      <Component id="bt_consultaServicioTecnico" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                      <Component id="bt_limpiar" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                       <Component id="Modificar" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
-                      <Component id="bt_tablaTipoServicio" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                      <Component id="bt_agregar" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="18" max="32767" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="278" max="-2" attributes="0"/>
@@ -127,7 +127,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel9" min="-2" pref="60" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                              <Component id="tx_siglas" min="-2" pref="128" max="-2" attributes="0"/>
+                              <Component id="txtdescripcion" min="-2" pref="128" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -137,7 +137,7 @@
                                   <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
-                                      <Component id="tx_nombre" min="-2" pref="69" max="-2" attributes="0"/>
+                                      <Component id="tx_tipo" min="-2" pref="69" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -151,7 +151,7 @@
                               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jComboBox2" min="-2" pref="78" max="-2" attributes="0"/>
+                              <Component id="comboEstado" min="-2" pref="78" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="23" max="32767" attributes="0"/>
@@ -173,10 +173,10 @@
                                       <Component id="jLabel4" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                                       <Component id="jLabel7" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                                       <Component id="cbFacturable" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jComboBox2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="comboEstado" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="tx_nombre" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="tx_tipo" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel2" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -188,7 +188,7 @@
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel9" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                                   <Component id="jLabel8" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
-                                  <Component id="tx_siglas" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtdescripcion" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
                           </Group>
@@ -208,7 +208,7 @@
                 <Property name="text" type="java.lang.String" value="Estado"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="tx_nombre">
+            <Component class="javax.swing.JTextField" name="tx_tipo">
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
               </AuxValues>
@@ -228,7 +228,7 @@
                 <Property name="text" type="java.lang.String" value="Descripcion"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="tx_siglas">
+            <Component class="javax.swing.JTextField" name="txtdescripcion">
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
               </AuxValues>
@@ -258,7 +258,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="jComboBox2">
+            <Component class="javax.swing.JComboBox" name="comboEstado">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="2">
@@ -270,12 +270,12 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="bt_tablaTipoServicio">
+        <Component class="javax.swing.JButton" name="bt_agregar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Agregar Servicio"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_tablaTipoServicioActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_agregarActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="Modificar">
@@ -286,12 +286,12 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ModificarActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="bt_consultaServicioTecnico">
+        <Component class="javax.swing.JButton" name="bt_limpiar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Limpiar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_consultaServicioTecnicoActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_limpiarActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">

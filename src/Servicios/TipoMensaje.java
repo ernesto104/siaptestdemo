@@ -185,6 +185,9 @@ public class TipoMensaje {
             case "COMISIÓN_PROV_NO_INGRESADA":
                 JOptionPane.showMessageDialog(null, "Debe ingresar su comisión de provincia. No puede ser 0", "VALIDACIÓN", JOptionPane.INFORMATION_MESSAGE);
                 break;
+            default:
+                JOptionPane.showMessageDialog(null, val, "Error", JOptionPane.INFORMATION_MESSAGE);
+                break;
         }
     }
 }

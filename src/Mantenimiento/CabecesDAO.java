@@ -7,6 +7,8 @@ import Entidades.Pagos;
 import Entidades.Vendedores;
 import Presentacion.FacturacionElectronica.CabDocElectronico;
 import Servicios.HibernateUtil;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -614,6 +616,166 @@ public class CabecesDAO extends GenericDAO<Cabeces> {
         }
     }
     
+    private String dateToString(Date date) {
+        DateFormat fechaHora = new SimpleDateFormat("yyyy-MM-dd");
+        String convertido = fechaHora.format(date);
+//        System.out.println("convertido:" + convertido);
+        return convertido;
+    }
+    
+    
+    public List<Cabeces> obtenerPlanillaLetras(Date desde, Date hasta) {
+        String sDesde = dateToString(desde);
+        String sHasta = dateToString(hasta);
+        
+        String query = "from Cabeces where (tipotra = 'V') and "
+                + "tipocambio.fecha between '" + sDesde + "' and '" + sHasta + "' "
+                + "and id.tipodoc like '06' "
+                + "order by tipocambio.fecha desc";
+//        System.out.println("query:" + query);
+        Query q = getHibernateTemplate().createQuery(query);
+//        List lst = q.list();
+//        if ( !lst.isEmpty() ) {
+//            System.out.println("num registros:" + lst.size());
+//        }
+//        System.out.println("");
+        return q.list();
+    }
+    
+    
+    public List<Cabeces> ObtenerCabecesSinTxt(Date desde, Date hasta) {
+        return getHibernateTemplate().createQuery("from Cabeces where (tipotra = 'V') and "
+                + "tipocambio.fecha between :desde and :hasta"
+                + " and id.tipodoc in ('01','02','03','04') "
+                + " and txtgen <> 1 "
+                + "order by nrorserie desc, nrodocumento desc")
+//                + "order by tipocambio.fecha desc")
+                .setParameter("desde", desde)
+                .setParameter("hasta", hasta).list();
+        
+    }
+    
+    
+    public List ObtenerLinea1Txt(String serie,String doc,String letras,String tipoDocumento,String tipoBD) {
+        return getHibernateTemplate().
+//                createSQLQuery("select concat('01|', con.ruc,'|IMPORTACIONES ORMAVI SAC|AV. HILLMAN NRO. 180 DPTO. 101 URB. LA CALERA DE LA MERCED (ALT. CDRA 39 AV.AVIACION) - LIMA - LIMA - SURQUILLO|',cab.fecha,'|',ifnull(cab.fechavencimiento,' '),'|01|0|',(case cab.TIPODOC when '01' then '01' when '02' then '03' when '03' then '07' when '04' then '08' end),'|',(case cab.TIPODOC  when '01' then 'F' when '02' then 'B' when '03' then 'FNC' when '04' then 'FNB' end),substr('0000',1, 4 - (length(case cab.TIPODOC  when '01' then 'F' when '02' then 'B' when '03' then 'FNC' when '04' then 'FNB' end) + length(cab.NRORSERIE))),cab.NRORSERIE,substr('00000000', 1 , 8 - length(cab.NRODOCUMENTO) ),cab.NRODOCUMENTO,'|',(SELECT IFNULL((SELECT IFNULL(CAB2.TIPODOC,' ')  FROM siar_ormavitmp.cabeces cab2 WHERE CAB.NC_FACBOL =CAB2.NRODOCUMENTO AND CAB.TIPODOC IN ('03','04')),' ') FROM DUAL),'|',(SELECT IFNULL((SELECT CONCAT((case cab3.TIPODOC  when '01' then 'F' when '02' then 'B' when '03' then 'FNC' when '04' then 'FNB' end),substr('0000',1, 4 - (length(case cab3.TIPODOC  when '01' then 'F' when '02' then 'B' when '03' then 'FNC' when '04' then 'FNB' end) + length(cab.NRORSERIE))),cab3.NRORSERIE,substr('00000000', 1 , 8 - length(cab3.NRODOCUMENTO) ),cab3.NRODOCUMENTO) FROM siar_ormavitmp.cabeces cab3 WHERE CAB.NC_FACBOL =CAB3.NRODOCUMENTO AND CAB.TIPODOC IN ('03','04')),' ')),'| | |',(case '"+tipoDocumento+"' when 'OTROS' then '0' else '6' end),'|',(case '"+tipoDocumento+"' when 'OTROS' then '-' else cli.ruc end),'|"+tipoDocumento+"|',cli.NOMBRE,'|',cli.DIRECCION,'|', (case cab.MONEDA when '1' then 'PEN' WHEN '2' then 'USD' end),'|',cab.VALORVENTA,'|0.00|0.00|',cab.VALORVENTA,'|0.00|',cab.IGV,'|0.00|',cab.TOTAL,'|0.00|0.00|0.00|0.00|0.00|0.00|0.00|"+letras+"|0.00|0.00|0.00|0.00|0.00| |',cast(con.impuestoigv as decimal(10,2)),'|',cast((select tip.valorventa from siar_ormavitmp.tipocambio tip where tip.fecha=cab.fecha) as decimal(10,3)),'|') a FROM siar_ormavitmp.control con, siar_ormavitmp.cabeces cab, siar_ormavitmp.clientes cli WHERE con.idcontrol =1 and cab.nrorserie = "+serie+" and cab.nrodocumento = "+doc+" and cab.idcliente = cli.IDCLIENTE;")
+                createSQLQuery("select GETLINE1TXT("+serie+","+doc+",'"+letras+"',1, '"+tipoDocumento+"', '"+tipoBD+"') from dual;")
+                .list();
+    }
+    
+    private List ObtenerRepuesto(String serie, String doc,String tabla,String tipoBD){
+        List respuestos = getHibernateTemplate().                
+                createSQLQuery("select idrepuesto from "+tabla+" where nrorserie = "+serie+" and nrodocumento = "+doc+" and tipodoc = '"+tipoBD+"';")
+                .list();
+        System.out.println("Termino de recuperar repuestos en "+tabla+ respuestos);
+        return respuestos;
+    }
+    
+    public List ObtenerLinea3Txt(String serie,String doc,String tipoBD){
+        List<String> lineas = new ArrayList();
+        List repuestosList = ObtenerRepuesto(serie,doc,"siar_qf.detallees",tipoBD);
+        for(int i=0;i<repuestosList.size();i++){
+            List linea3 = getHibernateTemplate().createSQLQuery("select GETLINEX3TXT("+serie+","+doc+","+repuestosList.get(i).toString()+", '"+tipoBD+"') from dual;").list();
+            
+            System.out.println("linea 3 : " + linea3);
+            System.out.println("Ya paso el getline3txt");
+            String prefijo = String.format("%03d", (i+1));
+            System.out.println("prefijo:" + prefijo);
+            
+            lineas.add(linea3.get(0).toString().replace("reemp_", prefijo+""));            
+            
+        }
+        return lineas;
+    }
+    
+    
+    public List ObtenerLinea1TxtG(String serie,String doc,String letras,String tipoDocumento,String tipoBD, String docBack) {
+
+        System.out.println("Serie : " + serie);
+        System.out.println("doc : " + doc);
+        System.out.println("letras : " + letras);        
+        System.out.println("tipoDocumento : " + tipoDocumento);
+        System.out.println("TipoBD : " + tipoBD);
+        
+        return getHibernateTemplate().
+//                createSQLQuery("select concat('01|', con.ruc,'|IMPORTACIONES ORMAVI SAC|AV. HILLMAN NRO. 180 DPTO. 101 URB. LA CALERA DE LA MERCED (ALT. CDRA 39 AV.AVIACION) - LIMA - LIMA - SURQUILLO|',cab.fecha,'|',ifnull(cab.fechavencimiento,' '),'|01|0|',(case cab.TIPODOC when '01' then '01' when '02' then '03' when '03' then '07' when '04' then '08' end),'|',(case cab.TIPODOC  when '01' then 'F' when '02' then 'B' when '03' then 'FNC' when '04' then 'FNB' end),substr('0000',1, 4 - (length(case cab.TIPODOC  when '01' then 'F' when '02' then 'B' when '03' then 'FNC' when '04' then 'FNB' end) + length(cab.NRORSERIE))),cab.NRORSERIE,substr('00000000', 1 , 8 - length(cab.NRODOCUMENTO) ),cab.NRODOCUMENTO,'|',(SELECT IFNULL((SELECT IFNULL(CAB2.TIPODOC,' ')  FROM siar_ormavitmp.cabeces cab2 WHERE CAB.NC_FACBOL =CAB2.NRODOCUMENTO AND CAB.TIPODOC IN ('03','04')),' ') FROM DUAL),'|',(SELECT IFNULL((SELECT CONCAT((case cab3.TIPODOC  when '01' then 'F' when '02' then 'B' when '03' then 'FNC' when '04' then 'FNB' end),substr('0000',1, 4 - (length(case cab3.TIPODOC  when '01' then 'F' when '02' then 'B' when '03' then 'FNC' when '04' then 'FNB' end) + length(cab.NRORSERIE))),cab3.NRORSERIE,substr('00000000', 1 , 8 - length(cab3.NRODOCUMENTO) ),cab3.NRODOCUMENTO) FROM siar_ormavitmp.cabeces cab3 WHERE CAB.NC_FACBOL =CAB3.NRODOCUMENTO AND CAB.TIPODOC IN ('03','04')),' ')),'| | |',(case '"+tipoDocumento+"' when 'OTROS' then '0' else '6' end),'|',(case '"+tipoDocumento+"' when 'OTROS' then '-' else cli.ruc end),'|"+tipoDocumento+"|',cli.NOMBRE,'|',cli.DIRECCION,'|', (case cab.MONEDA when '1' then 'PEN' WHEN '2' then 'USD' end),'|',cab.VALORVENTA,'|0.00|0.00|',cab.VALORVENTA,'|0.00|',cab.IGV,'|0.00|',cab.TOTAL,'|0.00|0.00|0.00|0.00|0.00|0.00|0.00|"+letras+"|0.00|0.00|0.00|0.00|0.00| |',cast(con.impuestoigv as decimal(10,2)),'|',cast((select tip.valorventa from siar_ormavitmp.tipocambio tip where tip.fecha=cab.fecha) as decimal(10,3)),'|') a FROM siar_ormavitmp.control con, siar_ormavitmp.cabeces cab, siar_ormavitmp.clientes cli WHERE con.idcontrol =1 and cab.nrorserie = "+serie+" and cab.nrodocumento = "+doc+" and cab.idcliente = cli.IDCLIENTE;")
+                createSQLQuery("select GETLINE1TXTGUIA("+serie+","+doc+",'"+letras+"',1, '"+tipoDocumento+"', '"+tipoBD+"') from dual;")
+                .list();
+    }    
+    
+    
+    public List ObtenerLinea1TxtNC(String serie,String doc, String tipo,String montoLetras,String tipoBD){
+    
+        System.out.println("Serie : " + serie);
+        System.out.println("Doc : " + doc);
+        System.out.println("Tipo : " + tipo);
+        System.out.println("Montoletras : " + montoLetras);
+        System.out.println("tipoBD : " + tipoBD);        
+        
+        return getHibernateTemplate().
+                createSQLQuery("select GETLINE1TXTNC("+serie+","+doc+",'"+montoLetras+"', '"+tipo+"', '"+tipoBD+"') from dual; ")
+                .list();
+    }
+    
+ //----
+    public List ObtenerLinea3TxtG(String serie,String doc,String tipoBD){
+        List<String> lineas = new ArrayList();
+        List repuestosList = ObtenerRepuesto(serie,doc,"siar_ormavitmp.detallees",tipoBD);
+        for(int i=0;i<repuestosList.size();i++){
+            List linea3 = getHibernateTemplate().createSQLQuery("select GETLINEX3TXTGUIA("+serie+","+doc+","+repuestosList.get(i).toString()+", '"+tipoBD+"') from dual;").list();
+            
+            System.out.println("linea 3 : " + linea3);
+            System.out.println("Ya paso el getline3txtguia");
+            String prefijo = String.format("%03d", (i+1));
+            System.out.println("prefijo:" + prefijo);
+            
+            lineas.add(linea3.get(0).toString().replace("reemp_", prefijo+""));            
+            
+        }
+        return lineas;
+    }    
+//----    
+    
+    public List ObtenerLinea3TxtNc(String serie, String doc,String tipoBD){
+        List<String> lineas = new ArrayList();
+        
+        List repuestosList = ObtenerRepuesto(serie, doc,"siar_ormavitmp.detallenota", tipoBD);
+        String repuesto;
+        for(int i=0;i<repuestosList.size();i++){
+            if (repuestosList.get(i)==null){
+                repuesto = "-";
+            }else{
+                repuesto = repuestosList.get(i).toString();
+            }
+            System.out.println("Repuesto "+repuesto);
+            System.out.println("Serie " + serie);
+            System.out.println("Doc " + doc);
+            System.out.println("tipoBD " + tipoBD);
+
+            
+            String query = "select GETLINE3TXTNC("+serie+","+doc+",'"+repuesto+"','"+tipoBD+"') from dual;";
+            System.out.println("query::" + query);
+            List linea3 = getHibernateTemplate().createSQLQuery(query).list();
+            System.out.println("linea 3 : " + linea3);
+            System.out.println("Ya paso el getline3txtnc");
+            
+            System.out.println("BEFORE-linea3.get(0).toString():" + linea3.get(0).toString());
+            String prefijo = String.format("%03d", (i+1));
+            
+            System.out.println("prefijo:" + prefijo);
+            lineas.add(linea3.get(0).toString().replace("reemp_", prefijo+""));
+            System.out.println("AFTER-linea3.get(0).toString():" + linea3.get(0).toString());
+            System.out.println("lineas.get(i)::" + lineas.get(i));
+        }
+        return lineas;
+    }
+    
+    public List ObtenerNombreNC(String serie,String doc,String tipoBD){
+        return getHibernateTemplate().
+                createSQLQuery("select GETCODFACT("+serie+","+doc+",2, '"+tipoBD+"') from dual; ")
+                .list();
+    }
+    
     // Obtener registros de Cabeces y Detallees (Factura, Boleta, NC, ND):
     public List obtenerPlanillaDocElectronicos(String fecha_inicio, String fecha_fin) {
         Session ses = getHibernateTemplate();
@@ -926,5 +1088,18 @@ public class CabecesDAO extends GenericDAO<Cabeces> {
     
     public List Listar_AniosReporteFlujoComparativo() {
         return getHibernateTemplate().createSQLQuery("select distinct year(fecha) from cabeces order by fecha desc").list();
+    }
+    
+    public void ActualizarNota(int doc,int serie,String idTipoDoc){
+        Session ses = getHibernateTemplate();
+        try {
+            ses.getTransaction().begin();
+            ses.createQuery("update Cabeces set txtgen = 1 where nrodocumento = :id_doc and nrorserie= :id_serie and tipodoc = :idTipoDoc").
+                    setInteger("id_doc", doc).setInteger("id_serie", serie).setString("idTipoDoc", idTipoDoc).executeUpdate();
+            ses.getTransaction().commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            
+        }               
     }
 }

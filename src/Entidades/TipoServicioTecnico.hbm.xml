@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="Entidades.TipoServicioTecnico" table="tipo_servicio_tecnico" catalog="siar_qf">
+    <id name="id" type="int">
+        <column name="IDTIPOSERVICIOTECNICO"/>
+        <generator class="identity"/>
+      </id>
+      <property name="tipo" type="string">
+        <column length="80" name="TIPO"/>
+      </property>
+      <property name="descripcion" type="string">
+        <column length="80" name="DESCRIPCION"/>
+      </property>
+      <property name="facturable" type="string">
+        <column name="FACTURABLE" length="20"/>
+      </property> 
+      <property name="estado" type="string">
+        <column name="ESTADO" length="20"/>
+      </property>    
+  </class>
+</hibernate-mapping>

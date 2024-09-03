@@ -540,9 +540,9 @@ public class IU_DetalleIngSal extends javax.swing.JFrame implements Constantes {
             String codSecundario = String.valueOf(tabla.getValueAt(i, 5));   //antes 2
             String codSec = ( "null".equals(codSecundario) ? "" : codSecundario);
             
-            String equipo = String.valueOf(tabla.getValueAt(i, 3));
-            String marca = String.valueOf(tabla.getValueAt(i, 4));
-            String modelo = String.valueOf(tabla.getValueAt(i, 5));
+            String equipo = String.valueOf(tabla.getValueAt(i, 1));
+            String marca = String.valueOf(tabla.getValueAt(i, 2));
+            String modelo = String.valueOf(tabla.getValueAt(i, 3));
             
             String descripcion = String.valueOf(tabla.getValueAt(i, 6));    //antes 3
             String cantidad = String.valueOf(tabla.getValueAt(i, 9));          //antes 6

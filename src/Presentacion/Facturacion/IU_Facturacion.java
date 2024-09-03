@@ -97,6 +97,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPanel;
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
  *
@@ -201,6 +202,7 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
     private String rutaExcel;
     public String CostoTotal;
     
+    
     // boton para el detalle
     public IU_Facturacion(String valorVenta, int opcion, JPanel panelPadre, MENU001 menu001, Usuarios usuario) {
         this.panelCentral = panelPadre;
@@ -220,7 +222,7 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
         
         tablaFacturacion = new tabla(valorVenta, monedaControlRepuestos);
         initComponents();
-        
+        AutoCompleteDecorator.decorate(cb_cliente);
 // aumente esto de prueba
 
         
@@ -400,6 +402,7 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
         tablaFacturacion.agregarPR((ArrayList<PaquetesRepuestos>) Paq, moneda);
         alinearColumnaDerecha();
         this.provieneDeProf = 0;
+        
     }
     
     private void inicializarMonedaDeProforma(ArrayList<Cabecproformas> cps) {
@@ -451,6 +454,7 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
         canjeFact = false;
         
         cb_cliente.setEnabled(true);
+        
         ActivarBotones(true);
         bt_regCliente.setEnabled(true);
         btn_Ultdesc.setEnabled(true);
@@ -774,7 +778,7 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
         tx_serie.setDocument(new Validar_Mayusculas(tx_serie, 25));
         tx_orden.setDocument(new Validar_Mayusculas(tx_orden, 50));
         tx_nroGuia.setDocument(new Validar_Mayusculas(tx_nroGuia, 30));
-        tx_observaciones.setDocument(new Validar_Mayusculas(tx_observaciones, 10));
+        tx_observaciones.setDocument(new Validar_Mayusculas(tx_observaciones, 85));
         tx_marca.setDocument(new Validar_Mayusculas(tx_marca, 30));
         tx_modelo.setDocument(new Validar_Mayusculas(tx_modelo, 40));
         tx_motor.setDocument(new Validar_Mayusculas(tx_motor, 20));
@@ -1287,7 +1291,7 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblDocumento)
@@ -1434,43 +1438,44 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(cbDistritos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel11)))))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cb_doc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cb_moneda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(dt_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(bt_regVend)
+                                .addComponent(lblDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cb_doc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cb_moneda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(dt_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(18, 18, 18)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(bt_regVend)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(cb_vend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lb_mensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(cb_vend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lb_mensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cb_operacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblOperacion, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lb_venc, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dt_venc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(11, 11, 11)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lb_sucursales)
-                            .addComponent(cb_sucursales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lb_tipoCambio, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbPuntoVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))))
+                                .addComponent(cb_operacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblOperacion, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(20, 20, 20)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lb_venc, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(dt_venc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(11, 11, 11)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(lb_sucursales)
+                                .addComponent(cb_sucursales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(lb_tipoCambio, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cbPuntoVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1502,8 +1507,8 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
         pnl_doc.add(tx_numSerie, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 40, -1));
 
         lb_orden.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lb_orden.setText("N° Orden (OT)");
-        pnl_doc.add(lb_orden, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 50, -1, 20));
+        lb_orden.setText("N° Orden Servicio");
+        pnl_doc.add(lb_orden, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, 20));
 
         tx_doc.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         pnl_doc.add(tx_doc, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, 110, -1));
@@ -1517,21 +1522,21 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
 
         lb_modelo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lb_modelo.setText("Modelo");
-        pnl_doc.add(lb_modelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, 100, 20));
+        pnl_doc.add(lb_modelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, 100, 20));
 
         tx_serie.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        pnl_doc.add(tx_serie, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 160, -1));
+        pnl_doc.add(tx_serie, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 160, -1));
 
         lb_marca.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lb_marca.setText("Marca");
-        pnl_doc.add(lb_marca, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 110, 20));
+        pnl_doc.add(lb_marca, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 110, 20));
 
         tx_orden.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        pnl_doc.add(tx_orden, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 50, 130, -1));
+        pnl_doc.add(tx_orden, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 130, -1));
 
         lb_placa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lb_placa.setText("Observaciones");
-        pnl_doc.add(lb_placa, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 110, 20));
+        lb_placa.setText("Orden de Compra");
+        pnl_doc.add(lb_placa, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 110, 20));
 
         lb_guia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lb_guia.setText("N° Guia Remisión");
@@ -1539,23 +1544,23 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
 
         lb_serie.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lb_serie.setText("Serie");
-        pnl_doc.add(lb_serie, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 110, 20));
+        pnl_doc.add(lb_serie, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 110, 20));
 
         lb_motor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lb_motor.setText("Motor");
-        pnl_doc.add(lb_motor, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 110, 100, 20));
+        pnl_doc.add(lb_motor, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 150, 100, 20));
 
         tx_observaciones.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        pnl_doc.add(tx_observaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 160, -1));
+        pnl_doc.add(tx_observaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 460, -1));
 
         tx_motor.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        pnl_doc.add(tx_motor, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 110, 130, -1));
+        pnl_doc.add(tx_motor, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 150, 130, -1));
 
         tx_marca.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        pnl_doc.add(tx_marca, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 160, -1));
+        pnl_doc.add(tx_marca, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 90, 160, -1));
 
         tx_modelo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        pnl_doc.add(tx_modelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 80, 130, -1));
+        pnl_doc.add(tx_modelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 90, 130, -1));
 
         bt_confirmar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         bt_confirmar.setText("Confirmar");
@@ -1771,9 +1776,9 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
                             .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panelGenerarGRLayout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(pnl_doc, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                        .addComponent(pnl_doc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1786,7 +1791,7 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panelGenerarGR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -2492,7 +2497,6 @@ public final class IU_Facturacion extends javax.swing.JFrame implements Constant
             detalle.setPreciolista(dt.get(i).getD().getPreciolista());
             detalle.setClientes(cliente);
             detalle.setFecha(dt_fecha.getDate());
-            
 //            if ( detalle.getCabeces() != null ) {
 //                String tipotra = detalle.getCabeces().getId().getTipotra();
 //                String tipodoc = detalle.getCabeces().getId().getTipodoc();

@@ -202,6 +202,8 @@ public class FREP033 extends javax.swing.JFrame {
         Date hasta = dc_FechaHasta.getDate();
         String validacion = validar();
         
+        System.out.print(desde.toString()+" + " + hasta.toString());
+        
         if ( validacion.equals(tm.VALIDO) ) {
             UI_GestionarPlanillas ui = new UI_GestionarPlanillas(desde, hasta,cb_Planilla.getSelectedIndex(), nombrerol);
             dispose();

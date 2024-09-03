@@ -250,5 +250,14 @@ public final class Constante {
     public static final String TIPO_IU_CANJE_LETRAS = "L"; // Sólo Letras Protestadas
     public static final String TIPO_IU_CANJE_DEUDAS = "D"; // Deudas de 1 Cliente (Facturas, ND, NC, Letras)
     
+    public static final String DOLAR_US = "US$";
+    public static final String CERO = "0.0";
+    
     public static final int COLUMNA_ESTADO_TXT = 13;
+    public static final String VALIDO = "valido";
+    public static final int MAX_ITEM_PLAN_LET = 15;
+    
+    public static final String TODOS = "";
+    
+    
 }

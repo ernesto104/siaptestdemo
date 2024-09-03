@@ -1,17 +1,22 @@
 package Presentacion;
 
 import Entidades.Control;
+import Entidades.Detallees;
 import Entidades.Estratificacion;
 import Entidades.Equipos;
 import Entidades.Marcas;
 import Entidades.Modelos;
+import static Entidades.Otros.Constante.INGRESO_POR_REGULARIZACION;
 //import static Entidades.Otros.Constante.STOCK_MAXIMO;
 import static Entidades.Otros.Constante.STOCK_MINIMO;
+import Entidades.Otros.DetalleFactura;
 import Entidades.Repuestos;
 import Entidades.RepuestosId;
+import Entidades.Sistema;
 import Entidades.Usuarios;
 import Mantenimiento.Navegacion;
 import Servicios.HibernateUtil;
+import Servicios.IngresoSalidas.Servicio_IngresoSalida;
 import Servicios.Servicio_Control_Sistema;
 import Servicios.Servicio_Estratificacion;
 import Servicios.Servicio_Excel;
@@ -58,6 +63,7 @@ import Servicios.Servicio_Excel;
 import Servicios.Servicio_Marcas;
 import Servicios.Servicio_Modelos;
 import static java.lang.Double.parseDouble;
+import java.util.Calendar;
 import javax.swing.DefaultComboBoxModel;
 
 /**
@@ -80,6 +86,8 @@ public class FREP001 extends javax.swing.JFrame {
     public final ArrayList<Integer> numMaximo;
     public final ArrayList<String> tipoDato;
     public Navegacion navegacion;
+    Servicio_IngresoSalida sis;
+    Sistema sistema;
 
     Servicio_Control_Sistema servicioControl;
     Control c = new Control();
@@ -108,6 +116,7 @@ public class FREP001 extends javax.swing.JFrame {
         System.out.println("rol Elegido : " + rolElegido);
        
         initComponents();
+        
         servicioControl = new Servicio_Control_Sistema(this);
         c = servicioControl.obtener_Unico_Control();
         modelo = (DefaultTableModel) tablaRepuestos.getModel();
@@ -128,6 +137,7 @@ public class FREP001 extends javax.swing.JFrame {
         crearArrayTipoDato();
         navegacion = new Navegacion(componentes, numMaximo, tipoDato, boton_Salir);
         asignarEvento();
+        sis = new Servicio_IngresoSalida();
         
         //ajustarAnchoColumnas();
         alinearColumnaDerecha();
@@ -140,16 +150,20 @@ public class FREP001 extends javax.swing.JFrame {
  //      Botones habilitados solo para el ADMINISTRADOR
         System.out.println("usuario : " + username);
 
-        if ("ADMINISTRADOR".equals(rolElegido)) {
+        if ("ADMINISTRADOR".equals(rolElegido) || "ALMACEN".equals(rolElegido) ||  "IMPORTACION".equals(rolElegido)) {
             boton_Agregar.setEnabled(true);
             boton_Modificar.setEnabled(true);            
             boton_Eliminar.setEnabled(true);     
             boton_Exportar.setEnabled(true);
         } else {
-            boton_Agregar.setEnabled(false);
+            /*boton_Agregar.setEnabled(false);
             boton_Modificar.setEnabled(false);            
             boton_Eliminar.setEnabled(false);            
-            boton_Exportar.setEnabled(false);            
+            boton_Exportar.setEnabled(false);    */     
+            boton_Agregar.setEnabled(true);
+            boton_Modificar.setEnabled(true);            
+            boton_Eliminar.setEnabled(true);            
+            boton_Exportar.setEnabled(true);
         }
         
         txtFiltroAplica1.setVisible(false);
@@ -239,19 +253,21 @@ public class FREP001 extends javax.swing.JFrame {
         if ("ADMINISTRADOR".equals(roltemporal)){        
         cant_rep = sm.listarRepuestos(modelo);
         cant_rep++;
-        txtId.setText("" + (sm.getUltimo_id() + 1));
+        //txtId.setText("" + (sm.getUltimo_id() + 1));
+        txtId.setText("" + (sm.nextId()));
         } else {
         cant_rep = sm.listarRepuestos2(modelo);
         cant_rep++;
-        txtId.setText("" + (sm.getUltimo_id() + 1));                
+        //txtId.setText("" + (sm.getUltimo_id() + 1));
+        txtId.setText("" + (sm.nextId()));
                 }
     }
 
     private void crearArrayNumMax() {
-        numMaximo.add(17); //txtnumParte
-        numMaximo.add(40);  //txtDescripcion
-        numMaximo.add(40);  //txtDescripModelo
-        numMaximo.add(40);  //txtDescripLista
+        numMaximo.add(30); //txtnumParte
+        numMaximo.add(120);  //txtDescripcion
+        numMaximo.add(60);  //txtDescripModelo
+        numMaximo.add(60);  //txtDescripLista
         numMaximo.add(10);  //txtCodSegundo
         numMaximo.add(40); // Cambio de "6" a "40"  //txtAplicacion
         numMaximo.add(6);   //txtInventario
@@ -457,6 +473,12 @@ public class FREP001 extends javax.swing.JFrame {
         cbModeloFiltro = new javax.swing.JComboBox();
         jLabel43 = new javax.swing.JLabel();
         jLabel44 = new javax.swing.JLabel();
+        filtrar_aplica2 = new javax.swing.JButton();
+        txtFechaRegistroInicial = new com.toedter.calendar.JDateChooser();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel45 = new javax.swing.JLabel();
+        txtFechaRegistroFinal = new com.toedter.calendar.JDateChooser();
+        boton_Agregar1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -966,10 +988,11 @@ public class FREP001 extends javax.swing.JFrame {
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(txtCostoPromedio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel13)))
-                                    .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGap(9, 9, 9)
-                                        .addComponent(txtFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(txtFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1005,9 +1028,16 @@ public class FREP001 extends javax.swing.JFrame {
                 "ID", "Equipo", "Marca", "Modelo", "Nº de Serie", "Descripción", "Stock", "FOB", "P. Costo Ultimo", "Precio Lista"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Double.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false, false, false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -1042,7 +1072,7 @@ public class FREP001 extends javax.swing.JFrame {
             tablaRepuestos.getColumnModel().getColumn(9).setMaxWidth(100);
         }
 
-        boton_Agregar.setText("Agregar");
+        boton_Agregar.setText("Registrar");
         boton_Agregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 boton_AgregarActionPerformed(evt);
@@ -1092,11 +1122,6 @@ public class FREP001 extends javax.swing.JFrame {
 
         jLabel33.setText("Nº de Serie : ");
 
-        B_Parte.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                B_ParteActionPerformed(evt);
-            }
-        });
         B_Parte.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 B_ParteKeyTyped(evt);
@@ -1187,10 +1212,41 @@ public class FREP001 extends javax.swing.JFrame {
 
         jLabel44.setText("Modelo:");
 
+        filtrar_aplica2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        filtrar_aplica2.setText("Filtrar");
+        filtrar_aplica2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filtrar_aplica2ActionPerformed(evt);
+            }
+        });
+
+        txtFechaRegistroInicial.setDateFormatString("dd-MM-yyyy");
+
+        jLabel36.setText("Fecha de Registro:   De ");
+
+        jLabel45.setText("a");
+
+        txtFechaRegistroFinal.setDateFormatString("dd-MM-yyyy");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel36)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtFechaRegistroInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel45)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtFechaRegistroFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22)
+                .addComponent(filtrar_aplica2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txtFiltroAplica1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(filtrar_aplica1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(813, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel33)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1200,61 +1256,90 @@ public class FREP001 extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel37)
                 .addGap(2, 2, 2)
-                .addComponent(cbEquipoFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cbEquipoFiltro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel43)
                 .addGap(2, 2, 2)
                 .addComponent(cbMarcaFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel44)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbModeloFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbModeloFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(filtrar_parte1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel34)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(B_Desc, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(filtrar_desc, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtFiltroAplica1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(filtrar_aplica1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(53, 53, 53))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(B_Parte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(jLabel34)
-                .addComponent(B_Desc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(filtrar_parte, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(filtrar_desc, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(jLabel33)
-                .addComponent(txtFiltroAplica1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(filtrar_aplica1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(jLabel37)
-                .addComponent(filtrar_parte1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(cbEquipoFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(cbMarcaFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(cbModeloFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(jLabel43)
-                .addComponent(jLabel44))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(B_Parte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel34)
+                    .addComponent(B_Desc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(filtrar_parte, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(filtrar_desc, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel33)
+                    .addComponent(jLabel37)
+                    .addComponent(filtrar_parte1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbEquipoFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbMarcaFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbModeloFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel43)
+                    .addComponent(jLabel44))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel36))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(7, 7, 7)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel45)
+                                    .addComponent(txtFechaRegistroFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtFechaRegistroInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtFiltroAplica1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(filtrar_aplica1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(filtrar_aplica2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        boton_Agregar1.setText("Agregar e Ingresar");
+        boton_Agregar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton_Agregar1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelMaestrosLayout = new javax.swing.GroupLayout(panelMaestros);
         panelMaestros.setLayout(panelMaestrosLayout);
         panelMaestrosLayout.setHorizontalGroup(
             panelMaestrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMaestrosLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(panelMaestrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
+                .addContainerGap())
+            .addGroup(panelMaestrosLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(panelMaestrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelMaestrosLayout.createSequentialGroup()
-                        .addGap(117, 117, 117)
+                        .addGap(10, 10, 10)
                         .addComponent(boton_Agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(83, 83, 83)
+                        .addGap(26, 26, 26)
+                        .addComponent(boton_Agregar1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24)
                         .addComponent(boton_Modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(72, 72, 72)
+                        .addGap(18, 18, 18)
                         .addComponent(boton_Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(74, 74, 74)
                         .addComponent(boton_Exportar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1263,15 +1348,6 @@ public class FREP001 extends javax.swing.JFrame {
                         .addGap(49, 49, 49)
                         .addComponent(boton_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(panelMaestrosLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(panelMaestrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1))))
-                .addContainerGap())
-            .addGroup(panelMaestrosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelMaestrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
         );
@@ -1282,17 +1358,18 @@ public class FREP001 extends javax.swing.JFrame {
                 .addComponent(jLabel28)
                 .addGap(40, 40, 40)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addGap(13, 13, 13)
                 .addGroup(panelMaestrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelMaestrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(boton_Limpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(boton_Salir))
                     .addComponent(boton_Exportar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(boton_Eliminar, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelMaestrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(boton_Modificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(boton_Eliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(boton_Agregar, javax.swing.GroupLayout.Alignment.LEADING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(boton_Agregar)
+                        .addComponent(boton_Agregar1)
+                        .addComponent(boton_Modificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1326,6 +1403,11 @@ public class FREP001 extends javax.swing.JFrame {
         if ( txtnumSerie.getText().equals("") ) {
             mensaje = mensaje + "FALTA NUMERO DE SERIE";
         }
+        
+        if ( sm.GetRepuesto_Codigo(txtnumSerie.getText())!= null ) {
+            mensaje = mensaje + "EL NUMERO DE SERIE YA EXISTE";
+        }
+        
         if ( txtDescripcion.getText().equals("") ) {
             mensaje = mensaje + "\nFALTA DESCRIPCION";
         }
@@ -1390,6 +1472,8 @@ public class FREP001 extends javax.swing.JFrame {
         if ( txtnumSerie.getText().equals("")) {
             mensaje = mensaje + "FALTA NUMERO DE PARTE";
         }
+        
+        
         if ( txtDescripcion.getText().equals("") ) {
             mensaje = mensaje + "\nFALTA DESCRIPCION";
         }
@@ -1458,9 +1542,43 @@ public class FREP001 extends javax.swing.JFrame {
         
         return mensaje;
     }
+    
+    private String ValidarEntradasxFechas() {
+        String mensaje = "VALIDO";
+        
+        if(txtFechaRegistroFinal.getDate() == null || txtFechaRegistroInicial.getDate() == null) {
+             mensaje = "\n-SELECCIONE FECHA DE INICIAL Y FECHA FINAL";
+        }
+        
+        else if( txtFechaRegistroInicial.getDate().compareTo(txtFechaRegistroFinal.getDate()) > 0   ) {
+            mensaje = "\n-LA FECHA INICIAL DEBE SER MENOR O IGUAL QUE LA FINAL";
+        }
+        
+        
+        return mensaje;
+    }
 
     private boolean esRepuestoRepetido(String numeroParte) {
         return ( sm.GetRepuesto_Codigo(numeroParte) != null );
+    }
+    
+    public String fechasistema() {
+        Date ahora = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return sdf.format(ahora);
+    }
+    
+    public Date fechasistemaDate() {
+        
+        Calendar today = Calendar.getInstance();
+        today.set(Calendar.YEAR,Calendar.MONTH,Calendar.DAY_OF_MONTH);
+        System.out.println(today);
+        //Date ahora = today.getTime();
+        
+        Date ahora = new Date();
+        System.out.println(ahora);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return ahora;
     }
     
     private void boton_AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_AgregarActionPerformed
@@ -1507,8 +1625,10 @@ public class FREP001 extends javax.swing.JFrame {
                     String v = txtUnidadVenta.getText();
                     String w = txtPartidaArancel.getText();
                     //String x = txtMarcaProveedor.getText();
+                    txtFechaRegistro.setDate(fechasistemaDate());
                     Date fechaRegistro = txtFechaRegistro.getDate();
                     String xx = txtNumAlternativo1.getText();
+                    xx = nombreUsuario;
                     
                     String stock = txtStock.getText();
 //                    System.out.println("stock:" + stock);
@@ -1621,7 +1741,10 @@ public class FREP001 extends javax.swing.JFrame {
                     }
                     rep.setImagen(img);
                     rep.setUsuario(xx);
-
+                    
+                    System.out.println(fechaRegistro.toString());
+                    System.out.println(rep.getFecharegistro().toString());
+                    
                     if ( sm.addRepuestos(rep) ) {
                         JOptionPane.showMessageDialog(null, "Se registró el repuesto");
                         Object[] row = {rep.getId().getIdrepuesto(), equipos.getDescripcion(), marcas.getDescripcion(), modelos.getDescripcion(),a, b, stock,  t, m, k};
@@ -1630,6 +1753,7 @@ public class FREP001 extends javax.swing.JFrame {
                         clean();
                         cargarImagen(null); // Desaparece imagen y limpia su nombre
                         txtId.setText(String.valueOf(sm.nextId()));
+                        txtNumAlternativo1.setText(rep.getUsuario());
                         
                     } else {
                         JOptionPane.showMessageDialog(null, "Error en la inserción");
@@ -1996,8 +2120,9 @@ public class FREP001 extends javax.swing.JFrame {
 
                     Servicio_Marcas ma = new Servicio_Marcas(null);
                     String hi = comboMarca.getSelectedItem().toString();
-                    hi = hi.split(" - ", 2)[1];
-                    Marcas marcas = ma.buscarMarcasx_Nombre(hi); 
+                    hi = hi.split(" - ", 2)[0];
+                    int inthi = Integer.valueOf(hi);
+                    Marcas marcas = ma.getMarcas_por_codigo(inthi); 
                     
                     Servicio_Modelos mo = new Servicio_Modelos(null);
                     String hj = comboModelo.getSelectedItem().toString();
@@ -2006,7 +2131,7 @@ public class FREP001 extends javax.swing.JFrame {
                     
                     
                     Repuestos rep = sm.GetRepuesto_Id(oa);
-
+                    
                     rep.setCodrepuesto(a);
                     rep.setDescripcion(b);
                     rep.setDescrmodelo(c);
@@ -2014,13 +2139,14 @@ public class FREP001 extends javax.swing.JFrame {
                     //rep.setDesclista2(d2);
                     rep.setCodigoseg(e);
                     rep.setAplicacion(f);
+                    //rep.setMarca(marcas.getDescripcion());
                     rep.setInventario(Integer.parseInt(g));
                     //rep.setStock(Integer.parseInt(stock));
                     //rep.setEquipos(li);
                     //rep.setMarcas(marcas);
                     //rep.setModelos(modelos);
                     rep.setNroalternativo(Integer.parseInt(j));
-
+                    
                     if ( k == null ) {
                         rep.setPreciolista(0.00);
                     } else {
@@ -2167,10 +2293,11 @@ public class FREP001 extends javax.swing.JFrame {
         fila = tablaRepuestos.getSelectedRow();
         String a = tablaRepuestos.getValueAt(fila, 0).toString();
         Repuestos rep = sm.GetRepuesto_Id(Integer.parseInt(a));
-
+        System.out.print("Id del repuesto seleccionado "+rep);
+        
         int id = rep.getId().getIdrepuesto();
         txtNumAlternativo1.setText(rep.getUsuario());
-
+        
         txtId.setText(String.valueOf(id));
         txtnumSerie.setText(rep.getCodrepuesto());
         txtDescripcion.setText(tablaRepuestos.getValueAt(fila, 5).toString());
@@ -2486,10 +2613,6 @@ public class FREP001 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPrecioCostoTempActionPerformed
 
-    private void B_ParteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_ParteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_B_ParteActionPerformed
-
     private void B_DescActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_DescActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_B_DescActionPerformed
@@ -2744,6 +2867,273 @@ public class FREP001 extends javax.swing.JFrame {
             cbModeloFiltro.setSelectedIndex(0);
     }//GEN-LAST:event_cbMarcaFiltroItemStateChanged
 
+    private void filtrar_aplica2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtrar_aplica2ActionPerformed
+        // TODO add your handling code here:
+        int caso = 0;
+        if ("ADMINISTRADOR".equals(roltemporal)){        
+            caso = 0;
+        } else {
+            caso = 6;
+        }
+        
+        
+        String validacion = ValidarEntradasxFechas();
+        if (!validacion.equals("VALIDO")){
+            JOptionPane.showMessageDialog(null, validacion, "Error de ingreso de datos", JOptionPane.ERROR_MESSAGE);
+            }
+            else {
+                List lista = sm.Consultar_Repuestos_xFechas(txtFechaRegistroInicial.getDate(), txtFechaRegistroFinal.getDate());
+                BorrarTabla();
+                Iterator it = lista.iterator();
+                while ( it.hasNext() ) {
+                    Object[] row = (Object[]) it.next();
+                    table.addRow(row);
+                }        
+                    
+             }    
+            
+            seleccionada = false;
+        
+    }//GEN-LAST:event_filtrar_aplica2ActionPerformed
+
+    private void boton_Agregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_Agregar1ActionPerformed
+        // TODO add your handling code here:
+        if ( seleccionada == false ) {
+            String validacion = validarEntradasxAgregar();
+
+            if ( !validacion.equals("") ) {
+                JOptionPane.showMessageDialog(null, validacion, "Falta ingresar datos", JOptionPane.ERROR_MESSAGE);
+                
+            }/* else if ( esRepuestoRepetido(txtnumParte.getText()) ) {
+                JOptionPane.showMessageDialog(null, "El N° de Serie ya existe", "Error", JOptionPane.ERROR_MESSAGE);
+                // Obviar porque en equipos se pueden repetir
+            } */else {
+                int verif;
+                verif = JOptionPane.showConfirmDialog(null, "¿Desea continuar con la operación?", "CONFIRMACIÓN", 0);
+                
+                if ( verif == 0 ) {
+
+                    String id = txtId.getText();
+                    String a = txtnumSerie.getText();
+                    String b = txtDescripcion.getText();
+                    String c = txtDescripModelo.getText();
+                    String d = txtDescripLista.getText();
+                    //String d2 = txtDescripLista2.getText();
+                    String e = txtCodSegundo.getText();
+                    String f = txtAplicacion.getText();
+                    String g = txtInventario.getText();
+
+                    String h = comboEquipo.getSelectedItem().toString();
+                    String j = txtNumAlternativo.getText();
+                    String k = txtPrecioLista.getText();
+                    String l = txtCostoPromedio.getText();
+                    String m = txtPrecioCostoUltimo.getText();
+                    Date fechaPreCosto = txtFechaPrecioCosto.getDate();
+                    String n = txtPrecioCostoTemp.getText();
+                    String o = txtStockMinimo.getText();
+                    String p = comboMovimiento.getSelectedItem().toString();
+                    String q = txtIdAnterior.getText();
+                    String r = txtMargenUtil.getText();
+                    String s = txtUnidadMedida.getText();
+                    String t = txtFOBUltimo.getText();
+                    String u = txtUbicacionAlmacen.getText();
+                    String v = txtUnidadVenta.getText();
+                    String w = txtPartidaArancel.getText();
+                    //String x = txtMarcaProveedor.getText();
+                    txtFechaRegistro.setDate(fechasistemaDate());
+                    Date fechaRegistro = txtFechaRegistro.getDate();
+                    String xx = txtNumAlternativo1.getText();
+                    xx = nombreUsuario;
+                    
+                    String stock = txtStock.getText();
+//                    System.out.println("stock:" + stock);
+
+                    Servicio_Equipos li = new Servicio_Equipos(null);
+                    Servicio_Estratificacion es = new Servicio_Estratificacion();
+                    h = h.split(" - ", 2)[0];
+                    Equipos equipos = li.getEquipos_por_codigo(Integer.valueOf(h));
+                    Estratificacion estr = es.getEstratificacion_por_nombre("N");
+                    
+                    Servicio_Marcas ma = new Servicio_Marcas(null);
+                    String hi = comboMarca.getSelectedItem().toString();
+                    hi = hi.split(" - ", 2)[0];
+                    Marcas marcas = ma.getMarcas_por_codigo(Integer.valueOf(hi)); 
+                    
+                    Servicio_Modelos mo = new Servicio_Modelos(null);
+                    String hj = comboModelo.getSelectedItem().toString();
+                    hj = hj.split(" - ", 2)[0];
+                    Modelos modelos = mo.getModelos_por_codigo(Integer.valueOf(hj));
+                    
+
+                    int numlin = equipos.getIdequipo();
+                    int nummarc = marcas.getIdmarca();
+                    int nummodel = modelos.getIdmodelo();
+                    Repuestos rep = new Repuestos();
+                    RepuestosId repid = new RepuestosId();
+
+                    repid.setIdequipo(numlin);
+                    repid.setIdmarca(nummarc);
+                    repid.setIdmodelo(nummodel);
+                    repid.setIdrepuesto(Integer.parseInt(id));
+
+                    rep.setId(repid);
+                    rep.setCodrepuesto(a);
+                    rep.setDescripcion(b);
+                    rep.setDescrmodelo(c);
+                    rep.setDesclista(d);
+                    rep.setMarca(marcas.getDescripcion());
+                    //rep.setDesclista2(d2);
+                    rep.setCodigoseg(e);
+                    rep.setAplicacion(f);
+                    
+                    if ( !g.equals("") ) {
+                        rep.setInventario(Integer.parseInt(g));
+                    }
+                    
+//                    if ( STOCK_MAXIMO.equals(stock) ) {
+//                    if ( STOCK_MINIMO.equals(stock) ) {
+//                        rep.setStock(Integer.parseInt(stock));
+//                    }
+// Javier Salas (25/06/2022) - Tema de actualiza Stock en MyD
+//                    else {
+                    rep.setStock(0);
+//                    }
+
+                    if ( !j.equals("") ) {
+                        rep.setNroalternativo(Integer.parseInt(j));
+                    }
+
+                    rep.setEquipos(equipos);
+                    rep.setMarcas(marcas);
+                    rep.setModelos(modelos);
+
+                    if ( !k.equals("") ) {
+                        rep.setPreciolista(Double.parseDouble(k));
+                    }
+                    
+                    if ( !l.equals("") ) {
+                        rep.setCostopromedio(Double.parseDouble(l));
+                        
+                    } else {
+                        rep.setCostopromedio(0.00);
+                    }
+                    
+                    if ( !m.equals("") ) {
+                        rep.setPcostoultimo(Double.parseDouble(m));
+                    }
+
+                    rep.setFechapcosto(fechaPreCosto);
+                    if ( !n.equals("") ) {
+                        rep.setPcostotemporal(Double.parseDouble(n));
+                    }
+                    
+                    if ( !o.equals("") ) {
+                        rep.setStockminimo(Integer.parseInt(o));
+                    }
+
+                    rep.setEstratificacion(estr);
+                    rep.setIdrepuestoant(q);
+                    if ( !r.equals("") ) {
+                        rep.setMargenutil(Double.parseDouble(r));
+                    }
+                    rep.setUnidadmedida(s);
+                    if ( !t.equals("") ) {
+                        rep.setFobultimo(Double.parseDouble(t));
+                     } else {
+                        rep.setFobultimo(0.00);
+                        t="0.0";
+                    }                        
+ 
+                    rep.setUbicalmacen(u);
+                    rep.setUnidadventa(v);
+                    rep.setPartidarancel(w);
+                    //rep.setMarca(x);
+                    rep.setFecharegistro(fechaRegistro);
+                    
+                    String img = null;
+                    if ( !"".equals(txtImagen.getText()) ) {
+                        img = txtImagen.getText();
+                    }
+                    rep.setImagen(img);
+                    rep.setUsuario(xx);
+                    
+                    System.out.println(fechaRegistro.toString());
+                    System.out.println(rep.getFecharegistro().toString());
+                    
+                    sistema = sis.getSis(INGRESO_POR_REGULARIZACION);
+                    
+                    if ( sm.addRepuestos(rep)  ) {
+                        JOptionPane.showMessageDialog(null, "Se registró el repuesto");
+
+                        
+                        if(sis.guardarIngreso(SetDetalles(rep))) {
+                            sis.actualizarSistema(sistema);
+                            System.out.println("ultimo numero despues de ACTUALIZADO:" + sistema.getUltimonumero());
+                            tm.Mensaje("ÉXITO EN LA OPERACIÓN");
+                            
+                            JOptionPane.showMessageDialog(null, "Se registró el ingreso del repuesto");
+                            
+                        } else {
+                           System.out.println("Error INGRESO GuardarIngSalVarias(IU_DetalleIngSal.java)");
+                           tm.Mensaje("ERROR EN LA OPERACIÓN");
+                           
+                           JOptionPane.showMessageDialog(null, "Error en el ingreso del ingreso del repuesto");
+                        }
+                        
+                        Object[] row = {rep.getId().getIdrepuesto(), equipos.getDescripcion(), marcas.getDescripcion(), modelos.getDescripcion(),a, b, rep.getStock(),  t, m, k};
+                        //Object[] row = {a, e, b, stock, k, l, m, n};
+                        modelo.insertRow(0, row);
+                        clean();
+                        cargarImagen(null); // Desaparece imagen y limpia su nombre
+                        txtId.setText(String.valueOf(sm.nextId()));
+                        txtNumAlternativo1.setText(rep.getUsuario());
+                        
+                        
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error en la inserción");
+                    }
+                }
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "No se puede registrar un repuesto que ya existe!", "Error al agregar", 0);
+        }
+    }//GEN-LAST:event_boton_Agregar1ActionPerformed
+
+        private ArrayList<Detallees> SetDetalles(Repuestos rep) {
+        ArrayList<Detallees> d = new ArrayList();
+        System.out.println("Numero de nota ingreso x importacion : " + sistema.getUltimonumero());
+        
+        int nroIngreso = sistema.getUltimonumero() + 1;
+        String motivo = "INGRESO AUTOMATICO POR MAESTRO";
+        
+        
+            Detallees detalle = new Detallees();
+            double precRep = 0.00;
+            if ( rep.getCostopromedio() != null ) {
+                precRep = rep.getCostopromedio();
+            }
+            detalle.setRepuestos(rep);
+            detalle.setCantpedida(1);
+            detalle.setCantentregada(1);
+            detalle.setDescuento1(0.0);
+            detalle.setDescuento2(0.0);
+            detalle.setDescuento3(0.0);
+            detalle.setDescuento4(0.0);
+            detalle.setPreciolista(precRep);
+            
+            
+            
+            
+            detalle.setFecha(rep.getFecharegistro());
+            detalle.setOperaciones(sistema.getOperaciones());
+            detalle.setNroingreso(nroIngreso);
+            d.add(detalle);
+            detalle.setMotivo(motivo);
+        
+        sistema.setUltimonumero(nroIngreso); // ACTUALIZA SISTEMA para "Ingresos por Regularización"
+        return d;
+    }
 
     private void eliminarImagen() {
 //        System.out.println("eliminarImagen...");
@@ -2915,9 +3305,14 @@ public class FREP001 extends javax.swing.JFrame {
     
     private void clean() {
         for ( JTextField j : componentes ) {
+            
             j.setText("");
         }
-        comboEquipo.setSelectedIndex(0);
+        txtDescripcion.setText("RAM / SSD");
+        
+        txtPrecioLista.setText("1");
+        txtPrecioCostoUltimo.setText("0.6");
+        //comboEquipo.setSelectedIndex(0);
         comboMovimiento.setSelectedIndex(1);
         tablaRepuestos.clearSelection();
         txtnumSerie.setEditable(true);
@@ -3025,6 +3420,7 @@ public class FREP001 extends javax.swing.JFrame {
     public javax.swing.JTextField B_Desc;
     public javax.swing.JTextField B_Parte;
     public javax.swing.JButton boton_Agregar;
+    public javax.swing.JButton boton_Agregar1;
     public javax.swing.JButton boton_Eliminar;
     public javax.swing.JButton boton_Exportar;
     public javax.swing.JButton boton_Limpiar;
@@ -3042,6 +3438,7 @@ public class FREP001 extends javax.swing.JFrame {
     public javax.swing.JComboBox comboModelo;
     public javax.swing.JComboBox comboMovimiento;
     public javax.swing.JButton filtrar_aplica1;
+    public javax.swing.JButton filtrar_aplica2;
     public javax.swing.JButton filtrar_desc;
     public javax.swing.JButton filtrar_parte;
     public javax.swing.JButton filtrar_parte1;
@@ -3074,6 +3471,7 @@ public class FREP001 extends javax.swing.JFrame {
     public javax.swing.JLabel jLabel33;
     public javax.swing.JLabel jLabel34;
     public javax.swing.JLabel jLabel35;
+    public javax.swing.JLabel jLabel36;
     public javax.swing.JLabel jLabel37;
     public javax.swing.JLabel jLabel38;
     public javax.swing.JLabel jLabel39;
@@ -3083,6 +3481,7 @@ public class FREP001 extends javax.swing.JFrame {
     public javax.swing.JLabel jLabel42;
     public javax.swing.JLabel jLabel43;
     public javax.swing.JLabel jLabel44;
+    public javax.swing.JLabel jLabel45;
     public javax.swing.JLabel jLabel5;
     public javax.swing.JLabel jLabel6;
     public javax.swing.JLabel jLabel7;
@@ -3103,6 +3502,8 @@ public class FREP001 extends javax.swing.JFrame {
     public javax.swing.JTextField txtFOBUltimo;
     public com.toedter.calendar.JDateChooser txtFechaPrecioCosto;
     public com.toedter.calendar.JDateChooser txtFechaRegistro;
+    public com.toedter.calendar.JDateChooser txtFechaRegistroFinal;
+    public com.toedter.calendar.JDateChooser txtFechaRegistroInicial;
     public javax.swing.JTextField txtFiltroAplica1;
     public javax.swing.JTextField txtId;
     public javax.swing.JTextField txtIdAnterior;

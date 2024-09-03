@@ -6,6 +6,7 @@ import Mantenimiento.MaestrosDAO;
 import Mantenimiento.ModelosDAO;
 import Presentacion.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -40,6 +41,7 @@ public class Servicio_Maestros {
     }
 
     public int getUltimo_id() {
+        System.out.print("ultimo id: " + ultimo_id);
         return ultimo_id;
     }
 
@@ -91,17 +93,21 @@ public class Servicio_Maestros {
             case 1:
                 return maestrosDAO.Getx_Descripcion(busq);
             case 2:
-                return maestrosDAO.Getx_DescrModelo(busq);
+                return maestrosDAO.Getx_DescrLista(busq);
             case 3:
-                return maestrosDAO.Getx_CodSec(busq);
+                return maestrosDAO.Getx_DescrModelo(busq);
+           // case 3:
+             //   return maestrosDAO.Getx_CodSec(busq);
             case 4:
                 return maestrosDAO.Getx_Equipo(busq);
             case 5:
                 return maestrosDAO.Getx_Marca(busq);
             case 6:
                 return maestrosDAO.Getx_Modelo(busq);    
-//            case 3:
-//                return maestrosDAO.Getx_Cod_PrecLista(busq);                
+            //case 3:
+             //   return maestrosDAO.Getx_Cod_PrecLista(busq); 
+                
+                
             default:
                 return null;
         }
@@ -420,6 +426,12 @@ public class Servicio_Maestros {
         }
         return null;
     }
+    
+    public List Consultar_Repuestos_xFechas(Date fechaInicial, Date fechaFinal) {
+        
+        return maestrosDAO.Consulta_Repuestos_FechasInicial_FechaFinal(fechaInicial, fechaFinal);
+        
+    }
 
     /**
      * ***** Para caso de Uso Listar Precios ************************
@@ -429,7 +441,7 @@ public class Servicio_Maestros {
         if (tipo != 4) {
             switch (tipo) {
                 case 1:
-                    consulta += " where r.lineas.descripcion = '" + opcion + "'";
+                    consulta += " where r.equipos.descripcion = '" + opcion + "'";
                     break;
                 case 2:
                     consulta += " where r.descripcion like '%" + opcion + "%'";

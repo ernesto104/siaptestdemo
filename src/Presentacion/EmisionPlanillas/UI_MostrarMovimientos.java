@@ -11,12 +11,23 @@ import java.util.HashMap;
 public class UI_MostrarMovimientos extends javax.swing.JFrame {
     HashMap<String,String> documentos ;
     private Servicio_MostrarMovimientos servicioMov;
+    String equipo;
+    String marca;
+    String modelo;
+    String descripcion;
+    String descripcionTotal;
     
     public UI_MostrarMovimientos(Detallees d,HashMap documentos) {
         this();
         this.documentos=documentos;
+        this.equipo = d.getRepuestos().getEquipos().getDescripcion();
+        this.marca = d.getRepuestos().getMarcas().getDescripcion();
+        this.modelo = d.getRepuestos().getModelos().getDescripcion();
+        this.descripcion = d.getRepuestos().getDescripcion();
+        this.descripcionTotal = this.equipo + " " + this.marca +" " +this.modelo +" " +this.descripcion;
         lb_codRep.setText(d.getRepuestos().getCodrepuesto());
-        lb_descripcion.setText(d.getRepuestos().getDescripcion());
+        //lb_descripcion.setText(d.getRepuestos().getDescripcion());
+        lb_descripcion.setText(this.descripcionTotal);
         servicioMov = new Servicio_MostrarMovimientos(d, tab_Movimientos);
     }    
     public UI_MostrarMovimientos() {
@@ -86,23 +97,20 @@ public class UI_MostrarMovimientos extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jScrollPane1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(132, 132, 132)
+                        .addComponent(LB_TITULO, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(342, 342, 342)
+                        .addComponent(btn_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2))
-                                .addGap(31, 31, 31)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lb_codRep, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lb_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(132, 132, 132)
-                                .addComponent(LB_TITULO, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(342, 342, 342)
-                                .addComponent(btn_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 174, Short.MAX_VALUE)))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(31, 31, 31)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lb_codRep, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lb_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(

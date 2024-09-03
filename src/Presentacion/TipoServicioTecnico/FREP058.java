@@ -8,6 +8,12 @@ package Presentacion.TipoServicioTecnico;
 
 import Entidades.Roles;
 import Entidades.Usuarios;
+import Mantenimiento.Navegacion;
+import Servicios.Servicio_TipoServicioTecnico;
+import Servicios.TipoMensaje;
+import java.util.ArrayList;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -21,16 +27,106 @@ public class FREP058 extends javax.swing.JFrame {
     Usuarios usuario;
     String valorVenta;
     
+    boolean modificar;
+    Servicio_TipoServicioTecnico stst;
+    TipoMensaje tm;
+    public JTextField[] componentes;
+    DefaultTableModel modelo;
+    Navegacion navegacion;
+    private final ArrayList<Integer> numMaximo;
+    private final ArrayList<String> tipoDato;
+    
     public FREP058(Usuarios usuario, String valorVenta) {
         initComponents();
         this.usuario = usuario;
         this.valorVenta = valorVenta;
+        modificar = false;
 
 //        System.out.println("Roles : " + roles);
         Roles Querol = usuario.getRoles();
         System.out.println("Al comienzo Rol : " + Querol);
+        
+        tm = new TipoMensaje();
+        modelo = (DefaultTableModel) tb_tipoSoporteTecnico.getModel();
+        stst = new Servicio_TipoServicioTecnico();
+        
+        ListarTiposServicioTecnico();
+        crearArrayComponente();
+        numMaximo = new ArrayList<>();
+        crearArrayNumMax();
+        tipoDato = new ArrayList<>();
+        crearArrayTipoDato();
+        navegacion = new Navegacion(componentes, numMaximo, tipoDato, bt_agregar);
+        asignarEvento();
+    }
+    
+    private void crearArrayComponente() {
+        componentes = new JTextField[2];
+        componentes[0] = tx_tipo;
+        //componentes[1] = txtdescuento;
+        componentes[1] = txtdescripcion;
+
+    }
+    
+    private void crearArrayNumMax() {
+        numMaximo.add(10);
+        numMaximo.add(100);
+    }
+    
+        private void crearArrayTipoDato() {
+        tipoDato.add("S");
+        tipoDato.add("S");
+    }
+    
+      private void asignarEvento() {
+        for (int i = 0; i < componentes.length; i++) {
+            componentes[i].addKeyListener(navegacion);
+        }
+    }
+      
+      
+      private void ListarTiposServicioTecnico() {
+          limpiarTabla();
+          
+          int cant_tipos= stst.listarTipoServicioTecnico(modelo);
+          cant_tipos++;
+      
+      }
+      
+       private void limpiarTabla() {
+//        tablaRepuestos.setModel(new DefaultTableModel());
+       for (int i = 0; i < tb_tipoSoporteTecnico.getRowCount(); i++) {
+           modelo.removeRow(i);
+           i-=1;
+       }
     }
 
+       
+       private String validarEntradas() {
+        String mensaje = "ERROR";
+        boolean a = true;
+        if (txtdescripcion.getText().equals("")) {
+            mensaje = mensaje + "\n- Ingrese descripción de Equipo";
+            a = false;
+        }
+        
+        
+        if (comboEstado.getSelectedIndex() == 0) {
+            mensaje += "\n- Seleccione un estado para el equipo";
+        }
+       
+        if (/*a && */!modificar){
+            /*if (stst.buscarEquiposx_Nombre(txtdescripcion.getText())!= null ) {
+                mensaje += "\n- YA EXISTE EQUIPO CON ESE NOMBRE";
+            }*/
+        }
+       /* if (mensaje.equals("")) {
+            return tm.VALIDO;
+        } else {*/
+            return mensaje;
+        //}
+   
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,19 +140,19 @@ public class FREP058 extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        tx_nombre = new javax.swing.JTextField();
+        tx_tipo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        tx_siglas = new javax.swing.JTextField();
+        txtdescripcion = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         cbFacturable = new javax.swing.JComboBox();
-        jComboBox2 = new javax.swing.JComboBox();
-        bt_tablaTipoServicio = new javax.swing.JButton();
+        comboEstado = new javax.swing.JComboBox();
+        bt_agregar = new javax.swing.JButton();
         Modificar = new javax.swing.JButton();
-        bt_consultaServicioTecnico = new javax.swing.JButton();
+        bt_limpiar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         bt_salir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -86,7 +182,7 @@ public class FREP058 extends javax.swing.JFrame {
 
         cbFacturable.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Si", "No" }));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Activo", "No Activo" }));
+        comboEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Activo", "No Activo" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -98,7 +194,7 @@ public class FREP058 extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
-                        .addComponent(tx_siglas, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtdescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel8)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -107,7 +203,7 @@ public class FREP058 extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(88, 88, 88)
-                                .addComponent(tx_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(tx_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
@@ -119,7 +215,7 @@ public class FREP058 extends javax.swing.JFrame {
                         .addGap(28, 28, 28)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(comboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel7)
                         .addContainerGap(23, Short.MAX_VALUE))))
@@ -137,9 +233,9 @@ public class FREP058 extends javax.swing.JFrame {
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(cbFacturable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(comboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(tx_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tx_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -148,14 +244,14 @@ public class FREP058 extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tx_siglas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtdescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(85, 85, 85))))
         );
 
-        bt_tablaTipoServicio.setText("Agregar Servicio");
-        bt_tablaTipoServicio.addActionListener(new java.awt.event.ActionListener() {
+        bt_agregar.setText("Agregar Servicio");
+        bt_agregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_tablaTipoServicioActionPerformed(evt);
+                bt_agregarActionPerformed(evt);
             }
         });
 
@@ -166,10 +262,10 @@ public class FREP058 extends javax.swing.JFrame {
             }
         });
 
-        bt_consultaServicioTecnico.setText("Limpiar");
-        bt_consultaServicioTecnico.addActionListener(new java.awt.event.ActionListener() {
+        bt_limpiar.setText("Limpiar");
+        bt_limpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_consultaServicioTecnicoActionPerformed(evt);
+                bt_limpiarActionPerformed(evt);
             }
         });
 
@@ -234,11 +330,11 @@ public class FREP058 extends javax.swing.JFrame {
                         .addGroup(panelServicio_TecnicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(panelServicio_TecnicoLayout.createSequentialGroup()
-                                .addComponent(bt_tablaTipoServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(bt_agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(Modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(33, 33, 33)
-                                .addComponent(bt_consultaServicioTecnico, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(bt_limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(32, 32, 32)
                                 .addComponent(bt_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(panelServicio_TecnicoLayout.createSequentialGroup()
@@ -256,9 +352,9 @@ public class FREP058 extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelServicio_TecnicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bt_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bt_consultaServicioTecnico, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bt_limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bt_tablaTipoServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bt_agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -286,7 +382,7 @@ public class FREP058 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bt_tablaTipoServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_tablaTipoServicioActionPerformed
+    private void bt_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_agregarActionPerformed
         /*IU_Facturacion f = new IU_Facturacion(valorVenta, FACTURA_NORMAL, null, null, usuario);
         //        f.setUsuario(usuario);
         System.out.println("Usuario : " + usuario);
@@ -294,7 +390,7 @@ public class FREP058 extends javax.swing.JFrame {
         f.setLocationRelativeTo(null);
         f.setVisible(true);
         dispose();*/
-    }//GEN-LAST:event_bt_tablaTipoServicioActionPerformed
+    }//GEN-LAST:event_bt_agregarActionPerformed
 
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
         /*IU_FProforma iup = new IU_FProforma(usuario, valorVenta);
@@ -303,12 +399,12 @@ public class FREP058 extends javax.swing.JFrame {
         dispose();*/
     }//GEN-LAST:event_ModificarActionPerformed
 
-    private void bt_consultaServicioTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_consultaServicioTecnicoActionPerformed
+    private void bt_limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_limpiarActionPerformed
         /*IU_FSalidasVarias iu = new IU_FSalidasVarias(usuario);
         iu.setLocationRelativeTo(null);
         iu.setVisible(true);
         dispose();*/
-    }//GEN-LAST:event_bt_consultaServicioTecnicoActionPerformed
+    }//GEN-LAST:event_bt_limpiarActionPerformed
 
     private void bt_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_salirActionPerformed
         dispose();
@@ -361,11 +457,11 @@ public class FREP058 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Modificar;
-    private javax.swing.JButton bt_consultaServicioTecnico;
+    private javax.swing.JButton bt_agregar;
+    private javax.swing.JButton bt_limpiar;
     public javax.swing.JButton bt_salir;
-    private javax.swing.JButton bt_tablaTipoServicio;
     private javax.swing.JComboBox cbFacturable;
-    private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JComboBox comboEstado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -379,7 +475,7 @@ public class FREP058 extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JPanel panelServicio_Tecnico;
     public javax.swing.JTable tb_tipoSoporteTecnico;
-    public javax.swing.JTextField tx_nombre;
-    public javax.swing.JTextField tx_siglas;
+    public javax.swing.JTextField tx_tipo;
+    public javax.swing.JTextField txtdescripcion;
     // End of variables declaration//GEN-END:variables
 }

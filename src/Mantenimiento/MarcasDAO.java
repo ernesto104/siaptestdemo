@@ -90,6 +90,7 @@ public class MarcasDAO extends GenericDAO<Marcas> {
         try {
             m = (Marcas) getHibernateTemplate().createQuery("from Marcas where idmarca='" + codigo + "'").uniqueResult();
             session.getTransaction().commit();
+            System.out.println("MarcasDAO.Obtener_Objeto_por_codigo: Nombre Marca: "+m.getDescripcion() + ", Id Marca: "+ m.getIdmarca());
         } catch (Exception e) {
             System.err.println("Error : " + e.getLocalizedMessage());
         } finally {
@@ -105,7 +106,7 @@ public class MarcasDAO extends GenericDAO<Marcas> {
         try {
         marc = (Marcas) getHibernateTemplate().createQuery("from Marcas where descripcion='" + nombre + "'").uniqueResult();  
         } catch (Exception e) {
-            System.err.println("Error : " + e.getLocalizedMessage());
+            System.err.println("Error de Marcas.Obtener_Objeto_por_nombre: " + e.getLocalizedMessage());
         } finally {
             session.close();
         }
@@ -155,6 +156,27 @@ public class MarcasDAO extends GenericDAO<Marcas> {
             //iniciaOperacion();
 //            lista = sesion.createQuery("from Equipos order by idlinea ASC").list();
             lista = getHibernateTemplate().createQuery("from Marcas where equipo.idequipo like '" + equipo.getIdequipo() + "' order by descripcion ASC").list();
+            session.getTransaction().commit();
+            //tx.commit();
+
+        } catch (Exception e) {
+            System.err.println("Error : " + e.getMessage());
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return lista;
+    }
+    
+    
+    public List Listar_Marcas_por_CodigoEquipo(int idEquipo) {
+        
+        List<Marcas> lista = new LinkedList();
+        try {
+            //iniciaOperacion();
+//            lista = sesion.createQuery("from Equipos order by idlinea ASC").list();
+            lista = getHibernateTemplate().createQuery("from Marcas where equipo.idequipo like '" + idEquipo + "' order by descripcion ASC").list();
             session.getTransaction().commit();
             //tx.commit();
 

@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class Cabeces  implements java.io.Serializable {
 
-
+   
      private CabecesId id;
      private Sucursales sucursales;
      private Bancos bancos;
@@ -23,12 +23,35 @@ public class Cabeces  implements java.io.Serializable {
      private Transportistas transportistas;
      private Clientes clientes;
      private PuntosVenta puntosventa;
+     private String ordencompra;
+
+
      
      private String marca;
      private String observaciones;
      private String modelo;
      private String ordenTransportista;
      
+     private String letraPlanilla;
+     private Date fechaLetPla;
+     
+     private int txtgen;
+
+    public Date getFechaLetPla() {
+        return fechaLetPla;
+    }
+
+    public void setFechaLetPla(Date fechaLetPla) {
+        this.fechaLetPla = fechaLetPla;
+    }
+
+    public String getLetraPlanilla() {
+        return letraPlanilla;
+    }
+
+    public void setLetraPlanilla(String letraPlanilla) {
+        this.letraPlanilla = letraPlanilla;
+    }
      private String siniestro;
      private Integer nrorenovacion;
      private String tipoperacion;
@@ -486,6 +509,32 @@ public class Cabeces  implements java.io.Serializable {
     
     public void setFechaEnvio(Date fechaEnvio) {
         this.fechaEnvio = fechaEnvio;
+    }
+    
+     /**
+     * Get the value of txtgen
+     *
+     * @return the value of txtgen
+     */
+    public int getTxtgen() {
+        return txtgen;
+    }
+
+    /**
+     * Set the value of txtgen
+     *
+     * @param txtgen new value of txtgen
+     */
+    public void setTxtgen(int txtgen) {
+        this.txtgen = txtgen;
+    }
+    
+    public String getOrdencompra() {
+        return ordencompra;
+    }
+
+    public void setOrdencompra(String ordencompra) {
+        this.ordencompra = ordencompra;
     }
 
     @Override

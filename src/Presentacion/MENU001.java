@@ -44,6 +44,7 @@ import Presentacion.CuentasxCobrarSalidas.FREP070;
 import Presentacion.EmisionPlanillas.FREP033;
 import Presentacion.Facturacion.IU_Facturacion;
 import Presentacion.FacturacionElectronica.FREP054;
+import Presentacion.PlanillaElectronica.FREP033_;
 import Presentacion.ResumenGeneralCliente.FREP047;
 import Presentacion.RegistroServicioTecnico.FREP059;
 
@@ -676,6 +677,8 @@ public class MENU001 extends javax.swing.JFrame {
         panelServicio_Tecnico = new javax.swing.JPanel();
         scrollRegistro_ServicioTecnico = new javax.swing.JScrollPane();
         panelRegistro_ServicioTecnico = new javax.swing.JPanel();
+        scrollPlanilla_Electronica = new javax.swing.JScrollPane();
+        panelPlanilla_Electronica = new javax.swing.JPanel();
         panelInferior = new javax.swing.JPanel();
         btnClientes = new javax.swing.JButton();
         btnProductos = new javax.swing.JButton();
@@ -732,6 +735,7 @@ public class MENU001 extends javax.swing.JFrame {
         item_Rep_Estratificacion = new javax.swing.JMenuItem();
         item_StockMin = new javax.swing.JMenuItem();
         item_flujo_comparativo = new javax.swing.JMenuItem();
+        item_PlanillaElect = new javax.swing.JMenuItem();
         menu_CuentasCorrientes = new javax.swing.JMenu();
         item_CuentasCobrar_Facturas = new javax.swing.JMenuItem();
         item_CuentasCobrar_Letras = new javax.swing.JMenuItem();
@@ -1783,6 +1787,21 @@ public class MENU001 extends javax.swing.JFrame {
 
         panelCentral.add(scrollRegistro_ServicioTecnico, "scrollRegistro_ServicioTecnico");
 
+        javax.swing.GroupLayout panelPlanilla_ElectronicaLayout = new javax.swing.GroupLayout(panelPlanilla_Electronica);
+        panelPlanilla_Electronica.setLayout(panelPlanilla_ElectronicaLayout);
+        panelPlanilla_ElectronicaLayout.setHorizontalGroup(
+            panelPlanilla_ElectronicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1641, Short.MAX_VALUE)
+        );
+        panelPlanilla_ElectronicaLayout.setVerticalGroup(
+            panelPlanilla_ElectronicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 943, Short.MAX_VALUE)
+        );
+
+        scrollPlanilla_Electronica.setViewportView(panelPlanilla_Electronica);
+
+        panelCentral.add(scrollPlanilla_Electronica, "scrollPlanilla_Electronica");
+
         getContentPane().add(panelCentral, java.awt.BorderLayout.CENTER);
 
         panelInferior.setBackground(javax.swing.UIManager.getDefaults().getColor("InternalFrame.activeTitleGradient"));
@@ -2388,6 +2407,15 @@ public class MENU001 extends javax.swing.JFrame {
             }
         });
         menu_ConsultasReportes.add(item_flujo_comparativo);
+
+        item_PlanillaElect.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/facturacion_electronica.png"))); // NOI18N
+        item_PlanillaElect.setText("Planilla Electrónica");
+        item_PlanillaElect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                item_PlanillaElectActionPerformed(evt);
+            }
+        });
+        menu_ConsultasReportes.add(item_PlanillaElect);
 
         jMenuBar1.add(menu_ConsultasReportes);
 
@@ -4046,6 +4074,25 @@ public class MENU001 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_item_ConsultasServicioTecnicoActionPerformed
 
+    private void item_PlanillaElectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_PlanillaElectActionPerformed
+        // TODO add your handling code here:
+        System.out.println("planilla electornica"); 
+        final FREP033_ sp = new FREP033_();
+        sp.btn_Salir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panelPlanilla_Electronica.removeAll();
+                sp.dispose();
+                panelCentral.updateUI();
+            }
+        });
+        JPanel panel = sp.panelPlanillaElectronica;
+        panel.setLocation(0, 0);
+        panelPlanilla_Electronica.add(panel);
+        panelPlanilla_Electronica.updateUI();
+        cambiarPanelesCambiante("scrollPlanilla_Electronica");
+    }//GEN-LAST:event_item_PlanillaElectActionPerformed
+
     public void validarHabilitacion(JButton boton) {
 
         if (existetipocambio() == true) {
@@ -4110,6 +4157,7 @@ public class MENU001 extends javax.swing.JFrame {
     public javax.swing.JMenuItem item_Modelo;
     public javax.swing.JMenuItem item_Operaciones;
     public javax.swing.JMenuItem item_Paquetes;
+    public javax.swing.JMenuItem item_PlanillaElect;
     public javax.swing.JMenuItem item_Programas;
     public javax.swing.JMenuItem item_PuntosVenta;
     public javax.swing.JMenuItem item_ReImpresionFBN;
@@ -4210,6 +4258,7 @@ public class MENU001 extends javax.swing.JFrame {
     public javax.swing.JPanel panelOperaciones;
     public javax.swing.JPanel panelPaquetes;
     public javax.swing.JPanel panelPedidos_Importacion;
+    public javax.swing.JPanel panelPlanilla_Electronica;
     public javax.swing.JPanel panelProgramas;
     public javax.swing.JPanel panelPuntos_venta;
     public javax.swing.JPanel panelReImpresion;
@@ -4271,6 +4320,7 @@ public class MENU001 extends javax.swing.JFrame {
     public javax.swing.JScrollPane scrollOperaciones;
     public javax.swing.JScrollPane scrollPaquetes;
     public javax.swing.JScrollPane scrollPedidos_Importacion;
+    public javax.swing.JScrollPane scrollPlanilla_Electronica;
     public javax.swing.JScrollPane scrollProgramas;
     public javax.swing.JScrollPane scrollPuntos_venta;
     public javax.swing.JScrollPane scrollReImpresion;

@@ -40,8 +40,8 @@ public class tabla extends AbstractTableModel {
                             "Disponibilidad",
                             "Cod.Sec"};
     boolean[] habilitado = {false, false, false,
-                            false, false, false, 
-                            false, 
+                            true, true, true, 
+                            true, 
                             false, 
                             false, false, 
                             true, true, true, 
@@ -117,14 +117,14 @@ public class tabla extends AbstractTableModel {
                 return rp.getCodrepuesto();
                 ////////////// Equipo, Marca y Modelo
             case 3:
-                return rp.getEquipos().getDescripcion();
+                return rp.getDescrequipfact();
             case 4:
-                return rp.getMarca();
+                return rp.getDescrmarcfact();
             case 5:
-                return rp.getModelos().getDescripcion();
+                return rp.getDescrmodfact();
                 ////////////////
             case 6:  // Descripcion
-                return rp.getDescripcion();
+                return rp.getDescrDescrfact();
             case 7:  // Aplicacion
                 return rp.getDescrmodelo();
 //            case 3:
@@ -218,8 +218,31 @@ public class tabla extends AbstractTableModel {
             double tot;
             String valor = String.valueOf(aValue);
             Object oldValue = getValueAt(rowIndex, columnIndex);
+            String equipfactValue = d.getRepuestos().getDescrequipfact();
+            String marfactValue = d.getRepuestos().getDescrmarcfact();
+            String modelofactValue = d.getRepuestos().getDescrmodfact();
+            String descrfactValue = d.getRepuestos().getDescrDescrfact();
             
             switch (columnIndex) {
+                case 3: //Equipo
+                    equipfactValue = valor;
+                    d.getRepuestos().setDescrequipfact(equipfactValue);
+                    d.getRepuestos().setDescrfactura(equipfactValue + ' ' + marfactValue + ' ' + modelofactValue + ' ' + descrfactValue);
+                    break;
+                case 4:     //Marca
+                    marfactValue = valor;
+                    d.getRepuestos().setDescrmarcfact(marfactValue);
+                    d.getRepuestos().setDescrfactura(equipfactValue + ' ' + marfactValue + ' ' + modelofactValue + ' ' + descrfactValue);
+                    break;
+                 case 5:  //Modelo
+                     modelofactValue = valor;
+                     d.getRepuestos().setDescrmodfact(modelofactValue);
+                     d.getRepuestos().setDescrfactura(equipfactValue + ' ' + marfactValue + ' ' + modelofactValue + ' ' + descrfactValue);
+                    break;
+                 case 6: // Descripcion
+                     descrfactValue = valor;
+                     d.getRepuestos().setDescrDescrfact(descrfactValue);
+                     d.getRepuestos().setDescrfactura(equipfactValue + ' ' + marfactValue + ' ' + modelofactValue + ' ' + descrfactValue);
                 case 9:  // P. lista
                     break;
                     
@@ -445,6 +468,13 @@ public class tabla extends AbstractTableModel {
 
     private DetalleFactura Detalle(Repuestos rpt, Clientes cs) {
 //        System.out.println("Crear DetalleFactura Detalle....>>>>");
+        rpt.setDescrequipfact(rpt.getEquipos().getDescripcion());
+        rpt.setDescrmarcfact(rpt.getMarcas().getDescripcion());
+        rpt.setDescrmodfact(rpt.getModelos().getDescripcion());
+        rpt.setDescrDescrfact(rpt.getDescripcion());
+        rpt.setDescrfactura(rpt.getEquipos().getDescripcion()+' ' + rpt.getMarcas().getDescripcion()+' ' + rpt.getModelos().getDescripcion()+' ' + rpt.getDescripcion());
+        
+        
         Detallees d = new Detallees();
         d.setRepuestos(rpt);
         d.setCantentregada(0);
@@ -467,6 +497,9 @@ public class tabla extends AbstractTableModel {
         d.setUltimocosto(rpt.getPcostoultimo());
         // Obtener preciolista de Repuestos en BD (por defecto)
         double precRep = rpt.getPreciolista();
+        if(rpt.getPcostoultimo() == null) {
+            rpt.setPcostoultimo(0.0);
+        } 
         double ultCos = rpt.getPcostoultimo();
         
         
@@ -475,6 +508,7 @@ public class tabla extends AbstractTableModel {
 // JSP 22.12.2023
         double precCosto = rpt.getPcostoultimo();
         d.setCostopromedio(precCosto);
+        
         d.setUltimocosto(ultCos);
 // fin JSP
         

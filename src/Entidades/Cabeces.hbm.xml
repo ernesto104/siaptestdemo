@@ -138,6 +138,9 @@
     <property name="genDocElect" type="int">
       <column name="GEN_DOC_ELECT" not-null="true"/>
     </property>
+    <property name="txtgen" type="int">
+      <column name="TXTGEN"/>
+    </property>
     <property name="fechaEnvio" type="date">
       <column length="10" name="FECHA_ENVIO"/>
     </property>

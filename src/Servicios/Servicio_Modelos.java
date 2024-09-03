@@ -130,6 +130,10 @@ public class Servicio_Modelos {
         return modeloDao.Obtener_Lista_Objetos_OrderMarcas(marca);
     }
     
+    public List buscarModelosx_CodigoMarca(int idMarca){
+        return modeloDao.Obtener_Lista_Objetos_OrderCodigoMarcas(idMarca);
+    }
+    
     
     public void ListarModelosx_Marcas(Marcas marca){
         DefaultTableModel table = (DefaultTableModel) it.tablaCodigoModelos.getModel();
